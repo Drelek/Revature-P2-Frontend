@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text } from 'react-native';
 import { useState } from 'react';
 
-const SignUpScreen = () => {
+const SignUpScreen: React.FC = () => {
     const[username, setUsername] = useState(' ');
     const[displayname, setDisplayName] = useState(' ');
     const[email, setEmail] = useState(' ');
@@ -102,3 +102,5 @@ const SignUpScreen = () => {
           position: 'relative'
         }
       });
+
+export default SignUpScreen; 
