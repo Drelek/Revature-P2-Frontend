@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text } from 'react-native';
 import { useState } from 'react';
 
-const LoginScreen = () => {
+const LoginScreen: React.FC = () => {
     const[username, setUsername] = useState(' ');
     const[password, setPassword] = useState(' ');
 
