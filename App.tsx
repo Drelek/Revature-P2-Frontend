@@ -6,9 +6,6 @@ import useCachedResources from './hooks/useCachedResources';
 import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
-// import { enableAndroidFontFix } from './androidFontFix';
-
-// enableAndroidFontFix();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

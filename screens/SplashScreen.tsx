@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     textAlign:"center",
     borderColor: 'plum',
-    fontWeight: "bold",
     borderWidth: 4,
     borderRadius: 4,
     paddingVertical:8,
     paddingHorizontal:8,
+    // fontFamily: "BadScript-Regular"
   }
 })
