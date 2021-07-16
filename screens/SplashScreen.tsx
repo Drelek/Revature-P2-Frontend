@@ -17,7 +17,7 @@ const SplashScreen: React.FC = (props:any) => {
       <SafeAreaView style={styles.smallView}/>
 
       <SafeAreaView style={styles.smallView}>
-        <Text style={styles.text}>{welcomeMessage()}</Text>
+        {welcomeMessage()}
       </SafeAreaView>
 
       <SafeAreaView style={styles.largeView}>
@@ -38,16 +38,16 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     flexDirection: "column",
-    zIndex: 2,
+    zIndex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   smallView:{
-    flex: 1,
+    flex:1,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal:15
+    paddingHorizontal:8,
+    // backgroundColor: "yellow"
   },
 
   largeView:{
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   text:{
     color:"white",
     borderWidth:0,
-    backgroundColor:"transparent"
+    backgroundColor:"transparent",
   },
 
   message:{
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     borderWidth: 4,
     borderRadius: 4,
-    fontFamily: "American Typewriter",
-    paddingHorizontal:10
+    paddingVertical:8,
+    paddingHorizontal:8,
   }
 })

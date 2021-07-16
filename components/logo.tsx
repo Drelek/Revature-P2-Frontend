@@ -16,6 +16,8 @@ const Logo: React.FC = (props: any) => {
 const styles = StyleSheet.create({
   container:{
     flexDirection:"row",
+    alignContent: "center",
+    justifyContent: "center",
   },
 
   // text:{

@@ -6,6 +6,9 @@ import useCachedResources from './hooks/useCachedResources';
 import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
+// import { enableAndroidFontFix } from './androidFontFix';
+
+// enableAndroidFontFix();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -15,7 +18,7 @@ export default function App() {
   } else {
     return (
       <View style={styles.container}>
-        <Navigation/>
+          <Navigation/>
         <Canvas style={styles.canvas} ref={handleCanvas}/>
         <StatusBar/>
       </View>
@@ -31,6 +34,7 @@ const styles = StyleSheet.create({
   canvas:{
     flex:1,
     position: "absolute",
-    zIndex: -1
+    zIndex: -1,
+    elevation: -1
   }
 });
