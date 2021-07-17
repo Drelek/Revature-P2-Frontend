@@ -7,8 +7,11 @@ import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 
+
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
+
 
   if (!isLoadingComplete) {
     return null;
