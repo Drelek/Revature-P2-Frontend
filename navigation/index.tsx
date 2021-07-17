@@ -24,7 +24,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }} >
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Screen name="Splash" 
         options={() => ({
         headerTitle: () => <Logo/>,
