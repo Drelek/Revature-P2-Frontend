@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React, { useState } from 'react';
 import { Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Settings() {
 
@@ -12,20 +13,32 @@ export default function Settings() {
     function submitForm() {
 
     }
+    const validateEmail = (text: string) => {
+        console.log(text);
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+            console.log("Email is Not Correct");
+            return false;
+        }
+        else {
+            console.log("Email is Correct");
+            setEmail(text);
+        }
+    }
 
     return (
 
-        <View style={styles.formcontainer}>
+        <SafeAreaView style={styles.formcontainer}>
             <Text style={styles.text}> Change your profile information </Text>
             <View style={styles.topform}>
 
-                <TextInput placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                <TextInput placeholder="Email" onChangeText={(text) => { validateEmail(text) }} />
             </View>
             <View style={styles.form}>
                 <TextInput placeholder="Handle" onChangeText={(text) => setHandle(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Password" onChangeText={(text) => setPassword(text)} />
+                <TextInput placeholder="Password" secureTextEntry={true} onChangeText={(text) => setPassword(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
@@ -35,7 +48,7 @@ export default function Settings() {
                     <Text style={styles.buttontext}>Submit</Text>
                 </Pressable>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
