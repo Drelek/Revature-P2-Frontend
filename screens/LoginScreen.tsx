@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-native';
 import { useState } from 'react';
+import { screenWidth } from '../constants/Layout';
 
 const LoginScreen: React.FC = () => {
     const[username, setUsername] = useState(' ');
@@ -12,15 +13,18 @@ const LoginScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <TextInput
+      <SafeAreaView style={styles.safeArea}>
+        <TextInput
         style={styles.input}
         placeholder="Username"
+        placeholderTextColor="white" 
         onChangeText={(text) => setUsername(text)}
         keyboardType="ascii-capable"
       />
       <TextInput
         style={styles.input}
         onChangeText={(text => setPassword(text))}
+        placeholderTextColor="white" 
         placeholder="Password"
         secureTextEntry={true}
       />
@@ -30,18 +34,26 @@ const LoginScreen: React.FC = () => {
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => validateLogin()}>
+        <Text
+          style={styles.text}>Submit</Text>
+      </Pressable>
+      </SafeAreaView>
+      <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    width: 250,
-    margin: 12,
-    borderWidth: 1,
+    padding:5,
     textAlign: 'center',
-    borderRadius: 4
+    borderBottomWidth: 2,
+    borderColor: 'white',
+    color: 'antiquewhite',
+    fontSize: 20
   },
   button: {
     alignItems: 'center',
@@ -50,8 +62,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'black',
-    width: 150,
+    backgroundColor: 'rgb(33, 37, 41)',
     display: 'flex'
 
   },
@@ -63,9 +74,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   safeArea: {
-    margin: 'auto',
-    width: 50,
-    position: 'relative'
+    flex: 3,
+    width: screenWidth - 100,
+    justifyContent: 'space-evenly'
+
+  },
+  fillArea:{
+    flex: 1
   }
 });
 

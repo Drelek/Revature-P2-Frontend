@@ -102,3 +102,5 @@ const SignUpScreen = () => {
           position: 'relative'
         }
       });
+
+export default SignUpScreen;

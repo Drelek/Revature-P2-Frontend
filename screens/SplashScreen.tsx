@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useState }from 'react';
 import { StyleSheet, Text, SafeAreaView} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
+import LoginScreen from './LoginScreen';
+import SignUpScreen from './SignUpScreen';
 
 const SplashScreen: React.FC = (props:any) => {
+  const [userSession, setUserSession] = useState({
+    session: "signup"
+  });
+
+  const renderSession = () => {
+    const session = userSession.session;
+    if (session === "login"){
+      return <LoginScreen/>
+    } else if(session === "signup"){
+      return <SignUpScreen/>
+    }
+  }
+
   function callback(){
     return console.log("hello");
   }
@@ -21,9 +36,7 @@ const SplashScreen: React.FC = (props:any) => {
       </SafeAreaView>
 
       <SafeAreaView style={styles.largeView}>
-        <Text style={styles.text}>
-          In the following example, the red, yellow, and green views are all children in
-        </Text>
+        {renderSession()}
       </SafeAreaView>
 
       <SafeAreaView style={styles.smallView}/>
@@ -52,7 +65,7 @@ const styles = StyleSheet.create({
 
   largeView:{
     flex: 3,
-    // backgroundColor: "blue",
+    // backgroundColor:"grey"
   },
 
   text:{
