@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
 

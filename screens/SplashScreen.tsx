@@ -55,7 +55,7 @@ const SplashScreen: React.FC = (props:any) => {
         {renderSession()}
         <SafeAreaView>{renderSessionButton()}</SafeAreaView>
       </SafeAreaView>
-
+      
       <SafeAreaView style={styles.smallView} />
 
     </SafeAreaView>

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 const SignUpScreen = () => {
     const[username, setUsername] = useState(' ');
@@ -30,7 +31,12 @@ const SignUpScreen = () => {
     }
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <KeyboardAwareScrollView 
+          // style={styles.safeArea}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.safeArea}
+          scrollEnabled={false}
+        >
           <TextInput
             style={styles.input}
             placeholder="Username"
@@ -68,7 +74,7 @@ const SignUpScreen = () => {
             <Text 
             style={styles.text}>Submit</Text>
           </Pressable>
-        </SafeAreaView>
+        </KeyboardAwareScrollView>
       );
     };
 
@@ -105,7 +111,7 @@ const SignUpScreen = () => {
   safeArea: {
     flex: 3,
     justifyContent: 'space-evenly',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
