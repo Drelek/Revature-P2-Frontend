@@ -3,28 +3,40 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import PostCard from "../screens/PostCard";
+import Post from "../models/Post";
+import { useState } from "react";
+
+
 
 const Feed: React.FC = (props: any) => {
 
-    const DATA = [
+
+    const [postCards, setPostCards] = useState([
         {
-            id: 0,
-            title: "string"
+            displayImg: "blank",
+            displayName: "my name is",
+            userName: "name",
+            postBody: "I know the truth",
+            likes: "hi",
+            timeStamp: "12312",
+            comments: "hello"
         },
         {
-            id: 1,
-            title: "String"
+            displayImg: "blank",
+            displayName: "my name is",
+            userName: "name",
+            postBody: "I know the truth",
+            likes: "hi",
+            timeStamp: "12312",
+            comments: "hello"
         }
-    ];
+    ]);
 
-    const renderItem = (item: any) => (
-        //<Text style={styles.item}> {item.title}  </Text>
-        <Text style={styles.item}> HELLO WORLD</Text>
-    );
 
     return (
         <SafeAreaView>
-            <FlatList data={DATA} renderItem={renderItem} />
+            <FlatList data={postCards} renderItem={({ item }) => <PostCard item={item}> </PostCard>} />
 
         </SafeAreaView>
     )
