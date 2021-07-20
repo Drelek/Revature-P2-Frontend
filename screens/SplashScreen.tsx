@@ -1,20 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView} from 'react-native';
+import { StyleSheet, Text, SafeAreaView } from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 
-const SplashScreen: React.FC = (props:any) => {
-  function callback(){
+const SplashScreen: React.FC = (props: any) => {
+  function callback() {
     return console.log("hello");
   }
 
-  function welcomeMessage(){
-    const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
+  function welcomeMessage() {
+    const message: string = "Welcome to Bohemian Grove, the message app for those in the know.";
     return <AnimatedTypeWriter style={styles.message} text={`${message}`} timeBetweenLetters={60} onTypingEnd={callback} />
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView style={styles.smallView}/>
+      <SafeAreaView style={styles.smallView} />
 
       <SafeAreaView style={styles.smallView}>
         {welcomeMessage()}
@@ -26,8 +26,8 @@ const SplashScreen: React.FC = (props:any) => {
         </Text>
       </SafeAreaView>
 
-      <SafeAreaView style={styles.smallView}/>
-      
+      <SafeAreaView style={styles.smallView} />
+
     </SafeAreaView>
   )
 }
@@ -35,42 +35,42 @@ const SplashScreen: React.FC = (props:any) => {
 export default SplashScreen
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
     flexDirection: "column",
     zIndex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  smallView:{
-    flex:1,
+  smallView: {
+    flex: 1,
     alignItems: 'center',
-    paddingHorizontal:8,
+    paddingHorizontal: 8,
     // backgroundColor: "yellow"
   },
 
-  largeView:{
+  largeView: {
     flex: 3,
     // backgroundColor: "blue",
   },
 
-  text:{
-    color:"white",
-    borderWidth:0,
-    backgroundColor:"transparent",
+  text: {
+    color: "white",
+    borderWidth: 0,
+    backgroundColor: "transparent",
   },
 
-  message:{
+  message: {
     color: "white",
     fontSize: 18,
     backgroundColor: "black",
-    textAlign:"center",
+    textAlign: "center",
     borderColor: 'plum',
     borderWidth: 4,
     borderRadius: 4,
-    paddingVertical:8,
-    paddingHorizontal:8,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     // fontFamily: "BadScript-Regular"
   }
 })

@@ -1,4 +1,4 @@
-import { NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -6,8 +6,9 @@ import { RootStackParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
 import Logo from '../components/logo';
+import Feed from '../components/Feed'
 
-const Navigation:React.FC = (props:any) => {
+const Navigation: React.FC = (props: any) => {
   return (
     <NavigationContainer
       theme={MyTheme}>
@@ -25,11 +26,11 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="Splash" 
+      <Stack.Screen name="Splash"
         options={() => ({
-        headerTitle: () => <Logo/>,
+          headerTitle: () => <Logo />,
         })}
-        component={SplashScreen}/>
+        component={Feed} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
