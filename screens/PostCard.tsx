@@ -2,7 +2,7 @@ import * as React from 'react';
 import Post from '../models/Post';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Likey from './images/liked-post.png'
 import NotLikey from './assets/images/unliked-post.png'
 import CommentIcon from './assets/images/comment-icon.png'
@@ -10,6 +10,18 @@ import CommentIcon from './assets/images/comment-icon.png'
 const PostCard = (props: Post) => {
 
     const[isLiked, setLikedState] = useState(false);
+    const[numLikes, setNumLikes] = useState(0);
+
+    useEffect(() => {
+        //TODO
+        //Pull the post array based on timestamp --> Iterate over array --> log number of likes
+
+    })
+
+
+    const fetchLikedState = () => {
+        //TODO
+    }
 
 
 

@@ -6,9 +6,9 @@ const LoginScreen: React.FC = () => {
     const[username, setUsername] = useState(' ');
     const[password, setPassword] = useState(' ');
 
-  const validateLogin = () => {
+    const validateLogin = () => {
 
-  }
+    }
 
   return (
     <SafeAreaView style={styles.safeArea}>

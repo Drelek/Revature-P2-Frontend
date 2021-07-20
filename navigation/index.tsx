@@ -6,6 +6,7 @@ import { RootStackParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
 import Logo from '../components/logo';
+import PostCard from '../screens/PostCard';
 
 const Navigation:React.FC = (props:any) => {
   return (
@@ -29,7 +30,7 @@ function RootNavigator() {
         options={() => ({
         headerTitle: () => <Logo/>,
         })}
-        component={SplashScreen}/>
+        component={PostCard}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
