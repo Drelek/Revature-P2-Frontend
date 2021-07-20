@@ -45,7 +45,7 @@ const SplashScreen: React.FC = (props:any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView style={styles.smallView}/>
+      <SafeAreaView style={styles.smallView} />
 
       <SafeAreaView style={styles.smallView}>
         {welcomeMessage()}
@@ -56,8 +56,8 @@ const SplashScreen: React.FC = (props:any) => {
         <SafeAreaView>{renderSessionButton()}</SafeAreaView>
       </SafeAreaView>
 
-      <SafeAreaView style={styles.smallView}/>
-      
+      <SafeAreaView style={styles.smallView} />
+
     </SafeAreaView>
   )
 }
@@ -65,23 +65,23 @@ const SplashScreen: React.FC = (props:any) => {
 export default SplashScreen
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
     flexDirection: "column",
     zIndex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  smallView:{
-    flex:1,
+  smallView: {
+    flex: 1,
     alignItems: 'center',
     paddingHorizontal:15,
     backgroundColor: "transparent",
     borderColor:"purple"
   },
 
-  largeView:{
+  largeView: {
     flex: 3,
     backgroundColor:'rgb(33, 37, 41)',
     borderRadius: 10,
