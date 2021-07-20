@@ -1,7 +1,6 @@
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
@@ -30,7 +29,6 @@ function RootNavigator() {
         headerTitle: () => <Logo/>,
         })}
         component={SplashScreen}/>
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }

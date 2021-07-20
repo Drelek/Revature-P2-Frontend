@@ -80,7 +80,7 @@ const SignUpScreen = () => {
       textAlign: 'center',
       borderBottomWidth: 2,
       borderColor: 'purple',
-      color: 'antiquewhite',
+      color: 'white',
       fontSize: 18,
       borderRadius: 10,
       paddingHorizontal:25

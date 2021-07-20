@@ -4,7 +4,7 @@ import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
-//cognito signup, alert user to confirm email then press ok to bring back to login 
+//cognito sign-up, alert user to confirm email then press ok to bring back to login 
 
 const SplashScreen: React.FC = (props:any) => {
   const [userSession, setUserSession] = useState({
@@ -16,7 +16,7 @@ const SplashScreen: React.FC = (props:any) => {
     const session = userSession.session;
     if (session === "login"){
       return <LoginScreen/>
-    } else if(session === "signup"){
+    } else if(session === "sign-up"){
       return <SignUpScreen/>
     }
   }
@@ -25,11 +25,11 @@ const SplashScreen: React.FC = (props:any) => {
     const session = userSession.session;
     if (session === "login"){
       return <Pressable
-        onPress={() => setUserSession({session: "signup"})}>
+        onPress={() => setUserSession({session: "sign-up"})}>
         <Text
           style={styles.text}>Sign Up</Text>
       </Pressable>
-    } else if(session === "signup"){
+    } else if(session === "sign-up"){
       return <Pressable
         onPress={() => setUserSession({session: "login"})}>
         <Text
