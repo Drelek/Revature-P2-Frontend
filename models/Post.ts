@@ -4,7 +4,9 @@ interface Post {
     displayName: string,
     userName: string,
     postBody: string,
-    numLikes: number,
+    likes: string[],
     timeStamp: string,
     comments: string[]
 }
+
+export default Post;
