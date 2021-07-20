@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 import React from 'react';
-const handleCanvas: React.FC<void> = (c:any) => {
+const handleCanvas = (c: any) => {
     const ctx = c.getContext('2d');
     c.height = Dimensions.get('screen').height;
     c.width = Dimensions.get('screen').width;
