@@ -1,13 +1,15 @@
 import React, {useState }from 'react';
-import { StyleSheet, Text, SafeAreaView} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Pressable} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+//cognito signup, alert user to confirm email then press ok to bring back to login 
 
 const SplashScreen: React.FC = (props:any) => {
   const [userSession, setUserSession] = useState({
-    session: "signup"
+    session: "login"
   });
+  
 
   const renderSession = () => {
     const session = userSession.session;
@@ -15,6 +17,23 @@ const SplashScreen: React.FC = (props:any) => {
       return <LoginScreen/>
     } else if(session === "signup"){
       return <SignUpScreen/>
+    }
+  }
+
+  const renderSessionButton = () => {
+    const session = userSession.session;
+    if (session === "login"){
+      return <Pressable
+        onPress={() => setUserSession({session: "signup"})}>
+        <Text
+          style={styles.text}>Sign Up</Text>
+      </Pressable>
+    } else if(session === "signup"){
+      return <Pressable
+        onPress={() => setUserSession({session: "login"})}>
+        <Text
+          style={styles.text}>Login</Text>
+      </Pressable>
     }
   }
 
@@ -37,6 +56,7 @@ const SplashScreen: React.FC = (props:any) => {
 
       <SafeAreaView style={styles.largeView}>
         {renderSession()}
+        <SafeAreaView>{renderSessionButton()}</SafeAreaView>
       </SafeAreaView>
 
       <SafeAreaView style={styles.smallView}/>
@@ -60,12 +80,12 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     paddingHorizontal:8,
-    // backgroundColor: "yellow"
+    backgroundColor: "transparent",
   },
 
   largeView:{
     flex: 3,
-    // backgroundColor:"grey"
+    backgroundColor:"grey"
   },
 
   text:{
@@ -79,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "black",
     textAlign:"center",
-    borderColor: 'plum',
+    borderColor: 'purple',
     borderWidth: 4,
     borderRadius: 4,
     paddingVertical:8,

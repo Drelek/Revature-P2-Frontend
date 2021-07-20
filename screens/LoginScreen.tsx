@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
 
 const LoginScreen: React.FC = () => {
-    const[username, setUsername] = useState(' ');
-    const[password, setPassword] = useState(' ');
+  const[username, setUsername] = useState(' ');
+  const[password, setPassword] = useState(' ');
 
   const validateLogin = () => {
 
@@ -34,12 +34,6 @@ const LoginScreen: React.FC = () => {
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => validateLogin()}>
-        <Text
-          style={styles.text}>Submit</Text>
-      </Pressable>
       </SafeAreaView>
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
@@ -62,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'rgb(33, 37, 41)',
+    backgroundColor: 'purple',
     display: 'flex'
 
   },

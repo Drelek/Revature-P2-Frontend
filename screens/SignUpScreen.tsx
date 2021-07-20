@@ -14,7 +14,6 @@ const SignUpScreen = () => {
 
     const redirectGlobal = () => {
 
-
     }
 
     const validateEmail = (text: string) => {
