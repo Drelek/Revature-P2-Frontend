@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View,SafeAreaView} from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
+import { screenWidth } from './constants/Layout';
 
 
 
@@ -28,7 +29,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    width: screenWidth,
+    backgroundColor: "black"
   },
 
   canvas:{

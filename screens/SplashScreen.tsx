@@ -1,6 +1,7 @@
 import React, {useState }from 'react';
 import { StyleSheet, Text, SafeAreaView, Pressable} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
+import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 //cognito signup, alert user to confirm email then press ok to bring back to login 
@@ -37,13 +38,9 @@ const SplashScreen: React.FC = (props:any) => {
     }
   }
 
-  function callback(){
-    return console.log("hello");
-  }
-
   function welcomeMessage(){
     const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
-    return <AnimatedTypeWriter style={styles.message} text={`${message}`} timeBetweenLetters={60} onTypingEnd={callback} />
+    return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`}/>
   }
 
   return (
@@ -79,31 +76,35 @@ const styles = StyleSheet.create({
   smallView:{
     flex:1,
     alignItems: 'center',
-    paddingHorizontal:8,
+    paddingHorizontal:15,
     backgroundColor: "transparent",
+    borderColor:"purple"
   },
 
   largeView:{
     flex: 3,
-    backgroundColor:"grey"
+    backgroundColor:'rgb(33, 37, 41)',
+    borderRadius: 10,
+    borderWidth:4,
+    borderColor: 'purple',
+    width: screenWidth - 20,
   },
 
   text:{
     color:"white",
-    borderWidth:0,
+    fontSize: 18,
     backgroundColor:"transparent",
   },
 
   message:{
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    backgroundColor: "black",
+    backgroundColor: 'rgb(33, 37, 41)',
     textAlign:"center",
     borderColor: 'purple',
     borderWidth: 4,
-    borderRadius: 4,
-    paddingVertical:8,
-    paddingHorizontal:8,
+    borderRadius: 10,
+    paddingHorizontal:15,
     // fontFamily: "BadScript-Regular"
   }
 })

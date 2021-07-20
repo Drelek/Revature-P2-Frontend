@@ -42,23 +42,26 @@ const LoginScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   input: {
-    padding:5,
+    width:screenWidth - 100,
+    paddingBottom: 10,
+    alignItems: 'center',
     textAlign: 'center',
     borderBottomWidth: 2,
-    borderColor: 'white',
+    borderColor: 'purple',
     color: 'antiquewhite',
-    fontSize: 20
+    fontSize: 18,
+    borderRadius: 10,
+    paddingHorizontal:25
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
     backgroundColor: 'purple',
-    display: 'flex'
-
+    fontSize: 18,
   },
   text: {
     fontSize: 16,
@@ -69,9 +72,8 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 3,
-    width: screenWidth - 100,
-    justifyContent: 'space-evenly'
-
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
   },
   fillArea:{
     flex: 1
