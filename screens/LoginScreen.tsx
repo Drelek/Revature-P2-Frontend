@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text, KeyboardAvoidingView, Button } from 'react-native';
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen: React.FC = () => {
+const LoginScreen: React.FC = (props:any) => {
   const[username, setUsername] = useState(' ');
   const[password, setPassword] = useState(' ');
+  const navigation = useNavigation();
 
   const validateLogin = () => {
-
+    navigation.navigate('Home');
   }
 
   return (
@@ -34,6 +36,10 @@ const LoginScreen: React.FC = () => {
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
+      {/* <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Home')}
+      /> */}
       </SafeAreaView>
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>

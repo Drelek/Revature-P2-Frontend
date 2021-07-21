@@ -3,15 +3,17 @@ import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text, KeyboardA
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import { useNavigation } from '@react-navigation/native';
 
-const SignUpScreen = () => {
+const SignUpScreen = (props:any) => {
     const[username, setUsername] = useState(' ');
     const[displayname, setDisplayName] = useState(' ');
     const[email, setEmail] = useState(' ');
     const[password, setPassword] = useState(' ');
+    const navigation = useNavigation();
 
     const createNewUser = () => {
-
+      navigation.navigate("Home");
     }
 
     const redirectGlobal = () => {
@@ -31,11 +33,8 @@ const SignUpScreen = () => {
     }
 
     return (
-        <KeyboardAwareScrollView 
-          // style={styles.safeArea}
-          resetScrollToCoords={{ x: 0, y: 0 }}
-          contentContainerStyle={styles.safeArea}
-          scrollEnabled={false}
+        <SafeAreaView
+          style={styles.safeArea}
         >
           <TextInput
             style={styles.input}
@@ -74,7 +73,7 @@ const SignUpScreen = () => {
             <Text 
             style={styles.text}>Submit</Text>
           </Pressable>
-        </KeyboardAwareScrollView>
+        </SafeAreaView>
       );
     };
 

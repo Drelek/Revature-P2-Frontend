@@ -8,6 +8,7 @@ import Logo from '../components/logo';
 import Feed from '../components/Feed'
 import HomeFeedScreen from '../screens/HomeFeed'
 
+
 const Navigation: React.FC = (props: any) => {
   return (
     <NavigationContainer
@@ -25,13 +26,19 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
       <Stack.Screen name="Splash"
-        options={() => ({
+        options={({
           headerTitle: () => <Logo />,
+          headerLeft: () => console.log('hello')
+        })}
+        component={SplashScreen} />
+      <Stack.Screen name="Home"
+        options={({
+          headerTitle: () => <Logo />,
+          headerLeft: () => console.log('hello')
         })}
         component={HomeFeedScreen} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }

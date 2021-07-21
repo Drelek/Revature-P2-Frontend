@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View, ScrollView} from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
-
-
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import SignUpScreen from './screens/SignUpScreen'
+import LoginScreen from './screens/LoginScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -18,11 +19,11 @@ export default function App() {
     return null;
   } else {
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
           <Navigation/>
-        <Canvas style={styles.canvas} ref={handleCanvas}/>
-        <StatusBar/>
-      </View>
+          <Canvas style={styles.canvas} ref={handleCanvas}/>
+          <StatusBar/>
+        </View> 
     );
   }
 }
@@ -31,7 +32,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: screenWidth,
-    backgroundColor: "black"
+    backgroundColor: "black",
+    // marginTop:200
   },
 
   canvas:{
