@@ -33,10 +33,8 @@ const PostCard = (props: any) => {
         <View
             style={styles.card}
         >
-            <View
-                style= {{flex:0.3, borderTopLeftRadius:20}}
-            >
-            <Card>
+            
+            <Card containerStyle={styles.cardActual}> 
                 
                 <View
                     style={styles.containerHeadOfCard}
@@ -60,6 +58,7 @@ const PostCard = (props: any) => {
                 <Text
                     style={styles.postBody}
                 >{props.postBody}</Text>
+
                 <View
                     style={styles.containerViewAlignIcons}
                 >
@@ -70,9 +69,11 @@ const PostCard = (props: any) => {
                             style={styles.heart}
                         />
                     </Pressable>
-                    <Pressable onPress= { () => redirectToExtendedPostScreen()}>
+                    <Pressable 
+                        style={{backfaceVisibility: "hidden"}}
+                        onPress= { () => redirectToExtendedPostScreen()}>
                         <Image
-                            source={require('../assets/images/comment-icon.png')}
+                            source={require('../assets/images/comment-icon-transparent.png')}
                             style={styles.comment}
                         />
                     </Pressable>
@@ -80,7 +81,7 @@ const PostCard = (props: any) => {
                     <Text>{props.timeStamp}</Text>
                 </View>            
             </Card>
-            </View>
+            
         </View>
     )
 }
@@ -89,13 +90,24 @@ export default PostCard;
 
 const styles = StyleSheet.create({
     card: {
-        width: 290,
-        //Caution, height attribute controls spacing between cards
+        width: 360,
+        //Caution, height attribute controls spacing between
         height: 210,
         borderRadius: 15,
-        flex: 1
+        flex: 1,
+    },
+    cardActual: {
+        flex:1, 
+        borderTopLeftRadius:20, 
+        borderColor: 'plum', 
+        borderWidth: 1,
+        borderTopRightRadius:20,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        backgroundColor: 'rgb(33, 37, 41)'
         
     },
+
     profileImage: {
         width: 80,
         height: 80,
@@ -103,19 +115,27 @@ const styles = StyleSheet.create({
     },
     displayname: {
         fontWeight: "bold",
-        fontSize: 25
+        fontSize: 25,
+        color: "white",
+        marginLeft: 15
     },
     username: {
-        fontSize: 18
+        fontSize: 18,
+        color: "white",
+        marginLeft: 15
     },
     postBody: {
-        width: 225,
+        width: 295,
         height: 50,
+        backgroundColor: "rgb(220,220,220)",
+        paddingTop: 15,
         borderColor: 'purple',
         borderWidth: 2,
     },
     containerViewAlignIcons: {
-        flexDirection: "row"
+        flexDirection: "row",
+        paddingVertical: 9,
+        justifyContent:"space-evenly"
     },
     heart: {
         width: 30,
@@ -125,7 +145,8 @@ const styles = StyleSheet.create({
     comment: {
         width: 30,
         height: 30,
-        borderLeftWidth: 10
+        
+        
     },
     containerHeadOfCard: {
         flexDirection: "row"

@@ -39,7 +39,7 @@ const Profile = () => {
             <View
                 style={styles.innerContainer}
             >
-                <Card>
+                <Card containerStyle={styles.profileCard}>
                     <View
                         style={{flexDirection: "row"}}
                     > 
@@ -93,6 +93,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         
     },
+    profileCard: {
+        flex:1, 
+        borderTopLeftRadius:20, 
+        borderColor: 'plum', 
+        borderWidth: 1,
+        borderTopRightRadius:20,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        backgroundColor: 'rgb(33, 37, 41)',
+        width: 290,
+        height: 100
+    },
     image: {
         width: 80,
         height: 80,
@@ -103,9 +115,13 @@ const styles = StyleSheet.create({
     },
     displayname: {
         fontWeight: "bold",
-        fontSize: 25
+        fontSize: 25,
+        color: "white",
+        paddingLeft: 15
     },
     username: {
-        fontSize: 18
+        fontSize: 18,
+        color: "white",
+        paddingLeft: 15
     },
 })
