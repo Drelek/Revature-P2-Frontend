@@ -36,10 +36,6 @@ const LoginScreen: React.FC = (props:any) => {
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
-      {/* <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Home')}
-      /> */}
       </SafeAreaView>
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>

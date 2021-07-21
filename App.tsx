@@ -19,11 +19,13 @@ export default function App() {
     return null;
   } else {
     return (
+      <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
         <View style={styles.container}>
           <Navigation/>
           <Canvas style={styles.canvas} ref={handleCanvas}/>
           <StatusBar/>
-        </View> 
+        </View>
+        </KeyboardAwareScrollView> 
     );
   }
 }
@@ -33,7 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: screenWidth,
     backgroundColor: "black",
-    // marginTop:200
   },
 
   canvas:{
