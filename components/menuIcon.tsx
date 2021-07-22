@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 const MenuIcon: React.FC = () => {
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.toggleDrawer}>
+    <Pressable onPress={() => navigation.toggleDrawer()}>
       <View>
         <Image
         style={styles.logo}
