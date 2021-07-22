@@ -54,7 +54,6 @@ function RootDrawerNavigator() {
         options={({
           headerTitle: () => <Logo />,
         })}
-<<<<<<< HEAD
         component={SplashScreen} />
       <Drawer.Screen name="Home"
         // options={({
@@ -64,11 +63,6 @@ function RootDrawerNavigator() {
         // })}
         component={HomeStackScreen} />
     </Drawer.Navigator>
-=======
-        component={Profile}/>
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    </Stack.Navigator>
->>>>>>> frontend-mo
   );
 }
 

@@ -30,29 +30,6 @@ const PostCard = (props: any) => {
     }
 
     return (
-<<<<<<< HEAD
-        <View>
-            <Card>
-                <Image
-                    source={{ uri: props.displayImg }}
-                    style={{ width: 200, height: 200 }}
-                />
-                <Text>HolyGuack</Text>
-                <Text>@guackholy</Text>
-                <Text></Text>
-                <Pressable onPress={() => setLikedState(true)}>
-                    <Image
-                        source={require('../assets/images/liked-post.png')}
-                        style={{ width: 70, height: 70 }}
-                    />
-                </Pressable>
-
-                <Image
-                    source={require('../assets/images/comment-icon.png')}
-                    style={{ width: 70, height: 70 }}
-                />
-                <Text>{props.timeStamp}</Text>
-=======
         <View
             style={styles.card}
         >
@@ -81,7 +58,6 @@ const PostCard = (props: any) => {
                 <Text
                     style={styles.postBody}
                 >{props.item.postBody}</Text>
->>>>>>> frontend-mo
 
                 <View
                     style={styles.containerViewAlignIcons}
