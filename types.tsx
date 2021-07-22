@@ -1,19 +1,13 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */   
+import { DrawerScreenProps } from "@react-navigation/drawer";
 
 export type RootStackParamList = {
   Splash: undefined;
   Home: {userId: string};
   Profile: {userId: string};
   Setting: {userId: string};
-  NotFound: undefined;
 };
 
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
+export type HomeNavigationProp = DrawerScreenProps<RootStackParamList, "Home">
+
 
 

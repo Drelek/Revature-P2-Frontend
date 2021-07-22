@@ -17,6 +17,9 @@ import {
 } from 'react-native-paper';
 import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens();
 
 const CombinedDarkTheme = merge(PaperDarkTheme, MyTheme);
 console.log(CombinedDarkTheme);

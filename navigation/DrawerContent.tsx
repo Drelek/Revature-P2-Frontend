@@ -65,7 +65,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.navigate('Splash')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
