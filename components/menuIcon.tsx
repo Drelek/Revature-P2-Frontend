@@ -1,14 +1,18 @@
 import React from "react"
-import {Image, StyleSheet, View} from 'react-native'
+import {Image, StyleSheet, View, Pressable} from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 const MenuIcon: React.FC = () => {
+  const navigation = useNavigation();
   return (
-    <View>
-      <Image
+    <Pressable onPress={() => navigation.toggleDrawer}>
+      <View>
+        <Image
         style={styles.logo}
-        source={require('../assets/images/menuIcon.png')}
-      />
-    </View>
+        source={require('../assets/images/menuIcon.png')}/>
+      </View>
+    </Pressable>
+    
   )
 }
 

@@ -8,8 +8,6 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import SignUpScreen from './screens/SignUpScreen'
-import LoginScreen from './screens/LoginScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
