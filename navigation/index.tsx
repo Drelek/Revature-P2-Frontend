@@ -18,6 +18,10 @@ import {
 import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
 import { enableScreens } from 'react-native-screens';
+import PostCard from '../screens/PostCard';
+import GlobalFeed from '../screens/Feed';
+import Profile from '../screens/Profile';
+import ExpandedPost from '../screens/ExpandedPost';
 
 enableScreens();
 
@@ -50,6 +54,7 @@ function RootDrawerNavigator() {
         options={({
           headerTitle: () => <Logo />,
         })}
+<<<<<<< HEAD
         component={SplashScreen} />
       <Drawer.Screen name="Home"
         // options={({
@@ -59,6 +64,11 @@ function RootDrawerNavigator() {
         // })}
         component={HomeStackScreen} />
     </Drawer.Navigator>
+=======
+        component={Profile}/>
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    </Stack.Navigator>
+>>>>>>> frontend-mo
   );
 }
 
