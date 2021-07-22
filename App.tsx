@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { KeyboardAvoidingView, StyleSheet, View, ScrollView} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';

@@ -1,5 +1,5 @@
 import React from "react"
-import {Image, StyleSheet, View, Text} from 'react-native'
+import {Image, StyleSheet, View} from 'react-native'
 
 const Logo: React.FC = (props: any) => {
   return (
@@ -19,12 +19,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
   },
-
-  // text:{
-  //   alignContent: "center",
-  //   justifyContent: "center",
-  //   color: "antiquewhite"
-  // },
 
   logo:{
     width: 45, 
