@@ -57,7 +57,7 @@ const PostCard = (props: any) => {
 
                 <Text
                     style={styles.postBody}
-                >{props.postBody}</Text>
+                >{props.item.postBody}</Text>
 
                 <View
                     style={styles.containerViewAlignIcons}
@@ -78,7 +78,7 @@ const PostCard = (props: any) => {
                         />
                     </Pressable>
                     
-                    <Text>{props.timeStamp}</Text>
+                    <Text>{props.item.timeStamp}</Text>
                 </View>            
             </Card>
             

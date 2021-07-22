@@ -33,7 +33,7 @@ function RootNavigator() {
         options={() => ({
         headerTitle: () => <Logo/>,
         })}
-        component={ExpandedPost}/>
+        component={Profile}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

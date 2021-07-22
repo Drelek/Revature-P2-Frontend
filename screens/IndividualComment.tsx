@@ -15,7 +15,7 @@ const IndividualComment = (props: any) => {
             >
                 <Text
                     style={styles.comment}
-                >{props.comment}</Text>
+                >Another Comment over here</Text>
             </View>
         </Card>
         
@@ -27,12 +27,12 @@ export default IndividualComment;
 const styles = StyleSheet.create({
     comment: {
         fontSize: 16,
-        color: "white"
+        color: "black"
     },
     container: {
         flex: 1,
         justifyContent: 'space-around',
-        backgroundColor: "rgb(220,220,220)",
+        
     },
     card: {
         borderTopLeftRadius:20, 
