@@ -5,7 +5,7 @@ const handleCanvas = (c: any) => {
     c.height = Dimensions.get('screen').height;
     c.width = Dimensions.get('screen').width;
     let matrix:string = "▲△△△▼▼▷◁???◭◮◭◭◭!!!▲△△△▼▼▷◁???◭◮◭◭◭!!!BOHEMIANGROVE";
-    let font_size = 30;
+    let font_size = 22;
     let columns = c.width / font_size;
     let drops:number[] = [];
     for (let x = 0; x < columns; x++)

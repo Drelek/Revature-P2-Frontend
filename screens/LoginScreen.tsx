@@ -1,26 +1,32 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text, KeyboardAvoidingView, Button } from 'react-native';
 import { useState } from 'react';
+import { screenWidth } from '../constants/Layout';
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen: React.FC = () => {
-    const[username, setUsername] = useState(' ');
-    const[password, setPassword] = useState(' ');
+const LoginScreen: React.FC = (props:any) => {
+  const[username, setUsername] = useState(' ');
+  const[password, setPassword] = useState(' ');
+  const navigation = useNavigation();
 
-    const validateLogin = () => {
-
-    }
+  const validateLogin = () => {
+    navigation.navigate('Home');
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <TextInput
+      <SafeAreaView style={styles.safeArea}>
+        <TextInput
         style={styles.input}
         placeholder="Username"
+        placeholderTextColor="antiquewhite" 
         onChangeText={(text) => setUsername(text)}
         keyboardType="ascii-capable"
       />
       <TextInput
         style={styles.input}
         onChangeText={(text => setPassword(text))}
+        placeholderTextColor="antiquewhite" 
         placeholder="Password"
         secureTextEntry={true}
       />
@@ -30,42 +36,49 @@ const LoginScreen: React.FC = () => {
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
+      </SafeAreaView>
+      <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    width: 250,
-    margin: 12,
-    borderWidth: 1,
+    width:screenWidth - 100,
+    paddingBottom: 10,
+    alignItems: 'center',
     textAlign: 'center',
-    borderRadius: 4
+    borderBottomWidth: 2,
+    borderColor: 'purple',
+    color: 'white',
+    fontSize: 18,
+    borderRadius: 10,
+    paddingHorizontal:25
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
-    backgroundColor: 'black',
-    width: 150,
-    display: 'flex'
-
+    backgroundColor: 'purple',
+    fontSize: 18,
   },
   text: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: 'antiquewhite',
   },
   safeArea: {
-    margin: 'auto',
-    width: 50,
-    position: 'relative'
+    flex: 3,
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  },
+  fillArea:{
+    flex: 1
   }
 });
 

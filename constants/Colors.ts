@@ -1,12 +1,12 @@
 const MyTheme = {
   dark: true,
   colors: {
-    primary: 'black',
+    primary: 'purple',
     background: 'transparent',
     card: 'rgb(33, 37, 41)',
-    text: 'antiquewhite',
-    border: 'plum',
-    notification: 'antiquewhite',
+    text: 'white',
+    border: 'purple',
+    notification: 'white',
   },
 };
 

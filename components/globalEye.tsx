@@ -1,14 +1,13 @@
 import React from "react"
 import {Image, StyleSheet, View} from 'react-native'
 
-const Logo: React.FC = (props: any) => {
+const GlobalEye: React.FC = (props: any) => {
   return (
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require('../assets/images/illuminati.png')}
+        source={require('../assets/images/globalEye.png')}
       />
-      {/* <Text style={styles.text}>Bohemian Grove</Text> */}
     </View>
   )
 }
@@ -20,11 +19,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  // text:{
+  //   alignContent: "center",
+  //   justifyContent: "center",
+  //   color: "antiquewhite"
+  // },
+
   logo:{
-    width: 45, 
-    height: 45,
-    marginBottom:15
+    width: 25, 
+    height: 25,
+    marginRight:15
   }
 })
 
-export default Logo;
+export default GlobalEye;

@@ -1,15 +1,53 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import React, {useState }from 'react';
+import { StyleSheet, Text, SafeAreaView, Pressable} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
+import { screenWidth } from '../constants/Layout';
+import LoginScreen from './LoginScreen';
+import SignUpScreen from './SignUpScreen';
 
-const SplashScreen: React.FC = (props: any) => {
-  function callback() {
-    return console.log("hello");
+const SplashScreen: React.FC = (props:any) => {
+  const [userSession, setUserSession] = useState({
+    session: "login"
+  });
+  
+
+  const renderSession = () => {
+    const session = userSession.session;
+    if (session === "login"){
+      return (
+        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
+          <LoginScreen/>
+        // </KeyboardAwareScrollView>
+      )
+    } else if(session === "sign-up"){
+      return (
+        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
+          <SignUpScreen/>
+        // </KeyboardAwareScrollView>
+      )
+    }
   }
 
-  function welcomeMessage() {
-    const message: string = "Welcome to Bohemian Grove, the message app for those in the know.";
-    return <AnimatedTypeWriter style={styles.message} text={`${message}`} timeBetweenLetters={60} onTypingEnd={callback} />
+  const renderSessionButton = () => {
+    const session = userSession.session;
+    if (session === "login"){
+      return <Pressable
+        onPress={() => setUserSession({session: "sign-up"})}>
+        <Text
+          style={styles.text}>Sign Up</Text>
+      </Pressable>
+    } else if(session === "sign-up"){
+      return <Pressable
+        onPress={() => setUserSession({session: "login"})}>
+        <Text
+          style={styles.text}>Login</Text>
+      </Pressable>
+    }
+  }
+
+  function welcomeMessage(){
+    const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
+    return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`}/>
   }
 
   return (
@@ -21,11 +59,10 @@ const SplashScreen: React.FC = (props: any) => {
       </SafeAreaView>
 
       <SafeAreaView style={styles.largeView}>
-        <Text style={styles.text}>
-          In the following example, the red, yellow, and green views are all children in
-        </Text>
+        {renderSession()}
+        <SafeAreaView>{renderSessionButton()}</SafeAreaView>
       </SafeAreaView>
-
+      
       <SafeAreaView style={styles.smallView} />
 
     </SafeAreaView>
@@ -46,31 +83,35 @@ const styles = StyleSheet.create({
   smallView: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 8,
-    // backgroundColor: "yellow"
+    paddingHorizontal:15,
+    backgroundColor: "transparent",
+    borderColor:"purple"
   },
 
   largeView: {
     flex: 3,
-    // backgroundColor: "blue",
+    backgroundColor:'rgb(33, 37, 41)',
+    borderRadius: 10,
+    borderWidth:4,
+    borderColor: 'purple',
+    width: screenWidth - 20,
   },
 
-  text: {
-    color: "white",
-    borderWidth: 0,
-    backgroundColor: "transparent",
-  },
-
-  message: {
-    color: "white",
+  text:{
+    color:"white",
     fontSize: 18,
-    backgroundColor: "black",
-    textAlign: "center",
-    borderColor: 'plum',
+    backgroundColor:"transparent",
+  },
+
+  message:{
+    color: 'white',
+    fontSize: 18,
+    backgroundColor: 'rgb(33, 37, 41)',
+    textAlign:"center",
+    borderColor: 'purple',
     borderWidth: 4,
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
+    borderRadius: 10,
+    paddingHorizontal:15,
     // fontFamily: "BadScript-Regular"
   }
 })

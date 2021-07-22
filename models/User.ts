@@ -1,8 +1,7 @@
 export interface IUser {
-    displayName?: string,
-    userName?: string,
-    email?: string,
-    password?: string,
-    following?: string[],
-    
+    userName: string;
+    displayName: string;
+    profileImg: string;
+    email?: string;
+    password?: string;
 }
