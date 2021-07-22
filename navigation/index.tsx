@@ -9,6 +9,7 @@ import Logo from '../components/logo';
 import PostCard from '../screens/PostCard';
 import GlobalFeed from '../screens/Feed';
 import Profile from '../screens/Profile';
+import ExpandedPost from '../screens/ExpandedPost';
 
 const Navigation:React.FC = (props:any) => {
   return (
@@ -32,7 +33,7 @@ function RootNavigator() {
         options={() => ({
         headerTitle: () => <Logo/>,
         })}
-        component={Profile}/>
+        component={ExpandedPost}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

@@ -29,6 +29,12 @@ const Profile = () => {
             comments: "hello"
         }
     ]);
+
+    const addFollower = () => {
+        //TODO
+        //Push follower to following array on user object
+    }
+
     
 
     return(
@@ -39,6 +45,9 @@ const Profile = () => {
             <View
                 style={styles.innerContainer}
             >
+
+               
+
                 <Card containerStyle={styles.profileCard}>
                     <View
                         style={{flexDirection: "row"}}
@@ -55,10 +64,25 @@ const Profile = () => {
                             <Text
                                 style={styles.username}
                             >@guackholy</Text>
-                            <Text>Email</Text>     
+                            <Text
+                                style={styles.email}
+                            >Email Placeholder</Text>     
                         </View>
+
+                        <View>
+                        <Pressable
+                            onPress= {() => addFollower()}
+                        >
+                            <Image 
+                                style={styles.followerIcon}
+                               source={require('../assets/images/follower-icon.png')}
+                          />
+                         </Pressable>
+                          </View>
                     </View>
                 </Card>
+
+                
             </View>
 
             <SafeAreaView
@@ -103,7 +127,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         backgroundColor: 'rgb(33, 37, 41)',
         width: 290,
-        height: 100
+        height: 110
     },
     image: {
         width: 80,
@@ -124,4 +148,19 @@ const styles = StyleSheet.create({
         color: "white",
         paddingLeft: 15
     },
+    email: {
+        fontSize: 18,
+        color: "white",
+        paddingLeft: 15
+    },
+    welcomeMessage: {
+        fontSize: 30, 
+        fontWeight: "bold", 
+        color: "white", 
+        fontStyle: "italic"
+    },
+    followerIcon: {
+        width: 50,
+        height: 60
+    }
 })
