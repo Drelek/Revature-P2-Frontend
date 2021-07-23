@@ -3,10 +3,7 @@ import Post from '../models/Post';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { useState, useEffect } from 'react';
-import Likey from '../assets/images/liked-post.png'
-import NotLikey from '../assets/images/unliked-post.png'
-import CommentIcon from '../assets/images/comment-icon.png'
-import ProfileImgPlaceholder from '../assets/images/profile-img-placeholder.png'
+import { screenWidth } from '../constants/Layout';
 
 const PostCard = (props: any) => {
 
@@ -29,6 +26,42 @@ const PostCard = (props: any) => {
         
     }
 
+    const renderProfileImageOrDefault = () => {
+        const {displayImg} = props.item;
+        console.log(displayImg === undefined);
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/profile-img-placeholder.png')}
+                    style={styles.profileImage}
+                />
+            )
+        }else {
+            return (
+                <Image
+                    source={{uri:'https://reactnative.dev/img/tiny_logo.png',}}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
+
+    const renderNotLikeOrLiked = () => {
+        if (isLiked){
+            return (
+            <Image 
+                source={require('../assets/images/likeIcon.png')}
+                style={styles.heart}
+            />)
+        } else {
+            return(<Image 
+                source={require('../assets/images/likedIcon.png')}
+                style={styles.heart}
+                />)
+        }
+    }
+    const userName = `@${props.item.userName}`;
+
     return (
         <View
             style={styles.card}
@@ -39,46 +72,45 @@ const PostCard = (props: any) => {
                 <View
                     style={styles.containerHeadOfCard}
                 >
-                    <Image
-                        source={require('../assets/images/profile-img-placeholder.png')}
-                        style={styles.profileImage}
-                    />
-
                     <View>
+                        {renderProfileImageOrDefault()}
+                    </View>
+                    
+
+                    <View style={styles.nameContainer}>
                         <Text
                             style={styles.displayname}
-                        >HolyGuack</Text>
+                        >{props.item.displayName}</Text>
                         <Text
                             style={styles.username}
-                        >@guackholy</Text>
+                        >{userName}</Text>
                     </View>
                 </View>
                 
-
-                <Text
+                <View style={styles.postContainer}>
+                    <Text
                     style={styles.postBody}
                 >{props.item.postBody}</Text>
+                </View>
+                
 
                 <View
                     style={styles.containerViewAlignIcons}
                 >
 
-                    <Pressable onPress={ () => setLikedState(true) }>
-                        <Image 
-                            source={require('../assets/images/unliked-post.png') }
-                            style={styles.heart}
-                        />
+                    <Pressable onPress={ () => setLikedState(!isLiked) }>
+                        {renderNotLikeOrLiked()}
                     </Pressable>
                     <Pressable 
                         style={{backfaceVisibility: "hidden"}}
                         onPress= { () => redirectToExtendedPostScreen()}>
                         <Image
-                            source={require('../assets/images/comment-icon-transparent.png')}
+                            source={require('../assets/images/commentIcon.png')}
                             style={styles.comment}
                         />
                     </Pressable>
                     
-                    <Text>{props.item.timeStamp}</Text>
+                    <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
                 </View>            
             </Card>
             
@@ -90,24 +122,33 @@ export default PostCard;
 
 const styles = StyleSheet.create({
     card: {
-        width: 360,
-        //Caution, height attribute controls spacing between
-        height: 210,
-        borderRadius: 15,
+        width: screenWidth,
+        // height: 210,
         flex: 1,
     },
     cardActual: {
         flex:1, 
-        borderTopLeftRadius:20, 
-        borderColor: 'plum', 
-        borderWidth: 1,
-        borderTopRightRadius:20,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        borderRadius:10,
+        borderColor: 'purple', 
+        borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)'
-        
+    },
+    containerHeadOfCard: {
+        flexDirection: "row"
     },
 
+    nameContainer:{
+
+    },
+    postContainer:{
+
+    },
+
+    containerViewAlignIcons: {
+        flexDirection: "row",
+        paddingVertical: 9,
+        justifyContent:"space-evenly"
+    },
     profileImage: {
         width: 80,
         height: 80,
@@ -132,11 +173,7 @@ const styles = StyleSheet.create({
         borderColor: 'purple',
         borderWidth: 2,
     },
-    containerViewAlignIcons: {
-        flexDirection: "row",
-        paddingVertical: 9,
-        justifyContent:"space-evenly"
-    },
+    
     heart: {
         width: 30,
         height: 30
@@ -145,14 +182,10 @@ const styles = StyleSheet.create({
     comment: {
         width: 30,
         height: 30,
-        
-        
     },
-    containerHeadOfCard: {
-        flexDirection: "row"
-    },
+    
     timestamp: {
-
+        color: "white",
     }
 
 

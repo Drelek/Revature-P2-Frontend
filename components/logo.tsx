@@ -8,7 +8,6 @@ const Logo: React.FC = (props: any) => {
         style={styles.logo}
         source={require('../assets/images/illuminati.png')}
       />
-      {/* <Text style={styles.text}>Bohemian Grove</Text> */}
     </View>
   )
 }

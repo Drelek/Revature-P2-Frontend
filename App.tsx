@@ -7,7 +7,6 @@ import Canvas from 'react-native-canvas';
 import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,13 +16,11 @@ export default function App() {
     return null;
   } else {
     return (
-      <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
         <View style={styles.container}>
           <Navigation/>
           <Canvas style={styles.canvas} ref={handleCanvas}/>
           <StatusBar/>
         </View>
-        </KeyboardAwareScrollView> 
     );
   }
 }
