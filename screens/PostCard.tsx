@@ -72,7 +72,7 @@ const PostCard = (props: any) => {
                 <View
                     style={styles.containerHeadOfCard}
                 >
-                    <View>
+                    <View style={styles.imageContainer}>
                         {renderProfileImageOrDefault()}
                     </View>
                     
@@ -122,66 +122,74 @@ export default PostCard;
 
 const styles = StyleSheet.create({
     card: {
-        width: screenWidth,
-        // height: 210,
-        flex: 1,
+        padding:10
     },
     cardActual: {
-        flex:1, 
+        flex:2, 
         borderRadius:10,
         borderColor: 'purple', 
         borderWidth: 2,
-        backgroundColor: 'rgb(33, 37, 41)'
+        backgroundColor: 'rgb(33, 37, 41)',
     },
     containerHeadOfCard: {
         flexDirection: "row"
     },
 
-    nameContainer:{
-
+    imageContainer:{
+        flex:1
     },
-    postContainer:{
 
+    nameContainer:{
+        flex:2,
+    },
+
+    postContainer:{
+        flex:2,
+        borderRadius: 20,
     },
 
     containerViewAlignIcons: {
+        flex:1,
+        paddingTop:10,
         flexDirection: "row",
-        paddingVertical: 9,
-        justifyContent:"space-evenly"
+        justifyContent:"space-around",
+        borderTopWidth:2,
+        borderColor:"purple"
     },
     profileImage: {
         width: 80,
         height: 80,
-        borderRadius: 25,
+        borderRadius: 100,
+        borderWidth:2,
+        borderColor:'purple'
     },
     displayname: {
         fontWeight: "bold",
         fontSize: 25,
         color: "white",
-        marginLeft: 15
+        
     },
     username: {
         fontSize: 18,
         color: "white",
-        marginLeft: 15
+    
     },
     postBody: {
-        width: 295,
-        height: 50,
-        backgroundColor: "rgb(220,220,220)",
-        paddingTop: 15,
-        borderColor: 'purple',
-        borderWidth: 2,
+        color: "white",
+        padding:10,
+        // borderColor: 'purple',
+        // borderWidth: 2,
+        // borderRadius: 20,
     },
     
     heart: {
-        width: 30,
-        height: 30
+        width: 25,
+        height: 25
 
     },
     comment: {
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
     },
     
     timestamp: {
