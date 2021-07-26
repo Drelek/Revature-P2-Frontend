@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import Feed from '../components/Feed'
 import Post from '../models/Post';

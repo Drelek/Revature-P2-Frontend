@@ -65,7 +65,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Splash')}}
+                            onPress={() => {props.navigation.navigate('Home')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -87,7 +87,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Settings"
-                            onPress={() => {props.navigation.navigate('SettingsScreen')}}
+                            onPress={() => {props.navigation.navigate('Setting')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

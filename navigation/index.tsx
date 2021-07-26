@@ -6,10 +6,6 @@ import { RootStackParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
 import Logo from '../components/logo';
-import Feed from '../components/Feed'
-import HomeFeedScreen from '../screens/HomeFeed'
-import MenuIcon from '../components/menuIcon';
-import FeedPicker from '../components/feedPicker';
 import { DrawerContent } from './DrawerContent';
 import {
   DarkTheme as PaperDarkTheme,
@@ -17,11 +13,8 @@ import {
 } from 'react-native-paper';
 import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
+import SettingsStackScreen from './SettingsNav';
 import { enableScreens } from 'react-native-screens';
-import PostCard from '../screens/PostCard';
-import GlobalFeed from '../screens/Feed';
-import Profile from '../screens/Profile';
-import ExpandedPost from '../screens/ExpandedPost';
 
 enableScreens();
 
@@ -55,12 +48,9 @@ function RootDrawerNavigator() {
         })}
         component={SplashScreen} />
       <Drawer.Screen name="Home"
-        // options={({
-        //   headerTitle: () => <Logo />,
-        //   headerLeft: () => <MenuIcon/>,
-        //   headerRight: () => <FeedPicker/>
-        // })}
         component={HomeStackScreen} />
+      <Drawer.Screen name="Setting"
+        component={SettingsStackScreen} />
     </Drawer.Navigator>
   );
 }

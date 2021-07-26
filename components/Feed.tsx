@@ -1,12 +1,7 @@
-
-import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React, { useState }  from "react";
+import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { SafeAreaView} from "react-native-safe-area-context";
 import PostCard from "../screens/PostCard";
-import Post from "../models/Post";
-import { useState } from "react";
-
 
 
 const Feed: React.FC = (props: any) => {
@@ -54,7 +49,10 @@ const Feed: React.FC = (props: any) => {
 
     return (
         <View style={styles.container}>
-            <FlatList  data={postCards} renderItem={({ item }) => <PostCard item={item}> </PostCard>} />
+            <FlatList  
+                data={postCards} 
+                renderItem={({item }) => <PostCard item={item}> </PostCard>} 
+                keyExtractor={(item, index) => index.toString()}/>
         </View>
     )
 }

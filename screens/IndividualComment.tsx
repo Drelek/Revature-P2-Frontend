@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Comment, iComment } from '../models/Comment';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 

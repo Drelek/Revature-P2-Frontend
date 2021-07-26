@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Post from '../models/Post';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { Card } from 'react-native-elements'
 import { useState, useEffect } from 'react';
 import { screenWidth } from '../constants/Layout';
 

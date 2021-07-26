@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 30, 
         fontWeight: "bold", 
         color: "white", 
-        fontStyle: "italic"
+        fontFamily: "BadScript"
     },
     followerIcon: {
         width: 50,

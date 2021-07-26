@@ -1,8 +1,7 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet,Pressable} from 'react-native'
 import React, { useState } from 'react';
-import { Pressable } from 'react-native';
-
-export default function Settings() {
+import {Card} from 'react-native-elements'
+const SettingsScreens:React.FC = () => {
 
     const [email, setEmail] = useState(' ');
     const [handle, setHandle] = useState(' ');
@@ -15,7 +14,7 @@ export default function Settings() {
 
     return (
 
-        <View style={styles.formcontainer}>
+        <Card containerStyle={styles.cardActual}>
             <Text style={styles.text}> Change your profile information </Text>
             <View style={styles.topform}>
 
@@ -35,14 +34,16 @@ export default function Settings() {
                     <Text style={styles.buttontext}>Submit</Text>
                 </Pressable>
             </View>
-        </View>
+        </Card>
     );
 }
 
 const styles = StyleSheet.create({
-    formcontainer: {
-        flex: 1,
-        backgroundColor: "white"
+    cardActual: {
+        borderRadius:10,
+        borderColor: 'purple', 
+        borderWidth: 2,
+        backgroundColor: 'rgb(33, 37, 41)',
     },
     topform: {
         marginTop: 100,
@@ -53,8 +54,9 @@ const styles = StyleSheet.create({
         marginLeft: 100,
     },
     text: {
-        marginTop: 50,
-        fontSize: 25
+        fontSize: 22,
+        color: "white",
+        fontFamily: "BadScript"
     },
     button: {
         marginTop: 30,
@@ -64,4 +66,6 @@ const styles = StyleSheet.create({
         fontSize: 15
     }
 })
+
+export default SettingsScreens;
 

@@ -99,8 +99,9 @@ const styles = StyleSheet.create({
 
   text:{
     color:"white",
-    fontSize: 18,
+    fontSize: 22,
     backgroundColor:"transparent",
+    fontFamily: "BadScript",
   },
 
   message:{
