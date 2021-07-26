@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet,Pressable} from 'react-native'
+import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView} from 'react-native'
 import React, { useState } from 'react';
 import {Card} from 'react-native-elements'
 const SettingsScreens:React.FC = () => {
@@ -13,21 +13,30 @@ const SettingsScreens:React.FC = () => {
     }
 
     return (
-
+    <SafeAreaView style={styles.container}>
+        <View style={styles.smallView}></View>
+        <SafeAreaView style={styles.largeView}>
         <Card containerStyle={styles.cardActual}>
-            <Text style={styles.text}> Change your profile information </Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.text}> Login and Security </Text>
+            </View>
+            
             <View style={styles.topform}>
 
-                <TextInput placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="antiquewhite" placeholder="Email" onChangeText={(text) => setEmail(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="antiquewhite" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Password" onChangeText={(text) => setPassword(text)} />
+                <TextInput  style={styles.input}
+                placeholderTextColor="antiquewhite" placeholder="Password" onChangeText={(text) => setPassword(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="antiquewhite" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
             </View>
             <View>
                 <Pressable style={styles.button} onPress={() => submitForm()}>
@@ -35,35 +44,74 @@ const SettingsScreens:React.FC = () => {
                 </Pressable>
             </View>
         </Card>
+        </SafeAreaView>
+        <View style={styles.smallView}></View>
+    </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        justifyContent:'center'
+    },
+    smallView:{
+        flex:1
+    },
+    largeView:{
+        flex: 4,
+    },
     cardActual: {
+        // flex:1,
         borderRadius:10,
         borderColor: 'purple', 
         borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)',
+        color: 'white'
     },
+
     topform: {
-        marginTop: 100,
-        marginLeft: 100,
+        margin:10
     },
     form: {
-        marginTop: 30,
-        marginLeft: 100,
+        margin:10
     },
+
+    titleContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+
     text: {
-        fontSize: 22,
+        fontSize: 25,
         color: "white",
-        fontFamily: "BadScript"
+        fontFamily: "BadScript",
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    input:{
+        fontFamily: "BadScript",
+        fontSize: 18,
+        color: "white",
+        borderBottomWidth: 2,
+        borderColor: 'purple',
+        paddingBottom: 10,
+        alignItems: 'center',
+        textAlign: 'center',
     },
     button: {
-        marginTop: 30,
-        marginLeft: 50
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        backgroundColor: 'purple',
+        marginVertical:10,
+        marginHorizontal:25
     },
     buttontext: {
-        fontSize: 15
+        fontSize: 20,
+        fontFamily: "BadScript",
+        color: "white",
     }
 })
 

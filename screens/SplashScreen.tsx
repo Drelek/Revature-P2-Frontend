@@ -15,15 +15,11 @@ const SplashScreen: React.FC = (props:any) => {
     const session = userSession.session;
     if (session === "login"){
       return (
-        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
-          <LoginScreen/>
-        // </KeyboardAwareScrollView>
+        <LoginScreen/>
       )
     } else if(session === "sign-up"){
       return (
-        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
-          <SignUpScreen/>
-        // </KeyboardAwareScrollView>
+        <SignUpScreen/>
       )
     }
   }
@@ -99,9 +95,9 @@ const styles = StyleSheet.create({
 
   text:{
     color:"white",
-    fontSize: 22,
+    fontSize: 20,
     backgroundColor:"transparent",
-    fontFamily: "BadScript",
+    // fontFamily: "Montserrat",
   },
 
   message:{

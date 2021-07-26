@@ -9,7 +9,7 @@ import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
 
-export default function App() {
+const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
   const [fontsLoaded, setFonts] = useState(false);
   
@@ -23,7 +23,7 @@ export default function App() {
     setFonts(true);
   }
 
-  if (!isLoadingComplete && fontsLoaded) {
+  if (!isLoadingComplete && !fontsLoaded) {
     return null;
   } else {
     return (
@@ -50,3 +50,5 @@ const styles = StyleSheet.create({
     elevation: -1
   }
 });
+
+export default App;

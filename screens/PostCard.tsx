@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     postBody: {
         color: "white",
         padding:10,
+        fontFamily: "Montserrat"
     },
     
     heart: {
