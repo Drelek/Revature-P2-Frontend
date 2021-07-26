@@ -6979,6 +6979,11 @@
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
 
+"react-native-mask-loader@^0.0.3":
+  "integrity" "sha512-qZ3UpaTCGxa7whx+v+zlqV6XaZlOEi68WN8ropG9lThGEFFgvD6CvUVx7OYUcX+o2eysldQ70cNczeOybKQ38w=="
+  "resolved" "https://registry.npmjs.org/react-native-mask-loader/-/react-native-mask-loader-0.0.3.tgz"
+  "version" "0.0.3"
+
 "react-native-paper@^4.9.2":
   "integrity" "sha512-J7FRsd0YblQawtuj9I46F//apZHadsCKk6jWpc6njFTYdgUeCdkR8KgEto7cp2WxbcGNELx7KGwPQ4zAgX746A=="
   "resolved" "https://registry.npmjs.org/react-native-paper/-/react-native-paper-4.9.2.tgz"
@@ -7056,7 +7061,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native-webview@>=5.10.0 || >=6.1.0":
+"react-native-webview@^11.6.5", "react-native-webview@>=5.10.0 || >=6.1.0":
   "integrity" "sha512-5U+hI8snkCrFeDy+bUTszwhzcJIenaaOy3ubhY77HZq7R0pFIZzRYWkT0YXe1ymRYW9mSU96nr6S0AVDk8qkMw=="
   "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.6.5.tgz"
   "version" "11.6.5"

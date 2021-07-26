@@ -8,6 +8,7 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
+import Loader from 'react-native-mask-loader';
 
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
@@ -27,11 +28,17 @@ const App:React.FC = () => {
     return null;
   } else {
     return (
+      <Loader
+        isLoaded={false}
+        imageSource={require('./assets/images/illuminati.png')}
+        backgroundStyle={styles.loadingBackgroundStyle}
+      >
         <View style={styles.container}>
           <Navigation/>
           <Canvas style={styles.canvas} ref={handleCanvas}/>
           <StatusBar/>
         </View>
+    </Loader>
     );
   }
 }
@@ -48,6 +55,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: -1,
     elevation: -1
+  },
+
+  loadingBackgroundStyle:{
+    backgroundColor: 'rgb(33, 37, 41)'
   }
 });
 
