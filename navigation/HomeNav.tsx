@@ -10,12 +10,12 @@ const HomeStack = createStackNavigator();
 const HomeStackScreen: React.FC= () => {
   return (
       <HomeStack.Navigator screenOptions={{
-        headerTitleAlign: 'center',}}>
-      <HomeStack.Screen name="Home" component={HomeFeedScreen} options={{
+        headerTitleAlign: 'center',
         headerTitle: () => <Logo />,
         headerRight: () => <FeedPicker/>,
         headerLeft: () => <MenuIcon/>
-        }} />
+        }}>
+      <HomeStack.Screen name="Home" component={HomeFeedScreen}/>
       </HomeStack.Navigator>
   )
 }

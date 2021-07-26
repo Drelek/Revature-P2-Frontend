@@ -26,7 +26,6 @@ import ExpandedPost from '../screens/ExpandedPost';
 enableScreens();
 
 const CombinedDarkTheme = merge(PaperDarkTheme, MyTheme);
-console.log(CombinedDarkTheme);
 
 const Navigation: React.FC = (props: any) => {
   return (

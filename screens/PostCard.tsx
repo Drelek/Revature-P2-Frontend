@@ -26,20 +26,37 @@ const PostCard = (props: any) => {
         
     }
 
+    const renderNumofComments = () => {
+        const {comments} = props.item;
+        if(comments.length){
+            return comments.length;
+        } else {
+            return '';
+        }
+    }
+
+    const renderNumOfLikes = () => {
+        const {likes} = props.item;
+        if(likes.length){
+            return likes.length;
+        } else {
+            return ''; 
+        }
+    }
+
     const renderProfileImageOrDefault = () => {
         const {displayImg} = props.item;
-        console.log(displayImg === undefined);
         if (!displayImg) {
             return (
                 <Image
-                    source={require('../assets/images/profile-img-placeholder.png')}
-                    style={styles.profileImage}
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
                 />
             )
         }else {
             return (
                 <Image
-                    source={{uri:'https://reactnative.dev/img/tiny_logo.png',}}
+                    source={{uri:`${displayImg}`}}
                     style={styles.profileImage}
                 />
             )
@@ -97,20 +114,31 @@ const PostCard = (props: any) => {
                 <View
                     style={styles.containerViewAlignIcons}
                 >
-
-                    <Pressable onPress={ () => setLikedState(!isLiked) }>
+                    <View style={styles.likesContainer}>
+                        <Pressable onPress={ () => setLikedState(!isLiked) }>
                         {renderNotLikeOrLiked()}
-                    </Pressable>
-                    <Pressable 
-                        style={{backfaceVisibility: "hidden"}}
+                        </Pressable>
+
+                        <Text style={styles.likesText}>{renderNumOfLikes()}</Text>
+                    </View>
+                    
+                    <View style={styles.commentsContainer}>
+                       <Pressable 
                         onPress= { () => redirectToExtendedPostScreen()}>
                         <Image
                             source={require('../assets/images/commentIcon.png')}
                             style={styles.comment}
                         />
-                    </Pressable>
+                        </Pressable> 
+                        <Text style={styles.likesText}>
+                            {renderNumofComments()}
+                        </Text>
+                    </View>
                     
-                    <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
+                    <View style={styles.timeStampContainer}>
+                        <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
+                    </View>
+                    
                 </View>            
             </Card>
             
@@ -136,7 +164,7 @@ const styles = StyleSheet.create({
     },
 
     imageContainer:{
-        flex:1
+        flex:1,
     },
 
     nameContainer:{
@@ -156,12 +184,20 @@ const styles = StyleSheet.create({
         borderTopWidth:2,
         borderColor:"purple"
     },
+    defaultProfileImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 100,
+        borderWidth:2,
+        borderColor:'purple',
+        backgroundColor:'purple'
+    },
     profileImage: {
         width: 80,
         height: 80,
         borderRadius: 100,
         borderWidth:2,
-        borderColor:'purple'
+        borderColor:'purple',
     },
     displayname: {
         fontWeight: "bold",
@@ -177,9 +213,6 @@ const styles = StyleSheet.create({
     postBody: {
         color: "white",
         padding:10,
-        // borderColor: 'purple',
-        // borderWidth: 2,
-        // borderRadius: 20,
     },
     
     heart: {
@@ -194,7 +227,23 @@ const styles = StyleSheet.create({
     
     timestamp: {
         color: "white",
-    }
+    },
 
+    likesText: {
+        color: "white",
+        paddingLeft:10
+    },
 
+    likesContainer:{
+        flex:1,
+        flexDirection: "row",
+    },
+
+    commentsContainer:{
+        flex: 1,
+        flexDirection: "row"
+    },
+    
+    timeStampContainer:{
+    },
 })

@@ -37,7 +37,7 @@ export default function Settings() {
             </View>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     formcontainer: {

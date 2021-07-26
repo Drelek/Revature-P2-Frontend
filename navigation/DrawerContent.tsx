@@ -166,8 +166,6 @@ const styles = StyleSheet.create({
     },
     bottomDrawerSection: {
         marginBottom: 15,
-        borderTopColor: 'purple',
-        borderTopWidth: 3
     },
     preference: {
       flexDirection: 'row',

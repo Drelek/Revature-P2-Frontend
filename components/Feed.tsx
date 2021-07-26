@@ -1,8 +1,8 @@
 
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView} from "react-native-safe-area-context";
 import PostCard from "../screens/PostCard";
 import Post from "../models/Post";
 import { useState } from "react";
@@ -18,44 +18,44 @@ const Feed: React.FC = (props: any) => {
             displayName: "my name is Mo",
             userName: "name",
             postBody: "I know the truth,The search bar allows users to search for user handles. The user's input queries the database and returns the closest. We plan to implement follow, likes and comment functionality in the near future and even making our application mobile friendly!",
-            likes: "hi",
+            likes: [1,2,3,4],
             timeStamp: "6/20/20 6:30pm",
-            comments: "hello"
+            comments: [1,2,3,4,112,3234523,343232]
         },
         {
             displayImg: 'https://reactnative.dev/img/tiny_logo.png',
             displayName: "Kai",
             userName: "Kaiba",
             postBody: "I know",
-            likes: "hi",
+            likes: [1,2,3],
             timeStamp: "6/20/20 6:30pm",
-            comments: "whats up"
+            comments: [1,2,3,4,112,3234523,343232,1,1,1,1,1,1]
         },
         {
-            displayImg: 'happy.png',
+            displayImg: 'https://www.learnreligions.com/thmb/rlSNKScykYuF6qdA9tArkB-til8=/998x998/smart/filters:no_upscale()/SonOfGod1500x998-56a146083df78cf772691384.jpg',
             displayName: "God",
             userName: "God",
             postBody: "I am back bb",
             likes: [1,2,3,4,5],
             timeStamp: " 01/01/22 12:00am",
-            comments: "hello"
+            comments: [1,2,3,4,112,3234523,343232]
         },
         {
-            displayImg: 'happy.png',
+            displayImg: 'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
             displayName: "Jesus",
             userName: "GodsFavoriteSon",
             postBody: "Hello",
             likes: [1,2,3,4,5,6,7],
             timeStamp: "6/20/20 6:30pm",
-            comments: "hello"
+            comments: [1,2,3,4,112,3234523]
         }
     ]);
 
 
     return (
-        <SafeAreaView>
-            <FlatList style={styles.container} data={postCards} renderItem={({ item }) => <PostCard item={item}> </PostCard>} />
-        </SafeAreaView>
+        <View style={styles.container}>
+            <FlatList  data={postCards} renderItem={({ item }) => <PostCard item={item}> </PostCard>} />
+        </View>
     )
 }
 
@@ -63,7 +63,9 @@ const Feed: React.FC = (props: any) => {
 export default Feed;
 
 const styles = StyleSheet.create({
-
+    container:{
+        marginTop:0
+    },
     item: {
         // padding:10,
         color: "white"
