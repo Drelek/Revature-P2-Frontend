@@ -1,9 +1,7 @@
-import * as React from 'react';
-import Post from '../models/Post';
+import React, { useState, useEffect }  from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card } from 'react-native-elements'
-import { useState, useEffect } from 'react';
-import { screenWidth } from '../constants/Layout';
+
 
 const PostCard = (props: any) => {
 
@@ -26,7 +24,7 @@ const PostCard = (props: any) => {
         
     }
 
-    const renderNumofComments = () => {
+    const renderNumOfComments = () => {
         const {comments} = props.item;
         if(comments.length){
             return comments.length;
@@ -96,7 +94,7 @@ const PostCard = (props: any) => {
 
                     <View style={styles.nameContainer}>
                         <Text
-                            style={styles.displayname}
+                            style={styles.displayName}
                         >{props.item.displayName}</Text>
                         <Text
                             style={styles.username}
@@ -131,7 +129,7 @@ const PostCard = (props: any) => {
                         />
                         </Pressable> 
                         <Text style={styles.likesText}>
-                            {renderNumofComments()}
+                            {renderNumOfComments()}
                         </Text>
                     </View>
                     
@@ -150,7 +148,7 @@ export default PostCard;
 
 const styles = StyleSheet.create({
     card: {
-        padding:10
+        padding:10,
     },
     cardActual: {
         flex:2, 
@@ -199,16 +197,15 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor:'purple',
     },
-    displayname: {
-        fontWeight: "bold",
-        fontSize: 25,
+    displayName: {
+        fontSize: 22,
         color: "white",
-        
+        fontFamily:"BadScript"
     },
     username: {
-        fontSize: 18,
+        fontSize: 16,
         color: "white",
-    
+        fontFamily:"BadScript"
     },
     postBody: {
         color: "white",
@@ -228,11 +225,13 @@ const styles = StyleSheet.create({
     
     timestamp: {
         color: "white",
+        fontFamily:"Montserrat"
     },
 
     likesText: {
         color: "white",
-        paddingLeft:10
+        paddingLeft:10,
+        fontFamily:"Montserrat"
     },
 
     likesContainer:{

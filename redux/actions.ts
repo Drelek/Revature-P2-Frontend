@@ -1,30 +1,11 @@
-import { IUser } from "../models/User";
-import axios from 'axios';
+import { IUser } from "../models/user";
 
-export enum ReducerActions {
-    FETCH_TOKEN = 'FETCH_TOKEN',
-    FETCH_USER = 'FETCH_USER'
+export enum UserAction {
+    LOGIN = 'Login',
+    LOGOUT = 'logout'
 }
 
-export interface UserActions {
-    type: ReducerActions,
-    payload: {
-        user?: IUser
-    }
+export interface IUserActions {
+    type: UserAction,
+    payload: {user?: IUser}
 }
-
-export  function fetchUser() {
-    axios.get('https://26p194s376.execute-api.us-west-2.amazonaws.com/test/user')
-        .then(resp => {
-            const user = resp.data.user;
-            return ({
-                type: 'FETCH_USER',
-                payload: {
-                    user : {user},
-                    loginToken: undefined
-                }            
-            })
-        }).catch(error => console.log(error));
-        
-        return {};
-    }

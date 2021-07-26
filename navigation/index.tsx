@@ -1,7 +1,7 @@
 import { NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator} from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React from 'react';
 import { RootStackParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
@@ -15,18 +15,23 @@ import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
 import SettingsStackScreen from './SettingsNav';
 import { enableScreens } from 'react-native-screens';
-
+import { useSelector } from "react-redux";
+import { IAppState } from '../Redux/Store';
 enableScreens();
 
 const CombinedDarkTheme = merge(PaperDarkTheme, MyTheme);
 
 const Navigation: React.FC = (props: any) => {
+  const user = useSelector((state: IAppState) => state.user);
+
   return (
     <PaperProvider theme={CombinedDarkTheme}>
       <NavigationContainer
       theme={CombinedDarkTheme}>
-        <RootDrawerNavigator/>
-        {/* <RootStackNavigator /> */}
+        {user ? 
+        <RootDrawerNavigator/> :
+        <RootStackNavigator />
+        }
       </NavigationContainer>
     </PaperProvider>
   );
@@ -41,12 +46,12 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootDrawerNavigator() {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Splash"
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} labelStyle={{FontFamily: 'Montserrat'}} />}>
+      {/* <Drawer.Screen name="Splash"
         options={({
           headerTitle: () => <Logo />,
         })}
-        component={SplashScreen} />
+        component={SplashScreen} /> */}
       <Drawer.Screen name="Home"
         component={HomeStackScreen} />
       <Drawer.Screen name="Setting"
@@ -55,16 +60,17 @@ function RootDrawerNavigator() {
   );
 }
 
-// function RootStackNavigator() {
-//   return (
-//     <Stack.Navigator screenOptions={{
-//       headerTitleAlign: 'center',
-//       }}>
-//       <Stack.Screen name="Splash"
-//         options={({
-//           headerTitle: () => <Logo />,
-//         })}
-//         component={SplashScreen} />
-//     </Stack.Navigator>
-//   );
-// }
+function RootStackNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerTitleAlign: 'center',
+      }}>
+      <Stack.Screen name="Splash"
+        options={({
+          headerTitle: () => <Logo />,
+        })}
+        component={SplashScreen}
+        />
+    </Stack.Navigator>
+  );
+}

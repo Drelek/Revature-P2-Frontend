@@ -8,7 +8,14 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
-import Loader from 'react-native-mask-loader';
+import { Provider } from 'react-redux';
+import { createStore, Store } from 'redux';
+import { reducers } from './redux/reducers';
+import { IAppState } from './redux/store';
+import { IUserActions } from './redux/actions';
+import { registerRootComponent } from 'expo';
+
+const store: Store<IAppState, IUserActions> = createStore(reducers);
 
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
@@ -28,17 +35,13 @@ const App:React.FC = () => {
     return null;
   } else {
     return (
-      <Loader
-        isLoaded={false}
-        imageSource={require('./assets/images/illuminati.png')}
-        backgroundStyle={styles.loadingBackgroundStyle}
-      >
+      <Provider store={store}>
         <View style={styles.container}>
           <Navigation/>
           <Canvas style={styles.canvas} ref={handleCanvas}/>
           <StatusBar/>
         </View>
-    </Loader>
+      </Provider>
     );
   }
 }
@@ -62,4 +65,5 @@ const styles = StyleSheet.create({
   }
 });
 
+registerRootComponent(App);
 export default App;

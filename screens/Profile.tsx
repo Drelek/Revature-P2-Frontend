@@ -1,9 +1,7 @@
-import * as React from 'react';
-import { Text, TextInput, View, StyleSheet, Image, SafeAreaView, Pressable, FlatList } from 'react-native';
+import React, { useState }from 'react';
+import { Text, View, StyleSheet, Image, SafeAreaView, Pressable, FlatList } from 'react-native';
 import { Card } from 'react-native-elements';
-import { useState } from 'react';
 import PostCard from './PostCard';
-import ProfileImgPlaceholder from '../assets/images/profile-img-placeholder.png'
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -59,11 +57,11 @@ const Profile = () => {
 
                         <View>
                             <Text 
-                                style={styles.displayname}
-                            >HolyGuack</Text>
+                                style={styles.displayName}
+                            >Hello</Text>
                             <Text
                                 style={styles.username}
-                            >@guackholy</Text>
+                            >@God</Text>
                             <Text
                                 style={styles.email}
                             >Email Placeholder</Text>     
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
     listOfPosts: {
         
     },
-    displayname: {
+    displayName: {
         fontWeight: "bold",
         fontSize: 25,
         color: "white",

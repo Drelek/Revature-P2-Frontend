@@ -6,6 +6,7 @@ import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 
 const SplashScreen: React.FC = (props:any) => {
+
   const [userSession, setUserSession] = useState({
     session: "login"
   });
@@ -40,7 +41,6 @@ const SplashScreen: React.FC = (props:any) => {
       </Pressable>
     }
   }
-
   function welcomeMessage(){
     const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
     return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`}/>

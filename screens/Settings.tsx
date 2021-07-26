@@ -6,7 +6,7 @@ const SettingsScreens:React.FC = () => {
     const [email, setEmail] = useState(' ');
     const [handle, setHandle] = useState(' ');
     const [password, setPassword] = useState(' ');
-    const [profileimg, setProfileImage] = useState(' ');
+    const [profileImg, setProfileImage] = useState(' ');
 
     function submitForm() {
 
@@ -21,7 +21,7 @@ const SettingsScreens:React.FC = () => {
                 <Text style={styles.text}> Login and Security </Text>
             </View>
             
-            <View style={styles.topform}>
+            <View style={styles.topForm}>
 
                 <TextInput style={styles.input}
                 placeholderTextColor="antiquewhite" placeholder="Email" onChangeText={(text) => setEmail(text)} />
@@ -40,7 +40,7 @@ const SettingsScreens:React.FC = () => {
             </View>
             <View>
                 <Pressable style={styles.button} onPress={() => submitForm()}>
-                    <Text style={styles.buttontext}>Submit</Text>
+                    <Text style={styles.buttonText}>Submit</Text>
                 </Pressable>
             </View>
         </Card>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 
-    topform: {
+    topForm: {
         margin:10
     },
     form: {
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         marginVertical:10,
         marginHorizontal:25
     },
-    buttontext: {
+    buttonText: {
         fontSize: 20,
         fontFamily: "BadScript",
         color: "white",

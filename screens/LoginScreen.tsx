@@ -1,45 +1,104 @@
-import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text, KeyboardAvoidingView, Button } from 'react-native';
-import { useState } from 'react';
+import React, { useState, FormEvent}from 'react';
+import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-native';
+import { IAppState } from '../Redux/Store';
 import { screenWidth } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
-
+import cogClient from '../Cognito';
+import { InitiateAuthCommand, InitiateAuthCommandInput} from '@aws-sdk/client-cognito-identity-provider';
+import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import {UserAction} from '../redux/actions';
 const LoginScreen: React.FC = (props:any) => {
-  const[username, setUsername] = useState(' ');
-  const[password, setPassword] = useState(' ');
+  const user = useSelector((state: IAppState) => state.user);
+  const dispatch = useDispatch();
+
+  const [userInfo, setUserInfo] = useState({
+        userName: '',
+        password: ''
+    });
+
   const navigation = useNavigation();
 
-  const validateLogin = () => {
-    navigation.navigate('Home');
+  async function submitForm(event: FormEvent) {
+        event.preventDefault();
+        const params: InitiateAuthCommandInput = {
+            AuthFlow: "USER_PASSWORD_AUTH",
+            AuthParameters: {
+                USERNAME: userInfo.userName,
+                PASSWORD: userInfo.password,
+                SCOPE: "openid"
+            },
+            ClientId: "gptc74a8d8t29m3a4pos69c2a"
+        }
+
+        const resp1 = await cogClient.send(new InitiateAuthCommand(params));
+        console.log(resp1);
+        console.log('step 1');
+        const resp2 = await axios.get('https://90yylhrbbh.execute-api.us-east-2.amazonaws.com/Prod/user/bob', {headers: {Authorization: resp1.AuthenticationResult?.AccessToken}})
+        console.log(resp2);
+        console.log('this is working');
   }
 
+  const submit = () => {
+    // console.log(user)
+    const newUser = {
+    userName: "kai",
+    displayName: "kai",
+    profileImg: "kai",
+    email: "kai",
+    password: "kai",
+  }
+    dispatch({
+      type: UserAction.LOGIN,
+      payload: {user:newUser},
+    });
+  //   console.log(user)
+  }
+
+  // const reduxChecker = () => {
+  //   console.log(user); 
+  // }
+
+  const redirect = () => {
+    navigation.navigate('Home');
+  }
+  
   return (
     <SafeAreaView style={styles.safeArea}>
+      {user !== undefined && redirect()}
       <SafeAreaView style={styles.safeArea}>
         <TextInput
         style={styles.input}
         placeholder="Username"
         placeholderTextColor="antiquewhite" 
-        onChangeText={(text) => setUsername(text)}
+        onChangeText={text => setUserInfo({ ...userInfo, userName: text})}
         keyboardType="ascii-capable"
       />
       <TextInput
         style={styles.input}
-        onChangeText={(text => setPassword(text))}
+        onChangeText={text => setUserInfo({ ...userInfo, userName: text})}
         placeholderTextColor="antiquewhite" 
         placeholder="Password"
         secureTextEntry={true}
       />
       <Pressable
         style={styles.button}
-        onPress={() => validateLogin()}>
+        // onPress={(e) => submitForm(e)}>
+        onPress={() => submit()}>
         <Text
           style={styles.text}>Submit</Text>
       </Pressable>
+      {/* <Pressable
+        style={styles.button}
+        // onPress={(e) => submitForm(e)}>
+        onPress={() => reduxChecker()}>
+        <Text
+          style={styles.text}>redux</Text>
+      </Pressable> */}
       </SafeAreaView>
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
-  );
+  )
 };
 
 const styles = StyleSheet.create({

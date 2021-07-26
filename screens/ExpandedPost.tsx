@@ -34,7 +34,6 @@ const ExpandedPost = (props : string) => {
                         <IndividualComment item={item}></IndividualComment>
                     }    
                 />
-
                 <AddComment></AddComment>
             </ScrollView>
 

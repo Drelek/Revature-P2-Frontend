@@ -1,7 +1,9 @@
-import { IUser } from "../Models/User";
-export interface INavigationState {
-  
-}
+import { IUser } from "../models/User";
+
 export interface IAppState {
-  user?: IUser;
+    user?: IUser;
+}
+
+export const initialState: IAppState = {
+    user: undefined,
 }

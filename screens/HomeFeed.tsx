@@ -5,7 +5,6 @@ import Post from '../models/Post';
 
 
 const HomeFeedScreen: React.FC = (props: any) => {
-    const user = "user";
     const array: Post[] = [];
 
     const [posts, setPosts] = useState(array);

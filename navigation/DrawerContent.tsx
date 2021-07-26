@@ -134,6 +134,7 @@ export const DrawerContent:React.FC = (props:any) => {
 const styles = StyleSheet.create({
     drawerContent: {
       flex: 1,
+    //   fontFamily:"BadScript"
     },
     userInfoSection: {
       paddingLeft: 20,
@@ -142,10 +143,12 @@ const styles = StyleSheet.create({
       fontSize: 18,
       marginTop: 3,
       fontWeight: 'bold',
+      fontFamily:"Montserrat"
     },
     caption: {
       fontSize: 14,
       lineHeight: 14,
+      fontFamily:"Montserrat"
     },
     row: {
       marginTop: 20,
@@ -160,6 +163,7 @@ const styles = StyleSheet.create({
     paragraph: {
       fontWeight: 'bold',
       marginRight: 3,
+      fontFamily:"Montserrat"
     },
     drawerSection: {
       marginTop: 15,
