@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
     },
     profileContainer:{
         flex:1,
-        borderBottomWidth: 4,
-        borderColor:"purple",
+        // borderBottomWidth: 4,
+        // borderColor:"purple",
     },
     postContainer:{
         flex:3,

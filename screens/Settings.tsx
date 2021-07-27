@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
         flex: 4,
     },
     cardActual: {
-        // flex:1,
         borderRadius:10,
         borderColor: 'purple', 
         borderWidth: 2,

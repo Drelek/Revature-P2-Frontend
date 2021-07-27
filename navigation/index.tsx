@@ -2,7 +2,7 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator} from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { RootStackParamList } from '../types';
+import { RootStackParamList, RootDrawerParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
 import Logo from '../components/logo';
@@ -43,7 +43,7 @@ export default Navigation;
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
-const Drawer = createDrawerNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootDrawerNavigator() {
@@ -59,6 +59,8 @@ function RootDrawerNavigator() {
       <Drawer.Screen name="Setting"
         component={SettingsStackScreen} />
       <Drawer.Screen name="Profile"
+        component={ProfileStackScreen} />
+      <Drawer.Screen name="ExpandedPost"
         component={ProfileStackScreen} />
     </Drawer.Navigator>
   );
