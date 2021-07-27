@@ -17,6 +17,8 @@ import SettingsStackScreen from './SettingsNav';
 import { enableScreens } from 'react-native-screens';
 import { useSelector } from "react-redux";
 import { IAppState } from '../Redux/Store';
+import ProfileStackScreen from './ProfileNav';
+
 enableScreens();
 
 const CombinedDarkTheme = merge(PaperDarkTheme, MyTheme);
@@ -46,7 +48,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootDrawerNavigator() {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} labelStyle={{FontFamily: 'Montserrat'}} />}>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
       {/* <Drawer.Screen name="Splash"
         options={({
           headerTitle: () => <Logo />,
@@ -56,6 +58,8 @@ function RootDrawerNavigator() {
         component={HomeStackScreen} />
       <Drawer.Screen name="Setting"
         component={SettingsStackScreen} />
+      <Drawer.Screen name="Profile"
+        component={ProfileStackScreen} />
     </Drawer.Navigator>
   );
 }

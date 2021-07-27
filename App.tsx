@@ -10,7 +10,7 @@ import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
-import { reducers } from './redux/reducers';
+import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
 import { IUserActions } from './redux/actions';
 import { registerRootComponent } from 'expo';

@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(33, 37, 41)',
     },
     containerHeadOfCard: {
+        flex: 1,
         flexDirection: "row"
     },
 
@@ -183,16 +184,18 @@ const styles = StyleSheet.create({
         borderColor:"purple"
     },
     defaultProfileImage: {
-        width: 80,
-        height: 80,
+        marginTop:5,
+        width: 90,
+        height: 90,
         borderRadius: 100,
         borderWidth:2,
         borderColor:'purple',
         backgroundColor:'purple'
     },
     profileImage: {
-        width: 80,
-        height: 80,
+        marginTop:5,
+        width: 90,
+        height: 90,
         borderRadius: 100,
         borderWidth:2,
         borderColor:'purple',
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
     username: {
         fontSize: 16,
         color: "white",
-        fontFamily:"BadScript"
+        fontFamily:"BadScript",
     },
     postBody: {
         color: "white",

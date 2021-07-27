@@ -8,7 +8,7 @@ export const reducers = (state: IAppState = initialState,action: IUserActions): 
         case UserAction.LOGIN:
             return {...newState, ...action.payload};
         case UserAction.LOGOUT:
-            return {user: undefined};
+            return {...state, user: undefined};
         default:
             return newState;
     }
