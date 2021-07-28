@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 const PostCard = (props: any) => {
     const navigation = useNavigation();
     const[isLiked, setLikedState] = useState(false);
-    const[numLikes, setNumLikes] = useState(0);
 
     useEffect(() => {
         //TODO
@@ -51,7 +50,7 @@ const PostCard = (props: any) => {
                     style={styles.defaultProfileImage}
                 />
             )
-        }else {
+        } else {
             return (
                 <Image
                     source={{uri:`${displayImg}`}}
@@ -75,7 +74,6 @@ const PostCard = (props: any) => {
                 />)
         }
     }
-    const userName = `@${props.item.userName}`;
 
     return (
         <View
@@ -98,7 +96,7 @@ const PostCard = (props: any) => {
                         >{props.item.displayName}</Text>
                         <Text
                             style={styles.username}
-                        >{userName}</Text>
+                        >{`@${props.item.userName}`}</Text>
                     </View>
                 </View>
                 
@@ -158,7 +156,8 @@ const styles = StyleSheet.create({
     },
     containerHeadOfCard: {
         flex: 1,
-        flexDirection: "row"
+        flexDirection: "row",
+        marginBottom:10
     },
 
     imageContainer:{
@@ -211,14 +210,13 @@ const styles = StyleSheet.create({
     },
     postBody: {
         color: "white",
-        padding:10,
-        fontFamily: "Montserrat"
+        fontFamily: "Montserrat",
+        marginBottom:10
     },
     
     heart: {
         width: 25,
         height: 25
-
     },
     comment: {
         width: 25,

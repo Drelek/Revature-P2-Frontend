@@ -9,6 +9,7 @@ const ExpandedPost: React.FC = (props:any) => {
     // const[timeStamp, setTimeStamp] = useState(props);
     //TODO 
     //Use timestamp to pull post in question from database
+    const[isLiked, setLikedState] = useState(false);
     const [commentList, setCommentList]  = useState(
     [{
         displayName:"Jesus",
@@ -65,22 +66,65 @@ const ExpandedPost: React.FC = (props:any) => {
         comment: "A comment everywhere"
     }
     ]);
-
-
-    const mergePostCommentData= () => {
-        const newComment = {
-            displayName:"Jesus",
-            profileImg:"",
-            timeStamp: "12/1/21 6:30pm",
-            comment:"this is kai"
+    const renderNumOfComments = () => {
+        const {comments} = props.item;
+        if(comments.length){
+            return comments.length;
+        } else {
+            return '';
         }
-        setCommentList([newComment])
     }
 
-    // useEffect(()=> mergePostCommentData());
+    const renderNumOfLikes = (likes: number[]) => {
+        if(likes.length){
+            return likes.length;
+        } else {
+            return ''; 
+        }
+    }
+
+    const renderProfileImageOrDefault = (displayImg:string) => {
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
+                />
+            )
+        } else {
+            return (
+                <Image
+                    source={{uri:`${displayImg}`}}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
+
+    const renderNotLikeOrLiked = () => {
+        if (isLiked){
+            return (
+            <Image 
+                source={require('../assets/images/likeIcon.png')}
+                style={styles.heart}
+            />)
+        } else {
+            return(<Image 
+                source={require('../assets/images/likedIcon.png')}
+                style={styles.heart}
+                />)
+        }
+    }
+
+    const mergePostCommentData= () => {
+        setCommentList([props.route.params,...commentList]);
+    }
+
+    useEffect(()=> mergePostCommentData(),[]);
 
     const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
-    const renderSinglePost = (item:any) => {
+
+    const renderSinglePost = () => {
         
         return (
         <View style={styles.postContainer}>
@@ -88,10 +132,7 @@ const ExpandedPost: React.FC = (props:any) => {
                 <Card containerStyle={styles.cardActual}>
 
                     <View style={styles.headerContainer}>
-                        <View><Image
-                                source={{uri:`${displayImg}`}}
-                                style={styles.profileImage}/>
-                        </View>
+                        <View>{renderProfileImageOrDefault(displayImg)}</View>
 
                         <View style={styles.infoContainer}>
                             <View><Text style={styles.displayName}>{displayName}</Text></View>
@@ -103,9 +144,15 @@ const ExpandedPost: React.FC = (props:any) => {
                     <View style={styles.bodyContainer}><Text style={styles.postBody}>{postBody}</Text></View>
 
                     <View style={styles.footerContainer}>
-                        <View style={styles.likesContainer}></View>
-                        <View style={styles.blank}></View>
-                        <View style={styles.timeStampContainer}><Text>{timeStamp}</Text></View>
+                        <View style={styles.likesContainer}>
+                            <Pressable onPress={ () => setLikedState(!isLiked) }>
+                                {renderNotLikeOrLiked()}
+                            </Pressable>
+
+                            <Text style={styles.likesText}>{renderNumOfLikes(likes)}</Text>
+                        </View>
+
+                        <View style={styles.timeStampContainer}><Text style={styles.timeStamp}>{timeStamp}</Text></View>
                     </View>
 
                 </Card>
@@ -115,12 +162,12 @@ const ExpandedPost: React.FC = (props:any) => {
     return (
         
         <View style={styles.container}>
-                <Pressable onPress={ () => mergePostCommentData()}>
+                {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
                 <Pressable onPress={ () => console.log(commentList)}>
                     <Text style={{color:"white"}}>EAZYMONEY</Text>
-                </Pressable>
+                </Pressable> */}
             <View style={styles.commentsContainer}>
 
                 <FlatList 
@@ -130,7 +177,7 @@ const ExpandedPost: React.FC = (props:any) => {
                         if (index !== 0){
                             return (<IndividualComment item={item}></IndividualComment>)
                         } else {
-                            return (renderSinglePost(item))
+                            return (renderSinglePost())
                         }
                     }}
                     keyExtractor={(item, index) => index.toString()}
@@ -156,7 +203,7 @@ const styles = StyleSheet.create({
     },
     
     cardActual:{
-        borderWidth: 2,
+        borderWidth: 5,
         borderColor: "purple",
         borderRadius:10,
         backgroundColor:"rgb(33, 37, 41)"
@@ -172,21 +219,44 @@ const styles = StyleSheet.create({
         width:80,
         borderRadius:100,
         borderWidth: 2,
-        borderColor: "purple"
+        borderColor: "purple",
+        marginRight:15
     },
 
     infoContainer: {
+        flex:2,
         flexDirection:"column",
-        justifyContent: "space-around"
+        justifyContent: "center"
     },
 
     bodyContainer:{
-
+        flex:1
     },
 
     footerContainer:{
-
+        flex:1,
+        paddingTop:10,
+        flexDirection: "row",
+        justifyContent:"space-around",
+        borderTopWidth:2,
+        borderColor:"purple",
     },
+
+    likesContainer:{
+        flex:1,
+        flexDirection: "row",
+    },
+
+    blank: {
+        flex:1,
+    },
+
+    timeStampContainer:{
+        flex:1,
+        flexDirection: "row",
+        justifyContent:"flex-end"
+    },
+
     commentsContainer: {
         flex: 3,
     },
@@ -197,14 +267,43 @@ const styles = StyleSheet.create({
     
     displayName: {
         color: "white",
+        fontFamily:"BadScript",
+        fontSize: 20
     },
 
     userName: {
         color: "white",
+        fontFamily:"BadScript"
     },
 
     postBody:{
         color: "white",
+        marginBottom:10,
+        fontSize:16,
+        fontFamily:"Montserrat"
     },
+
+    defaultProfileImage: {
+        marginTop:5,
+        width: 90,
+        height: 90,
+        borderRadius: 100,
+        borderWidth:2,
+        borderColor:'purple',
+    },
+
+    heart: {
+        width: 25,
+        height: 25
+    },
+
+    timeStamp: {
+        color: "white",
+    },
+    
+    likesText:{
+        color: "white",
+        marginLeft:10
+    }
 })
 export default ExpandedPost;
