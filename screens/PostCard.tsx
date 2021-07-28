@@ -73,6 +73,7 @@ const PostCard = (props: any) => {
                         style={{backfaceVisibility: "hidden"}}
                         onPress= { () => redirectToExtendedPostScreen()}>
                         <Image
+                            
                             source={require('../assets/images/comment-icon-transparent.png')}
                             style={styles.comment}
                         />
