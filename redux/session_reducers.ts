@@ -1,14 +1,18 @@
-import { UserAction, IUserActions } from "./actions";
+import { AppAction, IAppActions } from "./actions";
 import { IAppState, initialState } from "./store";
 
 
-export const reducers = (state: IAppState = initialState,action: IUserActions): IAppState => {
+export const reducers = (state: IAppState = initialState, action: IAppActions): IAppState => {
     const newState = {...state};
     switch(action.type) {
-        case UserAction.LOGIN:
+        case AppAction.LOGIN:
             return {...newState, ...action.payload};
-        case UserAction.LOGOUT:
-            return {...state, user: undefined};
+        case AppAction.LOGOUT:
+            return {...state, user: undefined, auth: undefined};
+        case AppAction.UPDATE_USER:
+            return {...state, user: action.payload?.user};
+        case AppAction.TOGGLE_CANVAS:
+            return {...state, canvas: !state.canvas};
         default:
             return newState;
     }
