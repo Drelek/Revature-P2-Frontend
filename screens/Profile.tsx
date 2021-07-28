@@ -126,8 +126,6 @@ const styles = StyleSheet.create({
     },
     profileContainer:{
         flex:1,
-        // borderBottomWidth: 4,
-        // borderColor:"purple",
     },
     postContainer:{
         flex:3,
@@ -144,7 +142,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(33, 37, 41)',
         borderRadius:10,
         borderColor: 'purple', 
-        borderWidth: 2,
+        borderWidth: 5, 
         marginBottom:10
     },
     image: {

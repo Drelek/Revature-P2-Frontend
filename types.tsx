@@ -1,7 +1,7 @@
 export type RootDrawerParamList = {
   Home: {userId: string};
   Profile: {userId: string};
-  Setting: {userId: string};
+  Settings: {userId: string};
   ExpandedPost: {userId: string};
 };
 

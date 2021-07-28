@@ -1,5 +1,5 @@
 import React, { useState }  from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, Pressable} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 
@@ -9,7 +9,7 @@ const Feed: React.FC = (props: any) => {
 
     const [postCards, setPostCards] = useState([
         {
-            displayImg: undefined,
+            displayImg: 'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
             displayName: "my name is Mo",
             userName: "name",
             postBody: "I know the truth,The search bar allows users to search for user handles. The user's input queries the database and returns the closest. We plan to implement follow, likes and comment functionality in the near future and even making our application mobile friendly!",
@@ -67,5 +67,8 @@ const styles = StyleSheet.create({
     item: {
         // padding:10,
         color: "white"
+    },
+    text:{
+        color: "white",
     }
 })

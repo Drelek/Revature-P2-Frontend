@@ -66,7 +66,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.navigate("Home",{screen:"Home"})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -77,7 +77,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {props.navigation.navigate('Profile')}}
+                            onPress={() => {props.navigation.navigate('Home',{screen: "Profile"})}}
                         />
                         <DrawerItem labelStyle={styles.label}
                             icon={({color, size}) => (
@@ -88,7 +88,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Settings"
-                            onPress={() => {props.navigation.navigate('Setting')}}
+                            onPress={() => {props.navigation.navigate("Home",{screen: "Settings"})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

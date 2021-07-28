@@ -1,10 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card } from 'react-native-elements'
-
+import { useNavigation } from '@react-navigation/native';
 
 const PostCard = (props: any) => {
-
+    const navigation = useNavigation();
     const[isLiked, setLikedState] = useState(false);
     const[numLikes, setNumLikes] = useState(0);
 
@@ -20,8 +20,8 @@ const PostCard = (props: any) => {
     }
 
     const redirectToExtendedPostScreen = () => {
-        //TODO
-        
+        const {item} = props
+        navigation.navigate("ExpandedPost", item)
     }
 
     const renderNumOfComments = () => {
@@ -136,7 +136,6 @@ const PostCard = (props: any) => {
                     <View style={styles.timeStampContainer}>
                         <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
                     </View>
-                    
                 </View>            
             </Card>
             

@@ -57,11 +57,5 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: 'rgb(33, 37, 41)',
         flex:1, 
-        borderTopLeftRadius:20, 
-        borderColor: 'plum', 
-        borderWidth: 1,
-        borderTopRightRadius:20,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
     }
 })
