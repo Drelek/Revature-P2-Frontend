@@ -1,80 +1,25 @@
-import React, { useState, useEffect} from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
 
-const ExpandedPost: React.FC = (props:any) => {
+const ExpandedPost: React.FC = (props: any) => {
     // const[timeStamp, setTimeStamp] = useState(props);
     //TODO 
     //Use timestamp to pull post in question from database
-    const[isLiked, setLikedState] = useState(false);
-    const [commentList, setCommentList]  = useState(
-    [{
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    },
-    {   
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    }
-    ]);
-    
+    const [isLiked, setLikedState] = useState(false);
+    const [commentList, setCommentList] = useState([]);
+
     const renderNumOfLikes = (likes: number[]) => {
-        if(likes.length){
+        if (likes.length) {
             return likes.length;
         } else {
-            return ''; 
+            return '';
         }
     }
 
-    const renderProfileImageOrDefault = (displayImg:string) => {
+    const renderProfileImageOrDefault = (displayImg: string) => {
         if (!displayImg) {
             return (
                 <Image
@@ -85,7 +30,7 @@ const ExpandedPost: React.FC = (props:any) => {
         } else {
             return (
                 <Image
-                    source={{uri:`${displayImg}`}}
+                    source={{ uri: `${displayImg}` }}
                     style={styles.profileImage}
                 />
             )
@@ -93,32 +38,32 @@ const ExpandedPost: React.FC = (props:any) => {
     }
 
     const renderNotLikeOrLiked = () => {
-        if (isLiked){
+        if (isLiked) {
             return (
-            <Image 
-                source={require('../assets/images/likeIcon.png')}
-                style={styles.heart}
-            />)
+                <Image
+                    source={require('../assets/images/likeIcon.png')}
+                    style={styles.heart}
+                />)
         } else {
-            return(<Image 
+            return (<Image
                 source={require('../assets/images/likedIcon.png')}
                 style={styles.heart}
-                />)
+            />)
         }
     }
 
-    const mergePostCommentData= () => {
-        setCommentList([props.route.params,...commentList]);
+    const mergePostCommentData = () => {
+        setCommentList([props.route.params, ...commentList]);
     }
 
-    useEffect(()=> mergePostCommentData(),[]);
+    useEffect(() => mergePostCommentData(), []);
 
-    const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
+    const { displayName, displayImg, userName, postBody, likes, timeStamp } = props.route.params;
 
     const renderSinglePost = () => {
-        
+
         return (
-        <View style={styles.postContainer}>
+            <View style={styles.postContainer}>
 
                 <Card containerStyle={styles.cardActual}>
 
@@ -129,14 +74,14 @@ const ExpandedPost: React.FC = (props:any) => {
                             <View><Text style={styles.displayName}>{displayName}</Text></View>
                             <View><Text style={styles.userName}>{`@${userName}`}</Text></View>
                         </View>
-                        
+
                     </View>
 
                     <View style={styles.bodyContainer}><Text style={styles.postBody}>{postBody}</Text></View>
 
                     <View style={styles.footerContainer}>
                         <View style={styles.likesContainer}>
-                            <Pressable onPress={ () => setLikedState(!isLiked) }>
+                            <Pressable onPress={() => setLikedState(!isLiked)}>
                                 {renderNotLikeOrLiked()}
                             </Pressable>
 
@@ -148,25 +93,26 @@ const ExpandedPost: React.FC = (props:any) => {
 
                 </Card>
             </View>
-        )}
+        )
+    }
 
     return (
-        
+
         <View style={styles.container}>
-                {/* <Pressable onPress={ () => mergePostCommentData()}>
+            {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
                 <Pressable onPress={ () => console.log(commentList)}>
                     <Text style={{color:"white"}}>EAZYMONEY</Text>
                 </Pressable> */}
-        {/* <View style={styles.inner}> */}
+            {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
-                <FlatList 
-                
+                <FlatList
+
                     data={commentList}
-                    renderItem={({item, index}) => {
-                        if (index !== 0){
+                    renderItem={({ item, index }) => {
+                        if (index !== 0) {
                             return (<IndividualComment item={item}></IndividualComment>)
                         } else {
                             return (renderSinglePost())
@@ -180,114 +126,115 @@ const ExpandedPost: React.FC = (props:any) => {
             <View style={styles.addCommentContainer}>
                 <AddComment></AddComment>
             </View>
-     {/* </View> */}
+            {/* </View> */}
         </View>
-    )}
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
     },
 
-    inner:{
-        flex:1,
-        justifyContent:"flex-end",
+    inner: {
+        flex: 1,
+        justifyContent: "flex-end",
     },
 
     postContainer: {
         flex: 2,
         flexDirection: 'column'
     },
-    
-    cardActual:{
+
+    cardActual: {
         borderWidth: 5,
         borderColor: "purple",
-        borderRadius:10,
-        backgroundColor:"rgb(33, 37, 41)"
+        borderRadius: 10,
+        backgroundColor: "rgb(33, 37, 41)"
     },
 
-    headerContainer:{
-        flexDirection:"row",
-        marginBottom:10
+    headerContainer: {
+        flexDirection: "row",
+        marginBottom: 10
     },
 
     profileImage: {
-        height:80,
-        width:80,
-        borderRadius:100,
+        height: 80,
+        width: 80,
+        borderRadius: 100,
         borderWidth: 2,
         borderColor: "purple",
-        marginRight:15
+        marginRight: 15
     },
 
     infoContainer: {
-        flex:2,
-        flexDirection:"column",
+        flex: 2,
+        flexDirection: "column",
         justifyContent: "center"
     },
 
-    bodyContainer:{
-        flex:1
+    bodyContainer: {
+        flex: 1
     },
 
-    footerContainer:{
-        flex:1,
-        paddingTop:10,
+    footerContainer: {
+        flex: 1,
+        paddingTop: 10,
         flexDirection: "row",
-        justifyContent:"space-around",
-        borderTopWidth:2,
-        borderColor:"purple",
+        justifyContent: "space-around",
+        borderTopWidth: 2,
+        borderColor: "purple",
     },
 
-    likesContainer:{
-        flex:1,
+    likesContainer: {
+        flex: 1,
         flexDirection: "row",
     },
 
     blank: {
-        flex:1,
+        flex: 1,
     },
 
-    timeStampContainer:{
-        flex:1,
+    timeStampContainer: {
+        flex: 1,
         flexDirection: "row",
-        justifyContent:"flex-end"
+        justifyContent: "flex-end"
     },
 
     commentsContainer: {
         flex: 5,
-        marginBottom:10
+        marginBottom: 10
     },
 
     addCommentContainer: {
         flex: 1,
     },
-    
+
     displayName: {
         color: "white",
-        fontFamily:"BadScript",
+        fontFamily: "BadScript",
         fontSize: 20
     },
 
     userName: {
         color: "white",
-        fontFamily:"BadScript"
+        fontFamily: "BadScript"
     },
 
-    postBody:{
+    postBody: {
         color: "white",
-        marginBottom:10,
-        fontSize:16,
-        fontFamily:"Montserrat"
+        marginBottom: 10,
+        fontSize: 16,
+        fontFamily: "Montserrat"
     },
 
     defaultProfileImage: {
-        marginTop:5,
+        marginTop: 5,
         width: 90,
         height: 90,
         borderRadius: 100,
-        borderWidth:2,
-        borderColor:'purple',
+        borderWidth: 2,
+        borderColor: 'purple',
     },
 
     heart: {
@@ -298,10 +245,10 @@ const styles = StyleSheet.create({
     timeStamp: {
         color: "white",
     },
-    
-    likesText:{
+
+    likesText: {
         color: "white",
-        marginLeft:10
+        marginLeft: 10
     }
 })
 export default ExpandedPost;

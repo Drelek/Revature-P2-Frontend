@@ -4,10 +4,9 @@ import { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { reducers } from './redux/reducers';
+import { reducers } from './redux/session_reducers';
 import SplashScreen from './screens/SplashScreen'
 import Settings from './screens/Settings'
-import SignUpScreen from './screens/SignUpScreen';
 import Profile from './screens/Profile'
 import PostCard from './screens/PostCard'
 import LoginScreen from './screens/LoginScreen'
@@ -41,12 +40,6 @@ describe('SplashScreen', () => {
     });
 })
 
-describe('SignUpScreen', () => {
-    it('renders without crashing', () => {
-        const component = shallow(<SignUpScreen />);
-        expect(component).toMatchSnapshot();
-    });
-})
 
 describe('Settings', () => {
     it('renders without crashing', () => {
@@ -62,12 +55,7 @@ describe('Profile', () => {
     });
 })
 
-describe('Post Card', () => {
-    it('renders without crashing', () => {
-        const component = shallow(<PostCard />);
-        expect(component).toMatchSnapshot();
-    });
-})
+
 
 describe('LoginScreen', () => {
     it('renders without crashing', () => {
@@ -85,7 +73,7 @@ describe('HomeFeedScreen', () => {
 
 describe('Expanded Post', () => {
     it('renders without crashing', () => {
-        const component = shallow(<ExpandedPost />);
+        const component = shallow(<Provider store={store}><ExpandedPost /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
@@ -109,12 +97,6 @@ describe('Canvas comp', () => {
     });
 })
 
-describe('FeedPicker comp', () => {
-    it('renders without crashing', () => {
-        const component = shallow(<FeedPicker />);
-        expect(component).toMatchSnapshot();
-    });
-})
 
 describe('FollowIcon comp', () => {
     it('renders without crashing', () => {
@@ -137,9 +119,3 @@ describe('Logo comp', () => {
     });
 })
 
-describe('Menu Icon', () => {
-    it('renders without crashing', () => {
-        const component = shallow(<MenuIcon />);
-        expect(component).toMatchSnapshot();
-    });
-})

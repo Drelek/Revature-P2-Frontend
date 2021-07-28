@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.17% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>2/24</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.17% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>2/24</span>
             </div>
         
             
@@ -181,11 +181,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -296,12 +296,12 @@ import { screenWidth } from '../constants/Layout';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
 &nbsp;
-const SignUpScreen = (props:any) =&gt; {
-    const[username, setUsername] = useState(' ');
-    const[displayname, setDisplayName] = useState(' ');
-    const[email, setEmail] = useState(' ');
-    const[password, setPassword] = useState(' ');
-    const navigation = useNavigation();
+const SignUpScreen = <span class="fstat-no" title="function not covered" >(p</span>rops:any) =&gt; {
+    const[username, setUsername] = <span class="cstat-no" title="statement not covered" >useState(' ');</span>
+    const[displayname, setDisplayName] = <span class="cstat-no" title="statement not covered" >useState(' ');</span>
+    const[email, setEmail] = <span class="cstat-no" title="statement not covered" >useState(' ');</span>
+    const[password, setPassword] = <span class="cstat-no" title="statement not covered" >useState(' ');</span>
+    const navigation = <span class="cstat-no" title="statement not covered" >useNavigation();</span>
 &nbsp;
     const createNewUser = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      navigation.navigate("Home");</span>
@@ -330,7 +330,7 @@ const SignUpScreen = (props:any) =&gt; {
           &lt;TextInput
             style={styles.input}
             placeholder="Username"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={<span class="fstat-no" title="function not covered" >(t</span>ext) =&gt; <span class="cstat-no" title="statement not covered" >setUsername(text)}</span>
             keyboardType="ascii-capable"
           /&gt;
@@ -338,20 +338,20 @@ const SignUpScreen = (props:any) =&gt; {
             style={styles.input}
             onChangeText={(<span class="fstat-no" title="function not covered" >te</span>xt =&gt; <span class="cstat-no" title="statement not covered" >setPassword(text))</span>}
             placeholder="Password"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             secureTextEntry={true}
           /&gt;
           &lt;TextInput
             style={styles.input}
             placeholder="Display Name"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={<span class="fstat-no" title="function not covered" >(t</span>ext) =&gt; <span class="cstat-no" title="statement not covered" >setUsername(text)}</span>
             keyboardType="ascii-capable"
           /&gt;
           &lt;TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={<span class="fstat-no" title="function not covered" >(t</span>ext) =&gt; {
 <span class="cstat-no" title="statement not covered" >                validateEmail(text)</span>
 <span class="cstat-no" title="statement not covered" >                setUsername(text)</span>
@@ -396,7 +396,7 @@ const SignUpScreen = (props:any) =&gt; {
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'antiquewhite',
+    color: 'white',
   },
   safeArea: {
     flex: 3,
@@ -412,7 +412,7 @@ export default SignUpScreen;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 12:05:57 GMT-0700 (Pacific Daylight Time)
+                at Wed Jul 28 2021 12:28:38 GMT-0700 (Pacific Daylight Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
