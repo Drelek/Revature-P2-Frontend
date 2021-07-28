@@ -1,13 +1,14 @@
-import { DrawerScreenProps } from "@react-navigation/drawer";
+export type RootDrawerParamList = {
+  Home: {userId: string};
+  Profile: {userId: string};
+  Settings: {userId: string};
+  ExpandedPost: {userId: string};
+};
 
 export type RootStackParamList = {
   Splash: undefined;
-  Home: {userId: string};
-  Profile: {userId: string};
-  Setting: {userId: string};
 };
 
-export type HomeNavigationProp = DrawerScreenProps<RootStackParamList, "Home">
 
 
 

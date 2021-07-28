@@ -1,11 +1,12 @@
 import React, {useState }from 'react';
-import { StyleSheet, Text, SafeAreaView, Pressable} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 
 const SplashScreen: React.FC = (props:any) => {
+
   const [userSession, setUserSession] = useState({
     session: "login"
   });
@@ -15,15 +16,11 @@ const SplashScreen: React.FC = (props:any) => {
     const session = userSession.session;
     if (session === "login"){
       return (
-        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
-          <LoginScreen/>
-        // </KeyboardAwareScrollView>
+        <LoginScreen/>
       )
     } else if(session === "sign-up"){
       return (
-        // <KeyboardAwareScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
-          <SignUpScreen/>
-        // </KeyboardAwareScrollView>
+        <SignUpScreen/>
       )
     }
   }
@@ -44,7 +41,6 @@ const SplashScreen: React.FC = (props:any) => {
       </Pressable>
     }
   }
-
   function welcomeMessage(){
     const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
     return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`}/>
@@ -63,7 +59,7 @@ const SplashScreen: React.FC = (props:any) => {
         <SafeAreaView>{renderSessionButton()}</SafeAreaView>
       </SafeAreaView>
       
-      <SafeAreaView style={styles.smallView} />
+        <SafeAreaView style={styles.smallView} />
 
     </SafeAreaView>
   )
@@ -99,8 +95,9 @@ const styles = StyleSheet.create({
 
   text:{
     color:"white",
-    fontSize: 18,
+    fontSize: 20,
     backgroundColor:"transparent",
+    // fontFamily: "Montserrat",
   },
 
   message:{

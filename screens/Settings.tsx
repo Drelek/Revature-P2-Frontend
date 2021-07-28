@@ -1,67 +1,122 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
 import React, { useState } from 'react';
-import { Pressable } from 'react-native';
-
-export default function Settings() {
+import {Card} from 'react-native-elements'
+const SettingsScreens:React.FC = () => {
 
     const [email, setEmail] = useState(' ');
     const [handle, setHandle] = useState(' ');
     const [password, setPassword] = useState(' ');
-    const [profileimg, setProfileImage] = useState(' ');
+    const [profileImg, setProfileImage] = useState(' ');
 
     function submitForm() {
 
     }
 
     return (
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+        <View style={styles.smallView}></View>
+        <SafeAreaView style={styles.largeView}>
+        <Card containerStyle={styles.cardActual}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.text}> Login and Security </Text>
+            </View>
+            
+            <View style={styles.topForm}>
 
-        <View style={styles.formcontainer}>
-            <Text style={styles.text}> Change your profile information </Text>
-            <View style={styles.topform}>
-
-                <TextInput placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Password" onChangeText={(text) => setPassword(text)} />
+                <TextInput  style={styles.input}
+                placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
             </View>
             <View style={styles.form}>
-                <TextInput placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                <TextInput style={styles.input}
+                placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
             </View>
             <View>
                 <Pressable style={styles.button} onPress={() => submitForm()}>
-                    <Text style={styles.buttontext}>Submit</Text>
+                    <Text style={styles.buttonText}>Submit</Text>
                 </Pressable>
             </View>
-        </View>
+        </Card>
+        </SafeAreaView>
+        <View style={styles.bottomView}></View>
+    </KeyboardAvoidingView>
     );
-};
+}
 
 const styles = StyleSheet.create({
-    formcontainer: {
-        flex: 1,
-        backgroundColor: "white"
+    container:{
+        flex:1,
+        justifyContent:'center'
     },
-    topform: {
-        marginTop: 100,
-        marginLeft: 100,
+    smallView:{
+        flex:1,
+    },
+    bottomView:{
+        flex:1
+    },
+    largeView:{
+        flex: 2,
+        justifyContent: 'flex-end'
+    },
+    cardActual: {
+        borderRadius:10,
+        borderColor: 'purple', 
+        borderWidth: 2,
+        backgroundColor: 'rgb(33, 37, 41)',
+        color: 'white',
+    },
+
+    topForm: {
+        margin:10
     },
     form: {
-        marginTop: 30,
-        marginLeft: 100,
+        margin:10
     },
+
+    titleContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+
     text: {
-        marginTop: 50,
-        fontSize: 25
+        fontSize: 25,
+        color: "white",
+        fontFamily: "BadScript",
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    input:{
+        fontFamily: "BadScript",
+        fontSize: 18,
+        color: "white",
+        borderBottomWidth: 2,
+        borderColor: 'purple',
+        paddingBottom: 10,
+        alignItems: 'center',
+        textAlign: 'center',
     },
     button: {
-        marginTop: 30,
-        marginLeft: 50
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        backgroundColor: 'purple',
+        marginVertical:10,
+        marginHorizontal:25
     },
-    buttontext: {
-        fontSize: 15
+    buttonText: {
+        fontSize: 20,
+        fontFamily: "BadScript",
+        color: "white",
     }
 })
+
+export default SettingsScreens;
 

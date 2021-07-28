@@ -1,30 +1,20 @@
-import { IUser } from "../models/User";
-import axios from 'axios';
+import { ICanvas } from '../models/Canvas'
+import { IUser } from "../models/user";
 
-export enum ReducerActions {
-    FETCH_TOKEN = 'FETCH_TOKEN',
-    FETCH_USER = 'FETCH_USER'
+export enum UserAction {
+    LOGIN = 'Login',
+    LOGOUT = 'Logout',
 }
 
-export interface UserActions {
-    type: ReducerActions,
-    payload: {
-        user?: IUser
-    }
+export enum CanvasAction {
+    CANVAS = 'CANVAS'
 }
 
-export  function fetchUser() {
-    axios.get('https://26p194s376.execute-api.us-west-2.amazonaws.com/test/user')
-        .then(resp => {
-            const user = resp.data.user;
-            return ({
-                type: 'FETCH_USER',
-                payload: {
-                    user : {user},
-                    loginToken: undefined
-                }            
-            })
-        }).catch(error => console.log(error));
-        
-        return {};
-    }
+export interface ICanvasAction {
+    type: CanvasAction,
+    payload: {canvas: ICanvas}
+}
+export interface IUserActions {
+    type: UserAction,
+    payload: {user?: IUser}
+}

@@ -1,7 +1,9 @@
+import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import {Image, StyleSheet, View} from 'react-native'
 
 const GlobalEye: React.FC = (props: any) => {
+
   return (
     <View style={styles.container}>
       <Image
@@ -18,12 +20,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
   },
-
-  // text:{
-  //   alignContent: "center",
-  //   justifyContent: "center",
-  //   color: "antiquewhite"
-  // },
 
   logo:{
     width: 25, 
