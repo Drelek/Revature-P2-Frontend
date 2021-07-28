@@ -1,65 +1,140 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
 
 const IndividualComment = (props: any) => {
+    // console.log(!props.item.displayImg)
     const {displayImg, comment, displayName, timeStamp} = props.item
-    // const renderProfileImageOrDefault = (displayImg:string) => {
-    //     if (!displayImg) {
-    //         return (
-    //             <Image
-    //                 source={require('../assets/images/illuminati.png')}
-    //                 style={styles.defaultProfileImage}
-    //             />
-    //         )
-    //     } else {
-    //         return (
-    //             <Image
-    //                 source={{uri:`${displayImg}`}}
-    //                 style={styles.profileImage}
-    //             />
-    //         )
-    //     }
-    // }
 
-    return(
+    const renderProfileImageOrDefault = () => {
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
+                />
+            )
+        } else {
+            return (
+                <Image
+                    source={{uri:`${displayImg}`}}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
 
-        <Card
-            containerStyle={styles.card}
-        >
-            <View
-                style={styles.container}
-            >
-                <Text
-                    style={styles.comment}
-                >{comment}</Text>
+    return (
+        <Card containerStyle={styles.card}>
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                {renderProfileImageOrDefault()}
             </View>
-        </Card>
-        
 
+            <View style={styles.dataContainer}>
+
+                <View style={styles.nameTimeContainer}>
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.displayName}>{displayName}</Text>
+                    </View>
+
+                    <View style={styles.timeContainer}>
+                        <Text style={styles.timeStamp}>{timeStamp}</Text>
+                    </View>
+                </View>
+               
+               <View style={styles.commentContainer}>
+                    <Text style={styles.comment}>{comment}</Text>
+               </View>
+
+            </View>
+            </View>
+            
+
+        </Card>
     )
 }
 export default IndividualComment;
 
 const styles = StyleSheet.create({
+    card: {
+        borderColor: 'purple', 
+        borderWidth: 2,
+        borderRadius:10,
+        backgroundColor:"rgb(33, 37, 41)"
+    },
+
+    container: {
+        flex: 1,
+        flexDirection:"row",
+        borderRadius:2,
+        borderColor: 'purple',
+    },    
+
+    imageContainer: {
+        flex:1,
+    },
+
+    dataContainer: {
+        flex:4,
+        flexDirection:"column"
+    },
+
+    nameTimeContainer: {
+        flex:1,
+        flexDirection:"row",
+        justifyContent: "space-around",
+        marginBottom:5,
+        paddingBottom:5,
+        borderBottomWidth:2,
+        borderColor: 'purple'
+    },
+
+    nameContainer:{
+        flex:1
+    },
+
+    timeContainer:{
+        flex:1,
+        flexDirection:"row",
+        justifyContent:"flex-end"
+    },
+
+    commentContainer:{
+        flex:1
+    },
+
     comment: {
         fontSize: 14,
         color: "white",
     },
-    container: {
-        flex: 1,
-        justifyContent: 'space-around',
 
+    displayName: {
+        fontSize: 14,
+        color: "white",
+        fontWeight: "bold",
     },
-    card: {
-        borderColor: 'purple', 
-        borderWidth: 1,
-        borderRadius:10,
-        backgroundColor:"rgb(33, 37, 41)"
+
+    timeStamp: {
+        fontSize: 14,
+        color: "white",
     },
+    
     defaultProfileImage:{
-
+        height:40,
+        width:40,
+        borderRadius: 100,
+        backgroundColor:'purple',
+        borderWidth:2,
+        borderColor: 'purple',
     },
-    profileImage: {},
+    profileImage: {
+        height:40,
+        width:40,
+        borderRadius: 100,
+        backgroundColor:'purple',
+        borderWidth:2,
+        borderColor: 'purple',
+    },
 })
 

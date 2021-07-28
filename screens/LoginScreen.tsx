@@ -7,7 +7,7 @@ import cogClient from '../Cognito';
 import { InitiateAuthCommand, InitiateAuthCommandInput} from '@aws-sdk/client-cognito-identity-provider';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import {UserAction} from '../redux/actions';
+import {AppAction} from '../redux/actions';
 const LoginScreen: React.FC = (props:any) => {
   const user = useSelector((state: IAppState) => state.user);
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const LoginScreen: React.FC = (props:any) => {
     password: "kai",
   }
     dispatch({
-      type: UserAction.LOGIN,
+      type: AppAction.LOGIN,
       payload: {user:newUser},
     });
   //   console.log(user)
