@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Text, TextInput, StyleSheet, Pressable, Button, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, TextInput, StyleSheet, Pressable, View } from 'react-native';
 import { useState } from 'react';
 
 const AddComment = () => {
@@ -18,7 +17,7 @@ const AddComment = () => {
             <View style={styles.inputContainer}> 
                 <TextInput
                     placeholder="Add a comment..."
-                    placeholderTextColor="antiquewhite" 
+                    placeholderTextColor="white" 
                     style={styles.inputBox}
                     onChangeText={(text)=> setNewComment(text)}
                 />

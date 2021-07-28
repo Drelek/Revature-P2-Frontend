@@ -3,6 +3,24 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 
 const IndividualComment = (props: any) => {
+    const {displayImg, comment, displayName, timeStamp} = props.item
+    const renderProfileImageOrDefault = (displayImg:string) => {
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
+                />
+            )
+        } else {
+            return (
+                <Image
+                    source={{uri:`${displayImg}`}}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
 
     return(
 
@@ -14,7 +32,7 @@ const IndividualComment = (props: any) => {
             >
                 <Text
                     style={styles.comment}
-                >{props.item.comment}</Text>
+                >{comment}</Text>
             </View>
         </Card>
         
@@ -32,7 +50,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-around',
 
-        
     },
     card: {
         borderColor: 'purple', 

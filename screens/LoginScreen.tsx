@@ -70,14 +70,14 @@ const LoginScreen: React.FC = (props:any) => {
         <TextInput
         style={styles.input}
         placeholder="Username"
-        placeholderTextColor="antiquewhite" 
+        placeholderTextColor="white" 
         onChangeText={text => setUserInfo({ ...userInfo, userName: text})}
         keyboardType="ascii-capable"
       />
       <TextInput
         style={styles.input}
         onChangeText={text => setUserInfo({ ...userInfo, userName: text})}
-        placeholderTextColor="antiquewhite" 
+        placeholderTextColor="white" 
         placeholder="Password"
         secureTextEntry={true}
       />
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'antiquewhite',
+    color: 'white',
   },
   safeArea: {
     flex: 3,

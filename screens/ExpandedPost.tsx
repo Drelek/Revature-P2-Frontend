@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image} from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -13,55 +12,55 @@ const ExpandedPost: React.FC = (props:any) => {
     const [commentList, setCommentList]  = useState(
     [{
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:'https://reactnative.dev/img/tiny_logo.png',
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {   
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:"",
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
-        profileImg:"",
+        displayImg:'https://reactnative.dev/img/tiny_logo.png',
         timeStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     }
@@ -160,6 +159,7 @@ const ExpandedPost: React.FC = (props:any) => {
                 <Pressable onPress={ () => console.log(commentList)}>
                     <Text style={{color:"white"}}>EAZYMONEY</Text>
                 </Pressable> */}
+        {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
                 <FlatList 
@@ -180,13 +180,18 @@ const ExpandedPost: React.FC = (props:any) => {
             <View style={styles.addCommentContainer}>
                 <AddComment></AddComment>
             </View>
-
+     {/* </View> */}
         </View>
     )}
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
+    },
+
+    inner:{
+        flex:1,
+        justifyContent:"flex-end",
     },
 
     postContainer: {

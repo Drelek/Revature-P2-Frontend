@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView} from 'react-native'
+import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
 import React, { useState } from 'react';
 import {Card} from 'react-native-elements'
 const SettingsScreens:React.FC = () => {
@@ -13,7 +13,7 @@ const SettingsScreens:React.FC = () => {
     }
 
     return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <View style={styles.smallView}></View>
         <SafeAreaView style={styles.largeView}>
         <Card containerStyle={styles.cardActual}>
@@ -24,19 +24,19 @@ const SettingsScreens:React.FC = () => {
             <View style={styles.topForm}>
 
                 <TextInput style={styles.input}
-                placeholderTextColor="antiquewhite" placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
-                placeholderTextColor="antiquewhite" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+                placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput  style={styles.input}
-                placeholderTextColor="antiquewhite" placeholder="Password" onChangeText={(text) => setPassword(text)} />
+                placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
-                placeholderTextColor="antiquewhite" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
             </View>
             <View>
                 <Pressable style={styles.button} onPress={() => submitForm()}>
@@ -45,8 +45,8 @@ const SettingsScreens:React.FC = () => {
             </View>
         </Card>
         </SafeAreaView>
-        <View style={styles.smallView}></View>
-    </SafeAreaView>
+        <View style={styles.bottomView}></View>
+    </KeyboardAvoidingView>
     );
 }
 
@@ -56,17 +56,21 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     smallView:{
+        flex:1,
+    },
+    bottomView:{
         flex:1
     },
     largeView:{
-        flex: 4,
+        flex: 2,
+        justifyContent: 'flex-end'
     },
     cardActual: {
         borderRadius:10,
         borderColor: 'purple', 
         borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)',
-        color: 'white'
+        color: 'white',
     },
 
     topForm: {
