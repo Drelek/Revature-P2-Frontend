@@ -1,10 +1,25 @@
+import axios from "axios";
 import React, { useState }  from "react";
+import { useEffect } from "react";
 import { StyleSheet, View, Text, Pressable} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 
 
 const Feed: React.FC = (props: any) => {
+
+    useEffect(() => {
+
+        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
+            headers: {
+                Authorization: "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //resp.data is an array of posts
+            setPostCards(resp.data)
+        })
+  
+    })
 
 
     const [postCards, setPostCards] = useState([

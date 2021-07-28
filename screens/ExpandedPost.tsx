@@ -3,11 +3,23 @@ import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingVie
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
+import axios from 'axios';
 
 const ExpandedPost: React.FC = (props:any) => {
-    // const[timeStamp, setTimeStamp] = useState(props);
-    //TODO 
-    //Use timestamp to pull post in question from database
+
+    
+    const grabCommentsActual = async() => {
+         
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
+                headers: {
+                    Authorization: "TokenToBePulledFromState"
+                }
+            }).then(resp => {
+                setCommentList(resp.data.comments);
+            })
+
+    }
+
     const[isLiked, setLikedState] = useState(false);
     const [commentList, setCommentList]  = useState(
     [{
@@ -113,7 +125,8 @@ const ExpandedPost: React.FC = (props:any) => {
 
     useEffect(()=> mergePostCommentData(),[]);
 
-    const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
+    const {displayName, displayImg, userName, postBody, likes, timeStamp} = props.route.params
+    
 
     const renderSinglePost = () => {
         

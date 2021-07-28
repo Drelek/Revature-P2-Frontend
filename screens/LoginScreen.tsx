@@ -32,8 +32,8 @@ const LoginScreen: React.FC = (props:any) => {
         }
 
         const resp1 = await cogClient.send(new InitiateAuthCommand(params));
-  }
 
+      }
   const submit = () => {
     // console.log(user)
     const newUser = {
@@ -94,6 +94,7 @@ const LoginScreen: React.FC = (props:any) => {
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
   )
+    
 };
 
 const styles = StyleSheet.create({

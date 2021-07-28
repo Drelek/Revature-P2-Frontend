@@ -91,9 +91,15 @@ const PostCard = (props: any) => {
                     
 
                     <View style={styles.nameContainer}>
-                        <Text
-                            style={styles.displayName}
-                        >{props.item.displayName}</Text>
+                        <Pressable
+                            onPress={() => navigation.navigate("Profile")}
+                        >
+                            <Text
+                                style={styles.displayName}
+                            >{props.item.displayName}</Text>
+                        </Pressable>
+
+                        
                         <Text
                             style={styles.username}
                         >{`@${props.item.userName}`}</Text>
