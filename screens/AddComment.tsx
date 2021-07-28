@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Text, TextInput, StyleSheet, Pressable, Button, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 
 const AddComment = () => {
@@ -9,53 +8,77 @@ const AddComment = () => {
     const[newComment, setNewComment] = useState(' ');
 
     const postComment = () => {
+        console.log("hello")
         //TODO
         //Post comment to endpoint and refresh screen
     }
 
     return(
-        <SafeAreaView>
+        <View style={styles.card}>
+            <View style={styles.inputContainer}> 
+                <TextInput
+                    placeholder="Add a comment..."
+                    placeholderTextColor="antiquewhite" 
+                    style={styles.inputBox}
+                    onChangeText={(text)=> setNewComment(text)}
+                />
+            </View>
 
-            <Card containerStyle={styles.card}>
-            <Text
-                style={styles.header}
-            >Add to the conversation: </Text>
-            <View
-                style={{paddingTop: 9, paddingBottom: 9 }}
-            >
-            <TextInput
-                style={styles.inputbox}
-                onChangeText={(text)=> setNewComment(text)}
-            />
-
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.pressable} onPress={() => postComment()}        >
+                    <Text style={styles.text}>Submit</Text>
+                </Pressable>
             </View>
             
-            <Button
-               title="Submit"
-                onPress={() => postComment()}                
-            />
-            </Card>
-        </SafeAreaView>
+
+        </View>
+
     )
 }
 
 export default AddComment;
 
 const styles = StyleSheet.create({
-    header: {
-        fontSize: 18,
-        color: "white"
-    },
-    inputbox: {
-        backgroundColor: "rgb(220,220,220)",
-        paddingTop: 9,
-        paddingBottom: 9,
-        borderColor: 'plum',
-        borderWidth: 1,
-        
+    inputBox: {
+        backgroundColor: "rgb(33, 37, 41)",
+        paddingVertical:9,
+        marginHorizontal:5,
+        fontSize:18,
+        fontFamily:"Montserrat",
+        textAlign:"center",
+        color: "white",
     },
     card: {
         backgroundColor: 'rgb(33, 37, 41)',
         flex:1, 
+        margin:0,
+        padding:0,
+        borderColor: 'purple',
+        borderWidth: 3,
+        borderTopEndRadius:10,
+        borderTopStartRadius:10,
+        // borderBottomEndRadius:50,
+        // borderBottomStartRadius:50,
+    },
+
+    inputContainer: {
+        marginBottom:10
+    },
+
+    buttonContainer: {
+        // justifyContent: ''
+    },
+
+    pressable:{
+        backgroundColor:"purple",
+    },
+
+    text:{
+        color:"white",
+        fontSize:22,
+        paddingTop:5,
+        paddingBottom:100,
+        fontFamily:"Montserrat",
+        textAlign:"center"
     }
 })

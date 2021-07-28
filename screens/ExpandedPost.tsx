@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import { View, FlatList, Pressable, Text, StyleSheet, Image} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -66,15 +66,7 @@ const ExpandedPost: React.FC = (props:any) => {
         comment: "A comment everywhere"
     }
     ]);
-    const renderNumOfComments = () => {
-        const {comments} = props.item;
-        if(comments.length){
-            return comments.length;
-        } else {
-            return '';
-        }
-    }
-
+    
     const renderNumOfLikes = (likes: number[]) => {
         if(likes.length){
             return likes.length;
@@ -258,7 +250,8 @@ const styles = StyleSheet.create({
     },
 
     commentsContainer: {
-        flex: 3,
+        flex: 5,
+        marginBottom:10
     },
 
     addCommentContainer: {
