@@ -1,12 +1,12 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card } from 'react-native-elements'
 
 
 const PostCard = (props: any) => {
 
-    const[isLiked, setLikedState] = useState(false);
-    const[numLikes, setNumLikes] = useState(0);
+    const [isLiked, setLikedState] = useState(false);
+    const [numLikes, setNumLikes] = useState(0);
 
     useEffect(() => {
         //TODO
@@ -21,12 +21,12 @@ const PostCard = (props: any) => {
 
     const redirectToExtendedPostScreen = () => {
         //TODO
-        
+
     }
 
     const renderNumOfComments = () => {
-        const {comments} = props.item;
-        if(comments.length){
+        const { comments } = props.item;
+        if (comments.length) {
             return comments.length;
         } else {
             return '';
@@ -34,16 +34,16 @@ const PostCard = (props: any) => {
     }
 
     const renderNumOfLikes = () => {
-        const {likes} = props.item;
-        if(likes.length){
+        const { likes } = props.item;
+        if (likes.length) {
             return likes.length;
         } else {
-            return ''; 
+            return '';
         }
     }
 
     const renderProfileImageOrDefault = () => {
-        const {displayImg} = props.item;
+        const { displayImg } = props.item;
         if (!displayImg) {
             return (
                 <Image
@@ -51,10 +51,10 @@ const PostCard = (props: any) => {
                     style={styles.defaultProfileImage}
                 />
             )
-        }else {
+        } else {
             return (
                 <Image
-                    source={{uri:`${displayImg}`}}
+                    source={{ uri: `${displayImg}` }}
                     style={styles.profileImage}
                 />
             )
@@ -62,35 +62,35 @@ const PostCard = (props: any) => {
     }
 
     const renderNotLikeOrLiked = () => {
-        if (isLiked){
+        if (isLiked) {
             return (
-            <Image 
-                source={require('../assets/images/likeIcon.png')}
-                style={styles.heart}
-            />)
+                <Image
+                    source={require('../assets/images/likeIcon.png')}
+                    style={styles.heart}
+                />)
         } else {
-            return(<Image 
+            return (<Image
                 source={require('../assets/images/likedIcon.png')}
                 style={styles.heart}
-                />)
+            />)
         }
     }
-    const userName = `@${props.item.userName}`;
+
 
     return (
         <View
             style={styles.card}
         >
-            
-            <Card containerStyle={styles.cardActual}> 
-                
+
+            <Card containerStyle={styles.cardActual}>
+
                 <View
                     style={styles.containerHeadOfCard}
                 >
                     <View style={styles.imageContainer}>
                         {renderProfileImageOrDefault()}
                     </View>
-                    
+
 
                     <View style={styles.nameContainer}>
                         <Text
@@ -98,48 +98,48 @@ const PostCard = (props: any) => {
                         >{props.item.displayName}</Text>
                         <Text
                             style={styles.username}
-                        >{userName}</Text>
+                        >{`@${props.item.userName}`}</Text>
                     </View>
                 </View>
-                
+
                 <View style={styles.postContainer}>
                     <Text
-                    style={styles.postBody}
-                >{props.item.postBody}</Text>
+                        style={styles.postBody}
+                    >{props.item.postBody}</Text>
                 </View>
-                
+
 
                 <View
                     style={styles.containerViewAlignIcons}
                 >
                     <View style={styles.likesContainer}>
-                        <Pressable onPress={ () => setLikedState(!isLiked) }>
-                        {renderNotLikeOrLiked()}
+                        <Pressable onPress={() => setLikedState(!isLiked)}>
+                            {renderNotLikeOrLiked()}
                         </Pressable>
 
                         <Text style={styles.likesText}>{renderNumOfLikes()}</Text>
                     </View>
-                    
+
                     <View style={styles.commentsContainer}>
-                       <Pressable 
-                        onPress= { () => redirectToExtendedPostScreen()}>
-                        <Image
-                            source={require('../assets/images/commentIcon.png')}
-                            style={styles.comment}
-                        />
-                        </Pressable> 
+                        <Pressable
+                            onPress={() => redirectToExtendedPostScreen()}>
+                            <Image
+                                source={require('../assets/images/commentIcon.png')}
+                                style={styles.comment}
+                            />
+                        </Pressable>
                         <Text style={styles.likesText}>
                             {renderNumOfComments()}
                         </Text>
                     </View>
-                    
+
                     <View style={styles.timeStampContainer}>
                         <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
                     </View>
-                    
-                </View>            
+
+                </View>
             </Card>
-            
+
         </View>
     )
 }
@@ -148,12 +148,12 @@ export default PostCard;
 
 const styles = StyleSheet.create({
     card: {
-        padding:10,
+        padding: 10,
     },
     cardActual: {
-        flex:2, 
-        borderRadius:10,
-        borderColor: 'purple', 
+        flex: 2,
+        borderRadius: 10,
+        borderColor: 'purple',
         borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)',
     },
@@ -161,58 +161,58 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
 
-    imageContainer:{
-        flex:1,
+    imageContainer: {
+        flex: 1,
     },
 
-    nameContainer:{
-        flex:2,
+    nameContainer: {
+        flex: 2,
     },
 
-    postContainer:{
-        flex:2,
+    postContainer: {
+        flex: 2,
         borderRadius: 20,
     },
 
     containerViewAlignIcons: {
-        flex:1,
-        paddingTop:10,
+        flex: 1,
+        paddingTop: 10,
         flexDirection: "row",
-        justifyContent:"space-around",
-        borderTopWidth:2,
-        borderColor:"purple"
+        justifyContent: "space-around",
+        borderTopWidth: 2,
+        borderColor: "purple"
     },
     defaultProfileImage: {
         width: 80,
         height: 80,
         borderRadius: 100,
-        borderWidth:2,
-        borderColor:'purple',
-        backgroundColor:'purple'
+        borderWidth: 2,
+        borderColor: 'purple',
+        backgroundColor: 'purple'
     },
     profileImage: {
         width: 80,
         height: 80,
         borderRadius: 100,
-        borderWidth:2,
-        borderColor:'purple',
+        borderWidth: 2,
+        borderColor: 'purple',
     },
     displayName: {
         fontSize: 22,
         color: "white",
-        fontFamily:"BadScript"
+        fontFamily: "BadScript"
     },
     username: {
         fontSize: 16,
         color: "white",
-        fontFamily:"BadScript"
+        fontFamily: "BadScript"
     },
     postBody: {
         color: "white",
-        padding:10,
+        padding: 10,
         fontFamily: "Montserrat"
     },
-    
+
     heart: {
         width: 25,
         height: 25
@@ -222,28 +222,28 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
     },
-    
+
     timestamp: {
         color: "white",
-        fontFamily:"Montserrat"
+        fontFamily: "Montserrat"
     },
 
     likesText: {
         color: "white",
-        paddingLeft:10,
-        fontFamily:"Montserrat"
+        paddingLeft: 10,
+        fontFamily: "Montserrat"
     },
 
-    likesContainer:{
-        flex:1,
+    likesContainer: {
+        flex: 1,
         flexDirection: "row",
     },
 
-    commentsContainer:{
+    commentsContainer: {
         flex: 1,
         flexDirection: "row"
     },
-    
-    timeStampContainer:{
+
+    timeStampContainer: {
     },
 })

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddComment renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`Canvas comp renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`Expanded Post renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`FeedPicker comp renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`FollowIcon comp renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`GlobalEye comp renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`HomeFeedScreen renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`LoginScreen renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`Logo comp renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`Profile renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`Settings renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`SignInUpComponent renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`SplashScreen renders without crashing 1`] = `ShallowWrapper {}`;
