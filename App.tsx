@@ -10,10 +10,12 @@ import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
-import { reducers } from './redux/reducers';
+import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
 import { IUserActions } from './redux/actions';
 import { registerRootComponent } from 'expo';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 const store: Store<IAppState, IUserActions> = createStore(reducers);
 
@@ -36,11 +38,11 @@ const App:React.FC = () => {
   } else {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <SafeAreaProvider style={styles.container}>
           <Navigation/>
           <Canvas style={styles.canvas} ref={handleCanvas}/>
           <StatusBar/>
-        </View>
+        </SafeAreaProvider>
       </Provider>
     );
   }

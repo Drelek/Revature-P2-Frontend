@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card } from 'react-native-elements'
-
+import { useNavigation } from '@react-navigation/native';
 
 const PostCard = (props: any) => {
-
+    const navigation = useNavigation();
     const [isLiked, setLikedState] = useState(false);
-    const [numLikes, setNumLikes] = useState(0);
 
     useEffect(() => {
         //TODO
@@ -20,8 +19,8 @@ const PostCard = (props: any) => {
     }
 
     const redirectToExtendedPostScreen = () => {
-        //TODO
-
+        const { item } = props
+        navigation.navigate("ExpandedPost", item)
     }
 
     const renderNumOfComments = () => {
@@ -75,7 +74,6 @@ const PostCard = (props: any) => {
             />)
         }
     }
-
 
     return (
         <View
@@ -136,7 +134,6 @@ const PostCard = (props: any) => {
                     <View style={styles.timeStampContainer}>
                         <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
                     </View>
-
                 </View>
             </Card>
 
@@ -158,7 +155,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(33, 37, 41)',
     },
     containerHeadOfCard: {
-        flexDirection: "row"
+        flex: 1,
+        flexDirection: "row",
+        marginBottom: 10
     },
 
     imageContainer: {
@@ -183,16 +182,18 @@ const styles = StyleSheet.create({
         borderColor: "purple"
     },
     defaultProfileImage: {
-        width: 80,
-        height: 80,
+        marginTop: 5,
+        width: 90,
+        height: 90,
         borderRadius: 100,
         borderWidth: 2,
         borderColor: 'purple',
         backgroundColor: 'purple'
     },
     profileImage: {
-        width: 80,
-        height: 80,
+        marginTop: 5,
+        width: 90,
+        height: 90,
         borderRadius: 100,
         borderWidth: 2,
         borderColor: 'purple',
@@ -205,18 +206,17 @@ const styles = StyleSheet.create({
     username: {
         fontSize: 16,
         color: "white",
-        fontFamily: "BadScript"
+        fontFamily: "BadScript",
     },
     postBody: {
         color: "white",
-        padding: 10,
-        fontFamily: "Montserrat"
+        fontFamily: "Montserrat",
+        marginBottom: 10
     },
 
     heart: {
         width: 25,
         height: 25
-
     },
     comment: {
         width: 25,

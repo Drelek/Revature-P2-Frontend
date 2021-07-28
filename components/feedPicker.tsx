@@ -2,9 +2,11 @@ import React, {useState}from 'react';
 import {StyleSheet, Pressable} from 'react-native';
 import GlobalEye from './globalEye';
 import FollowIcon from './followIcon';
+import { useNavigation } from '@react-navigation/native';
 
 const FeedPicker:React.FC = () => {
   const [feedIcon, setFeedIcon] = useState("global");
+  const navigation = useNavigation();
 
   const renderFeedIcon = () =>{
     if (feedIcon === "global"){
@@ -16,9 +18,9 @@ const FeedPicker:React.FC = () => {
   //we will to change state and also push new data to render cards
   const stateChange = () => {
     if (feedIcon === "global"){
-      setFeedIcon("follower")
+      setFeedIcon("follower");
     } else if (feedIcon === "follower"){
-      setFeedIcon("global")
+      setFeedIcon("global");
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView, Pressable } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView } from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';

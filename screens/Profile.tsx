@@ -9,22 +9,40 @@ const Profile = () => {
 
     const [postCards, setPostCards] = useState([
         {
-            displayImg: "null",
-            displayName: "my name is",
+            displayImg: undefined,
+            displayName: "my name is Mo",
             userName: "name",
-            postBody: "I know the truth",
-            likes: "hi",
-            timeStamp: "12312",
-            comments: "hello"
+            postBody: "I know the truth,The search bar allows users to search for user handles. The user's input queries the database and returns the closest. We plan to implement follow, likes and comment functionality in the near future and even making our application mobile friendly!",
+            likes: [1,2,3,4],
+            timeStamp: "6/20/20 6:30pm",
+            comments: [1,2,3,4,112,3234523,343232]
         },
         {
-            displayImg: "null",
-            displayName: "my name is",
-            userName: "name",
-            postBody: "I know the truth",
-            likes: "hi",
-            timeStamp: "12312",
-            comments: "hello"
+            displayImg: 'https://reactnative.dev/img/tiny_logo.png',
+            displayName: "Kai",
+            userName: "Kaiba",
+            postBody: "I know",
+            likes: [1,2,3],
+            timeStamp: "6/20/20 6:30pm",
+            comments: [1,2,3,4,112,3234523,343232,1,1,1,1,1,1]
+        },
+        {
+            displayImg: 'https://www.learnreligions.com/thmb/rlSNKScykYuF6qdA9tArkB-til8=/998x998/smart/filters:no_upscale()/SonOfGod1500x998-56a146083df78cf772691384.jpg',
+            displayName: "God",
+            userName: "God",
+            postBody: "I am back bb",
+            likes: [1,2,3,4,5],
+            timeStamp: " 01/01/22 12:00am",
+            comments: [1,2,3,4,112,3234523,343232]
+        },
+        {
+            displayImg: 'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
+            displayName: "Jesus",
+            userName: "GodsFavoriteSon",
+            postBody: "Hello",
+            likes: [1,2,3,4,5,6,7],
+            timeStamp: "6/20/20 6:30pm",
+            comments: [1,2,3,4,112,3234523]
         }
     ]);
 
@@ -39,23 +57,22 @@ const Profile = () => {
         <View 
             style= {styles.outerContainer}
         >   
-            <ScrollView>
             <View
-                style={styles.innerContainer}
+                style={styles.profileContainer}
             >
-
-               
-
                 <Card containerStyle={styles.profileCard}>
                     <View
                         style={{flexDirection: "row"}}
                     > 
-                        <Image
-                            source={require('../assets/images/profile-img-placeholder.png')}
+                        <View style={styles.imageContainer}>
+                            <Image
+                            source={require('../assets/images/illuminati.png')}
                             style={styles.image}
-                        />
+                            />
+                        </View>
+                        
 
-                        <View>
+                        <View style={styles.infoContainer}>
                             <Text 
                                 style={styles.displayName}
                             >Hello</Text>
@@ -64,16 +81,17 @@ const Profile = () => {
                             >@God</Text>
                             <Text
                                 style={styles.email}
-                            >Email Placeholder</Text>     
+                            >Email</Text>     
                         </View>
 
-                        <View>
+                        <View >
                         <Pressable
+                            style={styles.followerContainer}
                             onPress= {() => addFollower()}
                         >
                             <Image 
                                 style={styles.followerIcon}
-                               source={require('../assets/images/follower-icon.png')}
+                               source={require('../assets/images/followerIcon.png')}
                           />
                          </Pressable>
                           </View>
@@ -83,22 +101,18 @@ const Profile = () => {
                 
             </View>
 
-            <SafeAreaView
-            
-            >
+            <SafeAreaView style={styles.postContainer}>
                 
                 <FlatList 
                     data={postCards}
                     renderItem={({item}) => 
-                        <PostCard item={item}></PostCard>
-                    }    
+                        <PostCard item={item}
+                        ></PostCard>
+                    }
+                    keyExtractor={(item, index) => index.toString()}    
                 />
 
             </SafeAreaView>
-
-            </ScrollView>
-
-   
         </View>
     )
 }
@@ -107,49 +121,54 @@ export default Profile;
 
 const styles = StyleSheet.create({
     outerContainer: {
+        flex:1,
         flexDirection: "column",
-        alignItems: "center",
     },
-    innerContainer: {
-        flexDirection: "column",
-        alignItems: "center",
-        
+    profileContainer:{
+        flex:1,
+    },
+    postContainer:{
+        flex:3,
+    },
+    imageContainer:{
+        flex:1
+    },
+    infoContainer: {
+        flex:2,
     },
     profileCard: {
-        flex:1, 
-        borderTopLeftRadius:20, 
-        borderColor: 'plum', 
-        borderWidth: 1,
-        borderTopRightRadius:20,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        flex:1,
+        justifyContent: 'center',
         backgroundColor: 'rgb(33, 37, 41)',
-        width: 290,
-        height: 110
+        borderRadius:10,
+        borderColor: 'purple', 
+        borderWidth: 5, 
+        marginBottom:10
     },
     image: {
-        width: 80,
-        height: 80,
-        borderRadius: 25,
-    },
-    listOfPosts: {
-        
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+        backgroundColor:"purple"
     },
     displayName: {
         fontWeight: "bold",
-        fontSize: 25,
+        fontSize: 22,
         color: "white",
-        paddingLeft: 15
+        paddingLeft: 15,
+        marginBottom:5
     },
     username: {
         fontSize: 18,
         color: "white",
-        paddingLeft: 15
+        paddingLeft: 15,
+        marginBottom:5
     },
     email: {
         fontSize: 18,
         color: "white",
-        paddingLeft: 15
+        paddingLeft: 15,
+        marginBottom:5
     },
     welcomeMessage: {
         fontSize: 30, 
@@ -158,7 +177,12 @@ const styles = StyleSheet.create({
         fontFamily: "BadScript"
     },
     followerIcon: {
-        width: 50,
-        height: 60
+        width: 30,
+        height: 30
+    },
+    followerContainer:{
+        flex:1,
+        flexDirection: "column",
+        
     }
 })

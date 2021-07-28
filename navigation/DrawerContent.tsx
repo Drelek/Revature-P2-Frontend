@@ -35,7 +35,8 @@ export const DrawerContent:React.FC = (props:any) => {
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
                                 source={require('../assets/images/illuminati.png')}
-                                size={50}
+                                size={60}
+                                style={{marginTop:8}}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
                                 <Title style={styles.title}>God</Title>
@@ -65,7 +66,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.navigate("Home",{screen:"Home"})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -76,9 +77,9 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => {props.navigation.navigate('Profile')}}
+                            onPress={() => {props.navigation.navigate('Home',{screen: "Profile"})}}
                         />
-                        <DrawerItem 
+                        <DrawerItem labelStyle={styles.label}
                             icon={({color, size}) => (
                                 <Icon 
                                 name="cog" 
@@ -87,7 +88,7 @@ export const DrawerContent:React.FC = (props:any) => {
                                 />
                             )}
                             label="Settings"
-                            onPress={() => {props.navigation.navigate('Setting')}}
+                            onPress={() => {props.navigation.navigate("Home",{screen: "Settings"})}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -143,12 +144,12 @@ const styles = StyleSheet.create({
       fontSize: 18,
       marginTop: 3,
       fontWeight: 'bold',
-      fontFamily:"Montserrat"
+    //   fontFamily:"Montserrat"
     },
     caption: {
       fontSize: 14,
       lineHeight: 14,
-      fontFamily:"Montserrat"
+    //   fontFamily:"Montserrat"
     },
     row: {
       marginTop: 20,
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     paragraph: {
       fontWeight: 'bold',
       marginRight: 3,
-      fontFamily:"Montserrat"
+    //   fontFamily:"Montserrat"
     },
     drawerSection: {
       marginTop: 15,
@@ -177,4 +178,7 @@ const styles = StyleSheet.create({
       paddingVertical: 12,
       paddingHorizontal: 16,
     },
+    label:{
+        // fontFamily:"BadScript",
+    }
   });

@@ -39,7 +39,7 @@ const SignUpScreen = (props:any) => {
           <TextInput
             style={styles.input}
             placeholder="Username"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={(text) => setUsername(text)}
             keyboardType="ascii-capable"
           />
@@ -47,20 +47,20 @@ const SignUpScreen = (props:any) => {
             style={styles.input}
             onChangeText={(text => setPassword(text))}
             placeholder="Password"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             secureTextEntry={true}
           />
           <TextInput
             style={styles.input}
             placeholder="Display Name"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={(text) => setUsername(text)}
             keyboardType="ascii-capable"
           />
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="antiquewhite" 
+            placeholderTextColor="white" 
             onChangeText={(text) => {
                 validateEmail(text)
                 setUsername(text)
@@ -105,7 +105,7 @@ const SignUpScreen = (props:any) => {
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'antiquewhite',
+    color: 'white',
   },
   safeArea: {
     flex: 3,
