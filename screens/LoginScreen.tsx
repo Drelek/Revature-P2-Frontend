@@ -32,11 +32,6 @@ const LoginScreen: React.FC = (props:any) => {
         }
 
         const resp1 = await cogClient.send(new InitiateAuthCommand(params));
-        console.log(resp1);
-        console.log('step 1');
-        const resp2 = await axios.get('https://90yylhrbbh.execute-api.us-east-2.amazonaws.com/Prod/user/bob', {headers: {Authorization: resp1.AuthenticationResult?.AccessToken}})
-        console.log(resp2);
-        console.log('this is working');
   }
 
   const submit = () => {
