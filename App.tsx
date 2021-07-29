@@ -8,14 +8,21 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
-import { useSelector} from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
+import { createStore, Store } from 'redux';
+import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
+import { IAppActions } from './redux/actions';
+import { registerRootComponent } from 'expo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import CanvasScreen from './screens/Canvas';
+
+
+const store: Store<IAppState, IAppActions> = createStore(reducers);
 
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
   const [fontsLoaded, setFonts] = useState(false);
-  const canvas = useSelector((state: IAppState) => state.canvas);
 
   useEffect(() => {loadFonts()});
   
@@ -33,8 +40,7 @@ const App:React.FC = () => {
     return (
         <SafeAreaProvider style={styles.container}>
           <Navigation/>
-          {canvas &&
-          <Canvas style={styles.canvas} ref={handleCanvas}/>}
+          <CanvasScreen/>
           <StatusBar/>
         </SafeAreaProvider>
     );
@@ -46,13 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: screenWidth,
     backgroundColor: "black",
-  },
-
-  canvas:{
-    flex:1,
-    position: "absolute",
-    zIndex: -1,
-    elevation: -1
   },
 
   loadingBackgroundStyle:{
