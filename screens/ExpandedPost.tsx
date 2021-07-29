@@ -103,7 +103,7 @@ const ExpandedPost: React.FC = (props:any) => {
 
     return (
         
-        <KeyboardAvoidingView style={styles.container}  enabled-behavior={Platform.OS === "ios" ? "padding" : null}  keyboardVerticalOffset={Platform.select({ios: 80})}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "null"}  keyboardVerticalOffset={Platform.select({ios: 64})}>
                 {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
@@ -112,7 +112,6 @@ const ExpandedPost: React.FC = (props:any) => {
                 </Pressable> */}
         {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
-
                 
                 <FlatList 
                     data={[commentList, timeStamp]}
@@ -206,6 +205,7 @@ const styles = StyleSheet.create({
 
     addCommentContainer: {
         flex: 1,
+        justifyContent:"flex-end"
     },
     
     displayName: {

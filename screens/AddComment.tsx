@@ -55,10 +55,6 @@ const AddComment = (props) => {
 export default AddComment;
 
 const styles = StyleSheet.create({
-    container:{
-        marginTop:0
-    },
-
     text:{
         fontSize:14,
         color: "white",
@@ -72,12 +68,14 @@ const styles = StyleSheet.create({
         borderRadius:30, 
         paddingBottom:5,
         marginHorizontal:9,
-        marginBottom:5
+        marginBottom:15,
+        justifyContent: 'flex-end'
     },
 
     postContainer: {
         flexDirection:'row',
         justifyContent: 'center',
+        marginBottom:10,
     },
 
     inputBox:{
@@ -87,6 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textAlignVertical: 'top',
         marginLeft:10,
+        
     },
 
     buttonContainer:{
