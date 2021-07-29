@@ -25,55 +25,55 @@ const ExpandedPost: React.FC = (props:any) => {
     [{
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {   
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     }
     ]);
@@ -175,9 +175,9 @@ const ExpandedPost: React.FC = (props:any) => {
         {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
+                //Rendering list of comments
                 <FlatList 
-                
-                    data={commentList}
+                    data={[commentList, timeStamp]}  //-->Pass post timeStamp to individual comment component
                     renderItem={({item, index}) => {
                         if (index !== 0){
                             return (<IndividualComment item={item}></IndividualComment>)

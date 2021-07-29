@@ -6,6 +6,9 @@ const AddComment = () => {
 
     const[newComment, setNewComment] = useState(' ');
 
+    //Create comment lambda here -->
+    //Needs user passed as props to this component!
+
     const postComment = () => {
         console.log("hello")
         //TODO

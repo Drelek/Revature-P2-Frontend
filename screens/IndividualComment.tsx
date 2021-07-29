@@ -1,9 +1,22 @@
+import axios from 'axios';
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 
 const IndividualComment = (props: any) => {
-    const {displayImg, comment, displayName, timeStamp} = props.item
+    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
+
+    //Delete a comment
+    //Requires timeStamp of post and commentStamp of the comment
+    const deleteComment = async() => {
+        await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${timeStamp}/${commentStamp}`, {
+            headers: {
+                Authorization: "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response returns deleted comment...
+        })
+    }
     // const renderProfileImageOrDefault = (displayImg:string) => {
     //     if (!displayImg) {
     //         return (

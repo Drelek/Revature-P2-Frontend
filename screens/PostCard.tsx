@@ -32,7 +32,20 @@ const PostCard = (props: any) => {
             })
         })
     }
-    
+
+    //On press of delete post 
+    //Will need to refresh feeds at their respective sources
+    const deletePost = async() => {
+        await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.item.timeStamp}`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response will return deleted post...
+        })
+
+    }
+
     const redirectToExtendedPostScreen = () => {
         const {item} = props
         navigation.navigate("ExpandedPost", item)
