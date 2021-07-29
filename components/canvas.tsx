@@ -1,7 +1,8 @@
 import { Dimensions } from 'react-native';
 import React from 'react';
 const handleCanvas = (c: any) => {
-    const ctx = c.getContext('2d');
+  if (!c) return;  
+  const ctx = c.getContext('2d');
     c.height = Dimensions.get('screen').height;
     c.width = Dimensions.get('screen').width;
     let matrix:string = "▲△△△▼▼▷◁???◭◮◭◭◭!!!▲△△△▼▼▷◁???◭◮◭◭◭!!!BOHEMIANGROVE";

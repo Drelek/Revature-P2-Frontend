@@ -10,6 +10,10 @@ const SplashScreen: React.FC = (props:any) => {
   const [userSession, setUserSession] = useState({
     session: "login"
   });
+
+  function returnToLogin() {
+    setUserSession({session: "login"});
+  }
   
 
   const renderSession = () => {
@@ -20,7 +24,7 @@ const SplashScreen: React.FC = (props:any) => {
       )
     } else if(session === "sign-up"){
       return (
-        <SignUpScreen/>
+        <SignUpScreen submitFunc={returnToLogin}/>
       )
     }
   }

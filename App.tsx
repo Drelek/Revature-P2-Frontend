@@ -8,16 +8,17 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
-import { IUserActions } from './redux/actions';
+import { IAppActions } from './redux/actions';
 import { registerRootComponent } from 'expo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import CanvasScreen from './screens/Canvas';
 
 
-const store: Store<IAppState, IUserActions> = createStore(reducers);
+const store: Store<IAppState, IAppActions> = createStore(reducers);
 
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
@@ -40,7 +41,7 @@ const App:React.FC = () => {
       <Provider store={store}>
         <SafeAreaProvider style={styles.container}>
           <Navigation/>
-          <Canvas style={styles.canvas} ref={handleCanvas}/>
+          <CanvasScreen/>
           <StatusBar/>
         </SafeAreaProvider>
       </Provider>
