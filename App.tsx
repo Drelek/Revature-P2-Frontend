@@ -23,7 +23,8 @@ const store: Store<IAppState, IAppActions> = createStore(reducers);
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
   const [fontsLoaded, setFonts] = useState(false);
-  
+  const canvas = useSelector((state: IAppState) => state.canvas);
+
   useEffect(() => {loadFonts()});
 
   const loadFonts = async() => {
@@ -38,13 +39,11 @@ const App:React.FC = () => {
     return null;
   } else {
     return (
-      <Provider store={store}>
         <SafeAreaProvider style={styles.container}>
           <Navigation/>
           <CanvasScreen/>
           <StatusBar/>
         </SafeAreaProvider>
-      </Provider>
     );
   }
 }
@@ -68,5 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-registerRootComponent(App);
 export default App;

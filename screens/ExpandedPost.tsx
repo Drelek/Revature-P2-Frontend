@@ -107,12 +107,6 @@ const ExpandedPost: React.FC = (props:any) => {
         }
     }
 
-    const mergePostCommentData= () => {
-        setCommentList([props.route.params,...commentList]);
-    }
-
-    useEffect(()=> mergePostCommentData(),[]);
-
     const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
 
     const renderSinglePost = () => {
@@ -152,7 +146,7 @@ const ExpandedPost: React.FC = (props:any) => {
 
     return (
         
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}  enabled behavior={Platform.OS === "ios" ? "padding" : null}  keyboardVerticalOffset={Platform.select({ios: 80})}>
                 {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
@@ -163,15 +157,9 @@ const ExpandedPost: React.FC = (props:any) => {
             <View style={styles.commentsContainer}>
 
                 <FlatList 
-                
                     data={commentList}
-                    renderItem={({item, index}) => {
-                        if (index !== 0){
-                            return (<IndividualComment item={item}></IndividualComment>)
-                        } else {
-                            return (renderSinglePost())
-                        }
-                    }}
+                    ListHeaderComponent={() => renderSinglePost()}
+                    renderItem={({item}) => <IndividualComment item={item}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
                 />
 
@@ -181,7 +169,7 @@ const ExpandedPost: React.FC = (props:any) => {
                 <AddComment></AddComment>
             </View>
      {/* </View> */}
-        </View>
+        </KeyboardAvoidingView>
     )}
 
 const styles = StyleSheet.create({
