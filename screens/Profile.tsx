@@ -23,8 +23,21 @@ const Profile = (props: any) => {
                 userPostArray.push(elem);
             })
         })
-
     }
+
+    //Follow or unfollows dependant on whether user exists on following array 
+    const addFollower = async() => {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.profileInfo.userName}/follow`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response returns entire user object after update operation has been completed
+            
+        })
+    }
+
+    
 
     const [postCards, setPostCards] = useState([
         {
@@ -65,12 +78,6 @@ const Profile = (props: any) => {
         }
     ]);
 
-    const addFollower = () => {
-        //TODO
-        //Push follower to following array on user object
-    }
-
-    
 
     return(
         <View 
