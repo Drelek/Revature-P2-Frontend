@@ -1,7 +1,14 @@
-import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
+import { View, Text, TextInput, StyleSheet, Pressable, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react';
-import {Card} from 'react-native-elements'
-const SettingsScreens:React.FC = () => {
+import { Card } from 'react-native-elements'
+import { useDispatch, useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
+import axios from 'axios';
+import { AppAction } from '../redux/actions';
+const SettingsScreens: React.FC = () => {
+
+    const user = useSelector((store: IAppState) => store.user);
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState(' ');
     const [handle, setHandle] = useState(' ');
@@ -9,75 +16,97 @@ const SettingsScreens:React.FC = () => {
     const [profileImg, setProfileImage] = useState(' ');
 
     function submitForm() {
+        const body = {
+            'dataType': 'user',
+            'dataKey': user?.userName,
+            'displayName': handle,
+            'email': email,
+            'profileImg': profileImg
+        }
+        const headers = {
+            Authorization: "TokenToBePulledFromState"
+        }
 
+        const res = axios.put(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}`, { body, headers });
+        console.log(res);
+        const updatedUser = {
+            'userName': user?.userName,
+            'displayName': handle,
+            'email': email,
+            'profileImg': profileImg
+        }
+        dispatch({
+            type: AppAction.UPDATE_USER,
+            payload: { user: updatedUser }
+        })
     }
 
     return (
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <View style={styles.smallView}></View>
-        <SafeAreaView style={styles.largeView}>
-        <Card containerStyle={styles.cardActual}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.text}> Login and Security </Text>
-            </View>
-            
-            <View style={styles.topForm}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+            <View style={styles.smallView}></View>
+            <SafeAreaView style={styles.largeView}>
+                <Card containerStyle={styles.cardActual}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.text}> Login and Security </Text>
+                    </View>
 
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput  style={styles.input}
-                placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
-            </View>
-            <View>
-                <Pressable style={styles.button} onPress={() => submitForm()}>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </Pressable>
-            </View>
-        </Card>
-        </SafeAreaView>
-        <View style={styles.bottomView}></View>
-    </KeyboardAvoidingView>
+                    <View style={styles.topForm}>
+
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                    </View>
+                    <View>
+                        <Pressable style={styles.button} onPress={() => submitForm()}>
+                            <Text style={styles.buttonText}>Submit</Text>
+                        </Pressable>
+                    </View>
+                </Card>
+            </SafeAreaView>
+            <View style={styles.bottomView}></View>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center'
+    container: {
+        flex: 1,
+        justifyContent: 'center'
     },
-    smallView:{
-        flex:1,
+    smallView: {
+        flex: 1,
     },
-    bottomView:{
-        flex:1
+    bottomView: {
+        flex: 1
     },
-    largeView:{
+    largeView: {
         flex: 2,
         justifyContent: 'flex-end'
     },
     cardActual: {
-        borderRadius:10,
-        borderColor: 'purple', 
+        borderRadius: 10,
+        borderColor: 'purple',
         borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)',
         color: 'white',
     },
 
     topForm: {
-        margin:10
+        margin: 10
     },
     form: {
-        margin:10
+        margin: 10
     },
 
     titleContainer: {
@@ -93,7 +122,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
     },
-    input:{
+    input: {
         fontFamily: "BadScript",
         fontSize: 18,
         color: "white",
@@ -108,8 +137,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         backgroundColor: 'purple',
-        marginVertical:10,
-        marginHorizontal:25
+        marginVertical: 10,
+        marginHorizontal: 25
     },
     buttonText: {
         fontSize: 20,
