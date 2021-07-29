@@ -7,12 +7,28 @@ import { Card } from 'react-native-elements'
 const AddComment = (props) => {
 
     const[newComment, setNewComment] = useState(' ');
+    const user = useSelector((state: IAppState) => state.user);
 
-    const postComment = () => {
-        console.log("hello")
-        //TODO
-        //Post comment to endpoint and refresh screen
+    //TODO
+    //Create comment lambda here -->
+    //Needs user pulled from state, specifically { diplayImg, displayName }
+    //Needs timeStamp of post passed through props
+    const createNewComment = async() => {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${}`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }, 
+                body: {
+                    displayName: user?.displayName,
+                    displayImg: user?.profileImg,
+                    comment: newComment
+                }
+            
+        }).then(resp => {
+            //Response is a post object containing the newly updated comment array
+        })
     }
+
 
     return(
         <Card containerStyle={styles.card}>
@@ -25,13 +41,13 @@ const AddComment = (props) => {
                         onChangeText={(text)=> setNewComment(text)}/>
                     </View>
 
-                    <View style={styles.buttonContainer}>
-                        <Pressable style={styles.pressable} onPress={() => postComment()}>
-                            <Text style={styles.text}>Reply</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Card>
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.pressable} onPress={() => createNewComment()}        >
+                    <Text style={styles.text}>Submit</Text>
+                </Pressable>
+            </View>
+        </View>
+        </Card>
     )
 }
 

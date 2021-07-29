@@ -11,7 +11,8 @@ import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
 import { enableScreens } from 'react-native-screens';
 import { useSelector } from "react-redux";
-import { IAppState } from '../Redux/Store';
+import { IAppState } from '../redux/store';
+
 
 
 enableScreens();

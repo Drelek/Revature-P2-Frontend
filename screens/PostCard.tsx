@@ -2,20 +2,48 @@ import React, { useState, useEffect }  from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import { Card } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
+import Profile from './Profile';
+import axios from 'axios';
 
 const PostCard = (props: any) => {
     const navigation = useNavigation();
     const[isLiked, setLikedState] = useState(false);
 
-    useEffect(() => {
-        //TODO
-        //Pull the post array based on timestamp --> Iterate over array --> log number of likes
-
+    //Storing state for redirecting to Profile page
+    const[profileInfo, setProfileInfo] = useState({
+        displayName: props.item?.displayName,
+        userName: props.item?.userName,
+        email: "",
+        profileImg: ""
     })
 
+    //Move this functionality to Profile Screen
+    //Grab user specific data: { email, profileImg}
+    const grabUserData = async() => {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+            headers: {
+                Authorization: "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            setProfileInfo({
+                ...profileInfo,
+                email : resp.data.email,
+                profileImg : resp.data.profileImg
+            })
+        })
+    }
 
-    const fetchLikedState = () => {
-        //TODO
+    //On press of delete post 
+    //Will need to refresh feeds at their respective sources
+    const deletePost = async() => {
+        await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.item.timeStamp}`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response will return deleted post...
+        })
+
     }
 
     const redirectToExtendedPostScreen = () => {
@@ -91,9 +119,15 @@ const PostCard = (props: any) => {
                     
 
                     <View style={styles.nameContainer}>
-                        <Text
-                            style={styles.displayName}
-                        >{props.item.displayName}</Text>
+                        <Pressable
+                            onPress={() => navigation.navigate("Profile", profileInfo)}
+                        >
+                            <Text
+                                style={styles.displayName}
+                            >{props.item.displayName}</Text>
+                        </Pressable>
+
+                        
                         <Text
                             style={styles.username}
                         >{`@${props.item.userName}`}</Text>
