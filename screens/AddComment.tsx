@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Text, TextInput, StyleSheet, Pressable, View, PointPropType } from 'react-native';
 import { useState } from 'react';
-import { Card } from 'react-native-elements'
-
+import { Card } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { IAppState } from '../redux/store';
 
 const AddComment = (props) => {
 
@@ -14,19 +15,19 @@ const AddComment = (props) => {
     //Needs user pulled from state, specifically { diplayImg, displayName }
     //Needs timeStamp of post passed through props
     const createNewComment = async() => {
-        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${}`, {
-            headers: {
-                Authorization : "TokenToBePulledFromState"
-            }, 
-                body: {
-                    displayName: user?.displayName,
-                    displayImg: user?.profileImg,
-                    comment: newComment
-                }
+        // await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${}`, {
+        //     headers: {
+        //         Authorization : "TokenToBePulledFromState"
+        //     }, 
+        //         body: {
+        //             displayName: user?.displayName,
+        //             displayImg: user?.profileImg,
+        //             comment: newComment
+        //         }
             
-        }).then(resp => {
-            //Response is a post object containing the newly updated comment array
-        })
+        // }).then(resp => {
+        //     //Response is a post object containing the newly updated comment array
+        // })
     }
 
 
@@ -41,12 +42,12 @@ const AddComment = (props) => {
                         onChangeText={(text)=> setNewComment(text)}/>
                     </View>
 
-            <View style={styles.buttonContainer}>
-                <Pressable style={styles.pressable} onPress={() => createNewComment()}        >
-                    <Text style={styles.text}>Submit</Text>
-                </Pressable>
-            </View>
-        </View>
+                    <View style={styles.buttonContainer}>
+                        <Pressable style={styles.pressable} onPress={() => console.log()}>
+                            <Text style={styles.text}>Reply</Text>
+                        </Pressable>
+                    </View>
+                </View>
         </Card>
     )
 }
@@ -64,11 +65,14 @@ const styles = StyleSheet.create({
     },
 
     card:{
+        flex:1,
         backgroundColor:'rgb(33, 37, 41)',
         borderWidth:4,
         borderColor: 'purple',
         borderRadius:30, 
-        paddingBottom:5
+        paddingBottom:5,
+        marginHorizontal:9,
+        marginBottom:5
     },
 
     postContainer: {
@@ -82,10 +86,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent: "center",
         textAlignVertical: 'top',
-        paddingVertical:15,
-        paddingHorizontal:5,
         marginLeft:10,
-        
     },
 
     buttonContainer:{
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-end",
         alignItems: "center",
+        paddingLeft:5
     },
 
     inputContainer:{

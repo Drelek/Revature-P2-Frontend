@@ -9,77 +9,6 @@ const ExpandedPost: React.FC = (props:any) => {
 
     
     const grabCommentsActual = async() => {
-         
-            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
-                headers: {
-                    Authorization: "TokenToBePulledFromState"
-                }
-            }).then(resp => {
-                setCommentList(resp.data.comments);
-            })
-
-    }
-
-    const[isLiked, setLikedState] = useState(false);
-    const [commentList, setCommentList]  = useState(
-    [{
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    },
-    {   
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    },
-    {
-        displayName:"Jesus",
-        displayImg:"",
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment over there"
-    },
-    {
-        displayName:"Jesus",
-        displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        commentStamp: "12/1/21 6:30pm",
-        comment: "A comment everywhere"
-    }
-    ]);
-    
-    const grabCommentsActual = async() => {
-
             await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
                 headers: {
                     Authorization: "TokenToBePulledFromState"
@@ -193,9 +122,9 @@ const ExpandedPost: React.FC = (props:any) => {
                 />
 
             </View>
-            <View style={styles.addCommentContainer}>
+            {/* <View style={styles.addCommentContainer}> */}
                 <AddComment text={"Leave a Reply"}></AddComment>
-            </View>
+            {/* </View> */}
      {/* </View> */}
         </KeyboardAvoidingView>
     )}
@@ -271,7 +200,7 @@ const styles = StyleSheet.create({
     },
 
     commentsContainer: {
-        flex: 5,
+        flex: 8,
         marginBottom:10
     },
 
