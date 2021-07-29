@@ -32,6 +32,13 @@ export const DrawerContent: React.FC = (props: any) => {
         });
     }
 
+    const signOut = () => {
+        dispatch({
+            type: AppAction.LOGOUT,
+            payload:{}
+        })
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -127,7 +134,7 @@ export const DrawerContent: React.FC = (props: any) => {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => { console.log("sign out") }}
+                    onPress={() => signOut()}
                 />
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>

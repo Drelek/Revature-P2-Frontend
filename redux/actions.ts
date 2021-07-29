@@ -1,4 +1,3 @@
-import { ICanvas } from '../models/Canvas'
 import { IUser } from "../models/User";
 
 export enum AppAction {
