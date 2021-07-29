@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { IUser } from '../models/User';
 import { useSelector } from 'react-redux';
-import { IAppState } from '../Redux/Store';
+import { IAppState } from '../redux/store';
 
 const AddComment = (props: any) => {
 
@@ -16,7 +16,7 @@ const AddComment = (props: any) => {
     //Needs user pulled from state, specifically { diplayImg, displayName }
     //Needs timeStamp of post passed through props
     const createNewComment = async() => {
-        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${}`, {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/`, {
             headers: {
                 Authorization : "TokenToBePulledFromState"
             }, 

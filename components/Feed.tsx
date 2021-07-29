@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState }  from "react";
 import { useEffect } from "react";
-import { StyleSheet, View, Text, Pressable} from "react-native";
+import { StyleSheet, View, Text, Pressable, TextInput} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
