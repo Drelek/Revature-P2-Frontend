@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
     Avatar,
@@ -18,19 +18,19 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { AppAction } from '../redux/actions';
+import EffectCanvas from './effectCanvas';
 
 export const DrawerContent:React.FC = (props:any) => {
     const canvas = useSelector((state: IAppState) => state.canvas);
     const dispatch = useDispatch();
-
-    const toggleCanvas = () => {
-        dispatch({
-            type: AppAction.TOGGLE_CANVAS,
-        })
-    }
+    const [mounted, setMounted] = useState(true)
+    // const toggleCanvas = () => {
+    //     setMounted(!mounted);
+    // }
 
     return(
         <View style={{flex:1}}>
+            {/* {mounted && <EffectCanvas/>} */}
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
@@ -106,10 +106,11 @@ export const DrawerContent:React.FC = (props:any) => {
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">
                           <TouchableRipple onPress={() => {toggleCanvas()}}>
+                            
                             <View style={styles.preference}>
                                 <Text>Canvas Toggle</Text>
                                 <View pointerEvents="none">
-                                    <Switch value={canvas}/>
+                                    <Switch value={!mounted}/>
                                 </View>
                             </View>
                         </TouchableRipple>

@@ -8,11 +8,8 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
-import { Provider, useSelector} from 'react-redux';
-import { createStore, Store } from 'redux';
-import { reducers } from './redux/session_reducers';
+import { useSelector} from 'react-redux';
 import { IAppState } from './redux/store';
-import { IAppActions } from './redux/actions';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App:React.FC = () => {
@@ -21,7 +18,7 @@ const App:React.FC = () => {
   const canvas = useSelector((state: IAppState) => state.canvas);
 
   useEffect(() => {loadFonts()});
-
+  
   const loadFonts = async() => {
     await Font.loadAsync({
       BadScript: require('./assets/fonts/BadScript-Regular.ttf'),
