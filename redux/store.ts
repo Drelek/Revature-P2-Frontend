@@ -1,11 +1,14 @@
 import { IUser } from "../models/User";
 import { ICanvas } from "../models/Canvas"
+
 export interface IAppState {
-    user?: IUser,
-    canvas: ICanvas;
+    auth?: any;
+    user?: IUser;
+    canvas: boolean;
 }
 
 export const initialState: IAppState = {
+    auth: undefined,
     user: undefined,
-    canvas: true,
+    canvas: true
 }

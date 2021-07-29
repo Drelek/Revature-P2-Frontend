@@ -1,20 +1,17 @@
 import { ICanvas } from '../models/Canvas'
-import { IUser } from "../models/user";
+import { IUser } from "../models/User";
 
-export enum UserAction {
+export enum AppAction {
     LOGIN = 'Login',
     LOGOUT = 'Logout',
+    UPDATE_USER = 'Update User',
+    TOGGLE_CANVAS = 'Toggle Background Animation'
 }
 
-export enum CanvasAction {
-    CANVAS = 'CANVAS'
-}
-
-export interface ICanvasAction {
-    type: CanvasAction,
-    payload: {canvas: ICanvas}
-}
-export interface IUserActions {
-    type: UserAction,
-    payload: {user?: IUser}
+export interface IAppActions {
+    type: AppAction,
+    payload?: {
+        user?: IUser,
+        auth?: any
+    }
 }

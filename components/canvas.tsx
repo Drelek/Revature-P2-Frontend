@@ -1,7 +1,11 @@
 import { Dimensions } from 'react-native';
-import React from 'react';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
+import { View } from 'react-native';
+
 const handleCanvas = (c: any) => {
-    const ctx = c.getContext('2d');
+  if (!c) return;  
+  const ctx = c.getContext('2d');
     c.height = Dimensions.get('screen').height;
     c.width = Dimensions.get('screen').width;
     let matrix:string = "▲△△△▼▼▷◁???◭◮◭◭◭!!!▲△△△▼▼▷◁???◭◮◭◭◭!!!BOHEMIANGROVE";
@@ -30,6 +34,6 @@ const handleCanvas = (c: any) => {
       }
     }
     setInterval(draw, 100);
-  }
+}
 
   export default handleCanvas

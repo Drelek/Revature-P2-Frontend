@@ -3,9 +3,41 @@ import { Text, View, StyleSheet, Image, SafeAreaView, Pressable, FlatList } from
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
-const Profile = () => {
+const Profile = (props: any) => {
+
+    //Grab user posts of this specific user
+    let userPostArray = []
+    const grabUserSpecificPosts = async() => {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.profileInfo.userName}/specific`, {
+            headers : {
+                Authorization : "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response is an array of posts 
+            resp.data.forEach((elem: any) => {
+                userPostArray.push(elem);
+            })
+        })
+    }
+
+    //Follow or unfollows dependant on whether user exists on following array 
+    const addFollower = async() => {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.profileInfo.userName}/follow`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }
+        }).then(resp => {
+            //Response returns entire user object after update operation has been completed
+            
+        })
+    }
+
+    
 
     const [postCards, setPostCards] = useState([
         {
@@ -46,12 +78,6 @@ const Profile = () => {
         }
     ]);
 
-    const addFollower = () => {
-        //TODO
-        //Push follower to following array on user object
-    }
-
-    
 
     return(
         <View 
@@ -66,7 +92,7 @@ const Profile = () => {
                     > 
                         <View style={styles.imageContainer}>
                             <Image
-                            source={require('../assets/images/illuminati.png')}
+                            source={props.profileInfo.profileImg}
                             style={styles.image}
                             />
                         </View>
@@ -75,13 +101,13 @@ const Profile = () => {
                         <View style={styles.infoContainer}>
                             <Text 
                                 style={styles.displayName}
-                            >Hello</Text>
+                            >{props.profileInfo.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >@God</Text>
+                            >{props.profileInfo.userName}</Text>
                             <Text
                                 style={styles.email}
-                            >Email</Text>     
+                            >{props.profileInfo.email}</Text>     
                         </View>
 
                         <View >
