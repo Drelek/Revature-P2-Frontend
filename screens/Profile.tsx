@@ -92,7 +92,7 @@ const Profile = (props: any) => {
                     > 
                         <View style={styles.imageContainer}>
                             <Image
-                            source={props.profileInfo.profileImg}
+                            source={require('../assets/images/illuminati.png')}
                             style={styles.image}
                             />
                         </View>
@@ -101,13 +101,13 @@ const Profile = (props: any) => {
                         <View style={styles.infoContainer}>
                             <Text 
                                 style={styles.displayName}
-                            >{props.profileInfo.displayName}</Text>
+                            >{"GOD"}</Text>
                             <Text
                                 style={styles.username}
-                            >{props.profileInfo.userName}</Text>
+                            >{"GOD"}</Text>
                             <Text
                                 style={styles.email}
-                            >{props.profileInfo.email}</Text>     
+                            >{"EMAIL"}</Text>     
                         </View>
 
                         <View >

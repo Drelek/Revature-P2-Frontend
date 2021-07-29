@@ -13,7 +13,7 @@ const SettingsScreens:React.FC = () => {
     }
 
     return (
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
         <View style={styles.smallView}></View>
         <SafeAreaView style={styles.largeView}>
         <Card containerStyle={styles.cardActual}>

@@ -1,10 +1,11 @@
-import axios from 'axios';
 import * as React from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
+import axios from 'axios';
 
 const IndividualComment = (props: any) => {
-    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
+    // console.log(!props.item.displayImg)
+    const {displayImg, comment, displayName, timeStamp} = props.item
 
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
@@ -17,36 +18,32 @@ const IndividualComment = (props: any) => {
             //Response returns deleted comment...
         })
     }
-    // const renderProfileImageOrDefault = (displayImg:string) => {
-    //     if (!displayImg) {
-    //         return (
-    //             <Image
-    //                 source={require('../assets/images/illuminati.png')}
-    //                 style={styles.defaultProfileImage}
-    //             />
-    //         )
-    //     } else {
-    //         return (
-    //             <Image
-    //                 source={{uri:`${displayImg}`}}
-    //                 style={styles.profileImage}
-    //             />
-    //         )
-    //     }
-    // }
 
-    return(
+    const renderProfileImageOrDefault = () => {
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
+                />
+            )
+        } else {
+            return (
+                <Image
+                    source={{uri:`${displayImg}`}}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
 
-        <Card
-            containerStyle={styles.card}
-        >
-            <View
-                style={styles.container}
-            >
-                <Text
-                    style={styles.comment}
-                >{comment}</Text>
-            </View>
+    return (
+        <Card containerStyle={styles.card}>
+            <View style={styles.container}>
+
+                <View style={styles.imageContainer}>
+                    {renderProfileImageOrDefault()}
+                </View>
 
             <View style={styles.dataContainer}>
 
@@ -65,8 +62,7 @@ const IndividualComment = (props: any) => {
                </View>
 
             </View>
-            
-            
+            </View>
 
         </Card>
     )
