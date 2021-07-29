@@ -5,40 +5,47 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import axios from 'axios';
 import { AppAction } from '../redux/actions';
+import { UserContextDataType } from '@aws-sdk/client-cognito-identity-provider';
+import { State } from 'react-native-gesture-handler';
 const SettingsScreens: React.FC = () => {
 
     const user = useSelector((store: IAppState) => store.user);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
+
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState(' ');
-    const [handle, setHandle] = useState(' ');
-    const [password, setPassword] = useState(' ');
-    const [profileImg, setProfileImage] = useState(' ');
 
-    function submitForm() {
+    const [handle, setHandle] = useState(user?.displayName);
+    const [profileImg, setProfileImage] = useState(user?.profileImg);
+
+
+    async function submitForm() {
         const body = {
             'dataType': 'user',
             'dataKey': user?.userName,
             'displayName': handle,
-            'email': email,
             'profileImg': profileImg
         }
         const headers = {
-            Authorization: "TokenToBePulledFromState"
+            Authorization: token
         }
-
-        const res = axios.put(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}`, { body, headers });
-        console.log(res);
-        const updatedUser = {
-            'userName': user?.userName,
-            'displayName': handle,
-            'email': email,
-            'profileImg': profileImg
+        try {
+            const res = await axios.put(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}`, body, { headers });
+            console.log(res);
+            const updatedUser = {
+                'userName': user?.userName,
+                'displayName': handle,
+                'profileImg': profileImg
+            }
+            dispatch({
+                type: AppAction.UPDATE_USER,
+                payload: { user: updatedUser }
+            })
         }
-        dispatch({
-            type: AppAction.UPDATE_USER,
-            payload: { user: updatedUser }
-        })
+        catch (err) {
+            console.log(err)
+            console.log(err.response)
+        }
     }
 
     return (
@@ -50,22 +57,13 @@ const SettingsScreens: React.FC = () => {
                         <Text style={styles.text}> Login and Security </Text>
                     </View>
 
-                    <View style={styles.topForm}>
-
+                    <View style={styles.form}>
                         <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
+                            placeholderTextColor="white" defaultValue={user?.displayName} onChangeText={(text) => setHandle(text)} />
                     </View>
                     <View style={styles.form}>
                         <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
-                    </View>
-                    <View style={styles.form}>
-                        <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
-                    </View>
-                    <View style={styles.form}>
-                        <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                            placeholderTextColor="white" placeholder="Profile image" onChangeText={(text) => setProfileImage(text)} />
                     </View>
                     <View>
                         <Pressable style={styles.button} onPress={() => submitForm()}>
