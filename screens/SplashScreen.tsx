@@ -4,6 +4,9 @@ import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+import { useSelector, useDispatch } from 'react-redux';
+import { IAppState } from '../redux/store';
+import { AppAction } from '../redux/actions';
 
 const SplashScreen: React.FC = (props:any) => {
 
@@ -11,6 +14,8 @@ const SplashScreen: React.FC = (props:any) => {
     session: "login"
   });
   
+  const canvas = useSelector((state: IAppState) => state.canvas);
+  const dispatch = useDispatch();
 
   const renderSession = () => {
     const session = userSession.session;

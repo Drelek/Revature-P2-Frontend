@@ -14,17 +14,19 @@ import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-let toggle = true;
+import { useSelector, useDispatch } from 'react-redux';
+import { IAppState } from '../redux/store';
+import { AppAction } from '../redux/actions';
+
 export const DrawerContent:React.FC = (props:any) => {
+    const canvas = useSelector((state: IAppState) => state.canvas);
+    const dispatch = useDispatch();
 
     const toggleCanvas = () => {
-      if (toggle === true){
-        toggle = false;
-      } else {
-        toggle = true;
-      }
+        dispatch({
+            type: AppAction.TOGGLE_CANVAS,
+        })
     }
 
     return(
@@ -107,7 +109,7 @@ export const DrawerContent:React.FC = (props:any) => {
                             <View style={styles.preference}>
                                 <Text>Canvas Toggle</Text>
                                 <View pointerEvents="none">
-                                    <Switch value={toggle}/>
+                                    <Switch value={canvas}/>
                                 </View>
                             </View>
                         </TouchableRipple>

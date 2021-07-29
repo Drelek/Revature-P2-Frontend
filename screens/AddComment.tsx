@@ -29,9 +29,7 @@ const AddComment = () => {
                 </Pressable>
             </View>
             
-
         </View>
-
     )
 }
 
