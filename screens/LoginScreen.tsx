@@ -109,6 +109,7 @@ const LoginScreen: React.FC = (props:any) => {
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
   )
+    
 };
 
 const styles = StyleSheet.create({

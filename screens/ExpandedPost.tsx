@@ -3,65 +3,77 @@ import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingVie
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
+import axios from 'axios';
 
 const ExpandedPost: React.FC = (props:any) => {
-    // const[timeStamp, setTimeStamp] = useState(props);
-    //TODO 
-    //Use timestamp to pull post in question from database
+
+    
+    const grabCommentsActual = async() => {
+         
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
+                headers: {
+                    Authorization: "TokenToBePulledFromState"
+                }
+            }).then(resp => {
+                setCommentList(resp.data.comments);
+            })
+
+    }
+
     const[isLiked, setLikedState] = useState(false);
     const [commentList, setCommentList]  = useState(
     [{
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {   
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     },
     {
         displayName:"Jesus",
         displayImg:"",
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment over there"
     },
     {
         displayName:"Jesus",
         displayImg:'https://reactnative.dev/img/tiny_logo.png',
-        timeStamp: "12/1/21 6:30pm",
+        commentStamp: "12/1/21 6:30pm",
         comment: "A comment everywhere"
     }
     ]);
@@ -108,6 +120,13 @@ const ExpandedPost: React.FC = (props:any) => {
     }
 
     const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
+    const mergePostCommentData= () => {
+        setCommentList([props.route.params,...commentList]);
+    }
+
+    useEffect(()=> mergePostCommentData(),[]);
+
+    
 
     const renderSinglePost = () => {
         
@@ -156,8 +175,9 @@ const ExpandedPost: React.FC = (props:any) => {
         {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
+                //Rendering list of comments
                 <FlatList 
-                    data={commentList}
+                    data={[commentList, timeStamp]}
                     ListHeaderComponent={() => renderSinglePost()}
                     renderItem={({item}) => <IndividualComment item={item}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
