@@ -3,5 +3,6 @@ export interface IUser {
     displayName: string;
     profileImg: string;
     email?: string;
-    password?: string;
+    followers?: number;
+    following?: string[];
 }
