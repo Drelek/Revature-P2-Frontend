@@ -23,7 +23,7 @@ export const DrawerContent: React.FC = (props: any) => {
 
     const canvasToggle = useSelector((state: IAppState) => state.canvas);
     const dispatch = useDispatch();
-    
+
     const toggleCanvas = () => {
         dispatch({
             type: AppAction.TOGGLE_CANVAS,
@@ -103,7 +103,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Search"
-                            onPress={() => { props.navigation.navigate('SearchScreen') }}
+                            onPress={() => { props.navigation.navigate('Home', { screen: "Search" }) }}
                         />
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">

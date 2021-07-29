@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import axios from 'axios';
 import { AppAction } from '../redux/actions';
-import { UserContextDataType } from '@aws-sdk/client-cognito-identity-provider';
-import { State } from 'react-native-gesture-handler';
+
 const SettingsScreens: React.FC = () => {
 
     const user = useSelector((store: IAppState) => store.user);
