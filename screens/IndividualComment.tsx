@@ -65,7 +65,7 @@ const IndividualComment = (props: any) => {
                </View>
 
             </View>
-            </View>
+            
             
 
         </Card>

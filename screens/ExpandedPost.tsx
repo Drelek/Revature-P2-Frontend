@@ -165,7 +165,7 @@ const ExpandedPost: React.FC = (props:any) => {
 
     return (
         
-        <KeyboardAvoidingView style={styles.container}  enabled behavior={Platform.OS === "ios" ? "padding" : null}  keyboardVerticalOffset={Platform.select({ios: 80})}>
+        <KeyboardAvoidingView style={styles.container}  enabled-behavior={Platform.OS === "ios" ? "padding" : null}  keyboardVerticalOffset={Platform.select({ios: 80})}>
                 {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>

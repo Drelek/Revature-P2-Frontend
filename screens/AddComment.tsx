@@ -44,7 +44,7 @@ const AddComment = (props: any) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Pressable style={styles.pressable} onPress={() => postComment()}        >
+                <Pressable style={styles.pressable} onPress={() => createNewComment()}        >
                     <Text style={styles.text}>Submit</Text>
                 </Pressable>
             </View>
