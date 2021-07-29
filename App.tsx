@@ -12,12 +12,12 @@ import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
-import { IUserActions } from './redux/actions';
+import { IAppActions } from './redux/actions';
 import { registerRootComponent } from 'expo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
-const store: Store<IAppState, IUserActions> = createStore(reducers);
+const store: Store<IAppState, IAppActions> = createStore(reducers);
 
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();

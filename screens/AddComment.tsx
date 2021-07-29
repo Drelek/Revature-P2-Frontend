@@ -1,19 +1,36 @@
 import * as React from 'react';
 import { Text, TextInput, StyleSheet, Pressable, View } from 'react-native';
 import { useState } from 'react';
+import axios from 'axios';
+import { IUser } from '../models/User';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../Redux/Store';
 
-const AddComment = () => {
+const AddComment = (props: any) => {
 
     const[newComment, setNewComment] = useState(' ');
+    const user = useSelector((state: IAppState) => state.user);
 
+    //TODO
     //Create comment lambda here -->
-    //Needs user passed as props to this component!
-
-    const postComment = () => {
-        console.log("hello")
-        //TODO
-        //Post comment to endpoint and refresh screen
+    //Needs user pulled from state, specifically { diplayImg, displayName }
+    //Needs timeStamp of post passed through props
+    const createNewComment = async() => {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${}`, {
+            headers: {
+                Authorization : "TokenToBePulledFromState"
+            }, 
+                body: {
+                    displayName: user?.displayName,
+                    displayImg: user?.profileImg,
+                    comment: newComment
+                }
+            
+        }).then(resp => {
+            //Response is a post object containing the newly updated comment array
+        })
     }
+
 
     return(
         <View style={styles.card}>
