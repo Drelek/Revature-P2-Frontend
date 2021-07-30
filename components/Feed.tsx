@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
+import React, { useState, useEffect} from "react";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
@@ -15,7 +14,6 @@ const Feed: React.FC = (props: any) => {
     const user = useSelector((state: IAppState) => state.user);
     const [postCards, setPostCards] = useState([]);
     const [working, setWorking] = useState(false);
-
     const [newPost, setNewPost] = useState(' ');
 
     useEffect(() => {
@@ -37,6 +35,7 @@ const Feed: React.FC = (props: any) => {
 
     //Add post to global feed
     const createPost = async () => {
+        Keyboard.dismiss;
         try {
             setWorking(true);
             await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
@@ -60,31 +59,38 @@ const Feed: React.FC = (props: any) => {
         
     }
 
-    const addPost = () => {
-        return (
-            <Card containerStyle={styles.card}>
-                <View style={styles.postContainer}>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            placeholder="What's happening?"
-                            placeholderTextColor="white"
-                            style={styles.inputBox}
-                            onChangeText={(text) => setNewPost(text)} />
-                    </View>
+    // const onSubmit = (text:string) => {
+    //     Keyboard.dismiss;
+    //     setNewPost(text);
+    // }
 
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.TouchableOpacity} onPress={createPost}>
-                            <Text style={styles.text}>Post</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Card>
-        )
-    }
+    // const addPost = () => {
+    //     return (
+    //         <Card containerStyle={styles.card}>
+    //             <View style={styles.postContainer}>
+    //                 <View style={styles.inputContainer}>
+    //                     <TextInput
+    //                         placeholder="What's happening?"
+    //                         placeholderTextColor="white"
+    //                         style={styles.inputBox}
+    //                         value={newPost}
+    //                         onChangeText={(text) => onSubmit(text)} />
+    //                 </View>
+
+    //                 <View style={styles.buttonContainer}>
+    //                     <TouchableOpacity style={styles.TouchableOpacity} onPress={createPost}>
+    //                         <Text style={styles.text}>Post</Text>
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </View>
+    //         </Card>
+    //     )
+    // }
 
     return (
         <View style={styles.container}>
             <FlatList
+                keyboardShouldPersistTaps={"always"}
                 data={postCards}
                 ListHeaderComponent={
                     <Card containerStyle={styles.card}>
@@ -94,6 +100,7 @@ const Feed: React.FC = (props: any) => {
                                     placeholder="Leave a Post"
                                     placeholderTextColor="white"
                                     style={styles.inputBox}
+                                    value={newPost}
                                     onChangeText={(text) => setNewPost(text)} />
                             </View>
 

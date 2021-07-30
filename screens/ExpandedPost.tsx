@@ -158,10 +158,10 @@ const ExpandedPost: React.FC = (props: any) => {
                     }
                 })
             }}>
-            <AddComment text={"Leave a Reply"}></AddComment>
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
             </View>
     
-            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
+            
         </KeyboardAvoidingView>
     )
 }
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     },
 
     timeStampContainer: {
-        flex: 1,
+        flex: 2,
         flexDirection: "row",
         justifyContent: "flex-end"
     },

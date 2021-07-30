@@ -11,12 +11,14 @@ const AddComment = (props: any) => {
     const[newComment, setNewComment] = useState(' ');
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    const [working, setWorking] = useState(false);
 
     //TODO
     //Create comment lambda here -->
     //Needs user pulled from state, specifically { diplayImg, displayName }
     //Needs timeStamp of post passed through props
     const createNewComment = async() => {
+        setWorking(true)
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.timeStamp}`, {
             displayName: user?.displayName,
             displayImg: user?.profileImg,
@@ -28,6 +30,9 @@ const AddComment = (props: any) => {
         }).then(resp => {
             //Response is a post object containing the newly updated comment array
             props.submitComm();
+        }).then(resp => {
+            setWorking(false);
+            setNewComment(' ');
         })
     }
 
@@ -37,6 +42,7 @@ const AddComment = (props: any) => {
                 <View style={styles.postContainer}>
                     <View style={styles.inputContainer}> 
                         <TextInput
+                        value={newComment}
                         placeholder={props.text}
                         placeholderTextColor="white" 
                         style={styles.inputBox}
@@ -44,7 +50,7 @@ const AddComment = (props: any) => {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.TouchableOpacity} onPress={() => createNewComment()}>
+                        <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => createNewComment()}>
                             <Text style={styles.text}>Reply</Text>
                         </TouchableOpacity>
                     </View>
@@ -57,7 +63,7 @@ export default AddComment;
 
 const styles = StyleSheet.create({
     text:{
-        fontSize:14,
+        fontSize:12,
         color: "white",
     },
 
@@ -112,5 +118,13 @@ const styles = StyleSheet.create({
         paddingVertical:15,
         marginBottom:10,
         borderRadius: 15,
+    },
+
+    working:{
+        backgroundColor:"grey"
+    },
+
+    notWorking:{
+        backgroundColor:"purple"
     }
 })
