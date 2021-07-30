@@ -127,8 +127,9 @@ const Profile: React.FC = (props: any) => {
                 <FlatList
                     data={postCards}
                     renderItem={({ item }) =>
-                        <PostCard item={item}
-                        ></PostCard>
+                        <PostCard item={item}>
+
+                        </PostCard>
                     }
                     keyExtractor={(item, index) => index.toString()}
                 />

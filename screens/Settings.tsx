@@ -8,7 +8,7 @@ import { AppAction } from '../redux/actions';
 
 const SettingsScreens: React.FC = () => {
 
-    const user = useSelector((store: IAppState) => store.user);
+    let user = useSelector((store: IAppState) => store.user);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
 
     const dispatch = useDispatch();
@@ -29,20 +29,23 @@ const SettingsScreens: React.FC = () => {
             Authorization: token
         }
         try {
-            const res = await axios.put(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}`, body, { headers });
-            console.log(res);
+            const res = await axios.put('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + user?.userName, body, { headers });
+
             const updatedUser = {
                 'userName': user?.userName,
                 'displayName': handle,
                 'profileImg': profileImg
             }
+
+
             dispatch({
                 type: AppAction.UPDATE_USER,
                 payload: { user: updatedUser }
             })
+            user = useSelector((store: IAppState) => store.user);
         }
         catch (err) {
-            console.log(err)
+
             console.log(err.response)
         }
     }
@@ -53,12 +56,12 @@ const SettingsScreens: React.FC = () => {
             <SafeAreaView style={styles.largeView}>
                 <Card containerStyle={styles.cardActual}>
                     <View style={styles.titleContainer}>
-                        <Text style={styles.text}> Login and Security </Text>
+                        <Text style={styles.text}> Change your handle/profile image </Text>
                     </View>
 
                     <View style={styles.form}>
                         <TextInput style={styles.input}
-                            placeholderTextColor="white" defaultValue={user?.displayName} onChangeText={(text) => setHandle(text)} />
+                            placeholderTextColor="white" placeholder={user?.displayName} onChangeText={(text) => setHandle(text)} />
                     </View>
                     <View style={styles.form}>
                         <TextInput style={styles.input}

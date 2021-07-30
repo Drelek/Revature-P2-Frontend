@@ -103,227 +103,228 @@ const PostCard = (props: any) => {
         } else {
             return '';
         }
-
-        const renderNumOfLikes = () => {
-            if (likes - 1) {
-                return likes - 1;
-            } else {
-                return '';
-            }
-        }
-
-        const renderProfileImageOrDefault = () => {
-            const { displayImg } = item;
-            if (!displayImg) {
-                return (
-                    <Image
-                        source={require('../assets/images/illuminati.png')}
-                        style={styles.defaultProfileImage}
-                    />
-                )
-            } else {
-                return (
-                    <Image
-                        source={{ uri: `${displayImg}` }}
-                        style={styles.profileImage}
-                    />
-                )
-            }
-        }
-
-        const renderNotLikeOrLiked = () => {
-            if (isLiked) {
-                return (
-                    <Image
-                        source={require('../assets/images/likedIcon.png')}
-                        style={styles.heart}
-                    />)
-            } else {
-                return (<Image
-                    source={require('../assets/images/likeIcon.png')}
-                    style={styles.heart}
-                />)
-            }
-        }
-
-        const postTime = new Date(Number(item.timeStamp));
-        const timeText = `${postTime.getHours()}:${postTime.getMinutes()} ${postTime.getDate()}`
-
-        return (
-            <View
-                style={styles.card}
-            >
-
-                <Card containerStyle={styles.cardActual}>
-
-                    <View
-                        style={styles.containerHeadOfCard}
-                    >
-                        <View style={styles.imageContainer}>
-                            {renderProfileImageOrDefault()}
-                        </View>
-
-
-                        <View style={styles.nameContainer}>
-                            <Pressable
-                                onPress={() => navigation.navigate("Profile", profileInfo)}
-                            >
-                                <Text
-                                    style={styles.displayName}
-                                >{item.displayName}</Text>
-                            </Pressable>
-
-
-                            <Text
-                                style={styles.username}
-                            >{`${item.userName}`}</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.postContainer}>
-                        <Text
-                            style={styles.postBody}
-                        >{item.postBody}</Text>
-                    </View>
-
-
-                    <View
-                        style={styles.containerViewAlignIcons}
-                    >
-                        <View style={styles.likesContainer}>
-                            <Pressable onPress={toggleLike}>
-                                {renderNotLikeOrLiked()}
-                            </Pressable>
-
-                            <Text style={styles.likesText}>{renderNumOfLikes()}</Text>
-                        </View>
-
-                        <View style={styles.commentsContainer}>
-                            <Pressable
-                                onPress={() => redirectToExtendedPostScreen()}>
-                                <Image
-                                    source={require('../assets/images/commentIcon.png')}
-                                    style={styles.comment}
-                                />
-                            </Pressable>
-                            <Text style={styles.likesText}>
-                                {renderNumOfComments()}
-                            </Text>
-                        </View>
-
-                        <View style={styles.timeStampContainer}>
-                            <Text style={styles.timestamp}>{postTime.toLocaleTimeString() + ' ' + postTime.toLocaleDateString()}</Text>
-                        </View>
-                    </View>
-                </Card>
-
-            </View>
-        )
     }
 
-    export default PostCard;
+    const renderNumOfLikes = () => {
+        if (likes - 1) {
+            return likes - 1;
+        } else {
+            return '';
+        }
+    }
 
-    const styles = StyleSheet.create({
-        card: {
-            padding: 10,
-        },
-        cardActual: {
-            flex: 2,
-            borderRadius: 10,
-            borderColor: 'purple',
-            borderWidth: 2,
-            backgroundColor: 'rgb(33, 37, 41)',
-        },
-        containerHeadOfCard: {
-            flex: 1,
-            flexDirection: "row",
-            marginBottom: 10
-        },
+    const renderProfileImageOrDefault = () => {
+        const { displayImg } = item;
+        if (!displayImg) {
+            return (
+                <Image
+                    source={require('../assets/images/illuminati.png')}
+                    style={styles.defaultProfileImage}
+                />
+            )
+        } else {
+            return (
+                <Image
+                    source={{ uri: `${displayImg}` }}
+                    style={styles.profileImage}
+                />
+            )
+        }
+    }
 
-        imageContainer: {
-            flex: 1,
-        },
+    const renderNotLikeOrLiked = () => {
+        if (isLiked) {
+            return (
+                <Image
+                    source={require('../assets/images/likedIcon.png')}
+                    style={styles.heart}
+                />)
+        } else {
+            return (<Image
+                source={require('../assets/images/likeIcon.png')}
+                style={styles.heart}
+            />)
+        }
+    }
 
-        nameContainer: {
-            flex: 2,
-        },
+    const postTime = new Date(Number(item.timeStamp));
+    const timeText = `${postTime.getHours()}:${postTime.getMinutes()} ${postTime.getDate()}`
 
-        postContainer: {
-            flex: 2,
-            borderRadius: 20,
-        },
+    return (
+        <View
+            style={styles.card}
+        >
 
-        containerViewAlignIcons: {
-            flex: 1,
-            paddingTop: 10,
-            flexDirection: "row",
-            justifyContent: "space-around",
-            borderTopWidth: 2,
-            borderColor: "purple"
-        },
-        defaultProfileImage: {
-            marginTop: 5,
-            width: 90,
-            height: 90,
-            borderRadius: 100,
-            borderWidth: 2,
-            borderColor: 'purple',
-            backgroundColor: 'purple'
-        },
-        profileImage: {
-            marginTop: 5,
-            width: 90,
-            height: 90,
-            borderRadius: 100,
-            borderWidth: 2,
-            borderColor: 'purple',
-        },
-        displayName: {
-            fontSize: 22,
-            color: "white",
-            fontFamily: "BadScript"
-        },
-        username: {
-            fontSize: 16,
-            color: "white",
-            fontFamily: "BadScript",
-        },
-        postBody: {
-            color: "white",
-            fontFamily: "Montserrat",
-            marginBottom: 10
-        },
+            <Card containerStyle={styles.cardActual}>
 
-        heart: {
-            width: 25,
-            height: 25
-        },
-        comment: {
-            width: 25,
-            height: 25,
-        },
+                <View
+                    style={styles.containerHeadOfCard}
+                >
+                    <View style={styles.imageContainer}>
+                        {renderProfileImageOrDefault()}
+                    </View>
 
-        timestamp: {
-            color: "white",
-            fontFamily: "Montserrat"
-        },
 
-        likesText: {
-            color: "white",
-            paddingLeft: 10,
-            fontFamily: "Montserrat"
-        },
+                    <View style={styles.nameContainer}>
+                        <Pressable
+                            onPress={() => navigation.navigate("Profile", profileInfo)}
+                        >
+                            <Text
+                                style={styles.displayName}
+                            >{item.displayName}</Text>
+                        </Pressable>
 
-        likesContainer: {
-            flex: 1,
-            flexDirection: "row",
-        },
 
-        commentsContainer: {
-            flex: 1,
-            flexDirection: "row"
-        },
+                        <Text
+                            style={styles.username}
+                        >{`${item.userName}`}</Text>
+                    </View>
+                </View>
 
-        timeStampContainer: {
-        },
-    })
+                <View style={styles.postContainer}>
+                    <Text
+                        style={styles.postBody}
+                    >{item.postBody}</Text>
+                </View>
+
+
+                <View
+                    style={styles.containerViewAlignIcons}
+                >
+                    <View style={styles.likesContainer}>
+                        <Pressable onPress={toggleLike}>
+                            {renderNotLikeOrLiked()}
+                        </Pressable>
+
+                        <Text style={styles.likesText}>{renderNumOfLikes()}</Text>
+                    </View>
+
+                    <View style={styles.commentsContainer}>
+                        <Pressable
+                            onPress={() => redirectToExtendedPostScreen()}>
+                            <Image
+                                source={require('../assets/images/commentIcon.png')}
+                                style={styles.comment}
+                            />
+                        </Pressable>
+                        <Text style={styles.likesText}>
+                            {renderNumOfComments()}
+                        </Text>
+                    </View>
+
+                    <View style={styles.timeStampContainer}>
+                        <Text style={styles.timestamp}>{postTime.toLocaleTimeString() + ' ' + postTime.toLocaleDateString()}</Text>
+                    </View>
+                </View>
+            </Card>
+
+        </View>
+    )
+}
+
+export default PostCard;
+
+const styles = StyleSheet.create({
+    card: {
+        padding: 10,
+    },
+    cardActual: {
+        flex: 2,
+        borderRadius: 10,
+        borderColor: 'purple',
+        borderWidth: 2,
+        backgroundColor: 'rgb(33, 37, 41)',
+    },
+    containerHeadOfCard: {
+        flex: 1,
+        flexDirection: "row",
+        marginBottom: 10
+    },
+
+    imageContainer: {
+        flex: 1,
+    },
+
+    nameContainer: {
+        flex: 2,
+    },
+
+    postContainer: {
+        flex: 2,
+        borderRadius: 20,
+    },
+
+    containerViewAlignIcons: {
+        flex: 1,
+        paddingTop: 10,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        borderTopWidth: 2,
+        borderColor: "purple"
+    },
+    defaultProfileImage: {
+        marginTop: 5,
+        width: 90,
+        height: 90,
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: 'purple',
+        backgroundColor: 'purple'
+    },
+    profileImage: {
+        marginTop: 5,
+        width: 90,
+        height: 90,
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: 'purple',
+    },
+    displayName: {
+        fontSize: 22,
+        color: "white",
+        fontFamily: "BadScript"
+    },
+    username: {
+        fontSize: 16,
+        color: "white",
+        fontFamily: "BadScript",
+    },
+    postBody: {
+        color: "white",
+        fontFamily: "Montserrat",
+        marginBottom: 10
+    },
+
+    heart: {
+        width: 25,
+        height: 25
+    },
+    comment: {
+        width: 25,
+        height: 25,
+    },
+
+    timestamp: {
+        color: "white",
+        fontFamily: "Montserrat"
+    },
+
+    likesText: {
+        color: "white",
+        paddingLeft: 10,
+        fontFamily: "Montserrat"
+    },
+
+    likesContainer: {
+        flex: 1,
+        flexDirection: "row",
+    },
+
+    commentsContainer: {
+        flex: 1,
+        flexDirection: "row"
+    },
+
+    timeStampContainer: {
+    },
+})
