@@ -30,8 +30,8 @@ const Feed: React.FC = (props: any) => {
             }
         }).then(resp => {
             //resp.data is an array of posts
-
-            setPostCards(resp.data[0])
+            console.log(resp.data[0]);
+            setPostCards(resp.data[0]);
         })
     }
 
