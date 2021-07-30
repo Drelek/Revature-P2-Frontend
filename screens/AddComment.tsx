@@ -10,7 +10,7 @@ const AddComment = (props: any) => {
 
     const[newComment, setNewComment] = useState(' ');
     const user = useSelector((state: IAppState) => state.user);
-    const token = useSelector((state: IAppState) => state.auth.token);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
 
     //TODO
     //Create comment lambda here -->
