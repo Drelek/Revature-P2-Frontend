@@ -4,6 +4,13 @@ import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
 
 const IndividualComment = (props: any) => {
+    const item = {
+        displayImg: props.item.displayImg.S,
+        comment: props.item.comment.S,
+        displayName: props.item.displayName.S,
+        commentStamp: props.item.commentStamp.N
+    }
+    
     const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
 
     //Delete a comment

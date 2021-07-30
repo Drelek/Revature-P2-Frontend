@@ -92,7 +92,6 @@ const PostCard = (props: any) => {
     }
     
     const redirectToExtendedPostScreen = () => {
-        const {item} = props
         navigation.navigate("ExpandedPost", item)
     }
 
