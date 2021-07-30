@@ -27,7 +27,6 @@ const AddComment = (props: any) => {
             },  
         }).then(resp => {
             //Response is a post object containing the newly updated comment array
-            console.log(resp.data[0])
             props.submitComm();
         })
     }
