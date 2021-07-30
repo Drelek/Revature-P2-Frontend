@@ -68,9 +68,14 @@ const PostCard = (props: any) => {
 
     }
 
-    const toggleLike = async () => {
+    useEffect(() => {
+        console.log(isLiked);
+    })
+    
+    const toggleLike = () => {
         try {
-            await axios.patch(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
+            console.log(isLiked);
+            axios.patch(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
                 isLiked: isLiked,
                 userName: userName,
                 timeStamp: item.timeStamp
@@ -78,16 +83,16 @@ const PostCard = (props: any) => {
                 headers: {
                     Authorization : token
                 }
+            }).then(() => {
+
+                if (isLiked) setLikes(likes-1);
+                else setLikes(likes+1);
+                setLikedState(!isLiked);
             })
         } catch (err) {
             console.log(err);
             console.log(err.response.data);
         }
-
-        if (isLiked) setLikes(likes-1);
-        else setLikes(likes+1);
-        
-        setLikedState(!isLiked);
 
     }
     
