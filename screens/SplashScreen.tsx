@@ -1,5 +1,5 @@
-import React, {useState }from 'react';
-import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView} from 'react-native';
+import React, {useState, useEffect, useRef}from 'react';
+import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView, Keyboard,Platform, KeyboardEvent} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
@@ -13,6 +13,28 @@ const SplashScreen: React.FC = (props:any) => {
   const [userSession, setUserSession] = useState({
     session: "login"
   });
+
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
+    const onKeyboardShow = (event: KeyboardEvent) => {
+        if(Platform.OS === "android") {
+            setKeyboardOffset(event.endCoordinates.height + 100)
+        } else {
+            setKeyboardOffset(event.endCoordinates.height - 10)
+        }
+    }
+    const onKeyboardHide = () => setKeyboardOffset(0);
+    const keyboardDidShowListener:any = useRef();
+    const keyboardDidHideListener:any = useRef();
+
+    useEffect(() => {
+        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
+        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
+
+        return () => {
+            keyboardDidShowListener.current.remove();
+            keyboardDidHideListener.current.remove();
+        };
+    }, []);
 
   function returnToLogin() {
     setUserSession({session: "login"});
@@ -57,9 +79,8 @@ const SplashScreen: React.FC = (props:any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView style={styles.smallView} />
 
-      <SafeAreaView style={styles.smallView}>
+      <SafeAreaView style={styles.messageView}>
         {welcomeMessage()}
       </SafeAreaView>
 
@@ -86,11 +107,20 @@ const styles = StyleSheet.create({
   },
 
   smallView: {
+    flex: 1.5,
+    alignItems: 'center',
+    paddingHorizontal:15,
+    backgroundColor: "transparent",
+    borderColor:"purple",
+  },
+
+  messageView: {
     flex: 1,
     alignItems: 'center',
     paddingHorizontal:15,
     backgroundColor: "transparent",
-    borderColor:"purple"
+    borderColor:"purple",
+    justifyContent: 'flex-end',
   },
 
   largeView: {
@@ -100,6 +130,8 @@ const styles = StyleSheet.create({
     borderWidth:4,
     borderColor: 'purple',
     width: screenWidth - 20,
+    justifyContent: 'flex-end',
+    marginTop:20
   },
 
   text:{
