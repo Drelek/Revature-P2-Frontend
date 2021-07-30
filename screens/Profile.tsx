@@ -9,7 +9,7 @@ import axios from 'axios';
 import { IAppState } from '../redux/store';
 
 
-const Profile = (props: any) => {
+const Profile:React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);    

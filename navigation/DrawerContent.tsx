@@ -113,7 +113,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Search"
-                            onPress={() => { props.navigation.navigate('SearchScreen') }}
+                            onPress={() => { props.navigation.navigate('Search') }}
                         />
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">
