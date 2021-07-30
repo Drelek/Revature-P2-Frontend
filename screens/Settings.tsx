@@ -23,16 +23,10 @@ const SettingsScreens:React.FC = () => {
             
             <View style={styles.topForm}>
 
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Email" onChangeText={(text) => setEmail(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
                 placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput  style={styles.input}
-                placeholderTextColor="white" placeholder="Password" onChangeText={(text) => setPassword(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
