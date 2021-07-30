@@ -3,8 +3,6 @@ import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-nat
 import { IAppState } from '../redux/store';
 import { screenWidth } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
-import cogClient from '../Cognito';
-import { InitiateAuthCommand, InitiateAuthCommandInput} from '@aws-sdk/client-cognito-identity-provider';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { AppAction } from '../redux/actions';

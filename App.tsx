@@ -23,10 +23,9 @@ const store: Store<IAppState, IAppActions> = createStore(reducers);
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
   const [fontsLoaded, setFonts] = useState(false);
-  const canvas = useSelector((state: IAppState) => state.canvas);
 
   useEffect(() => {loadFonts()});
-
+  
   const loadFonts = async() => {
     await Font.loadAsync({
       BadScript: require('./assets/fonts/BadScript-Regular.ttf'),
@@ -53,13 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: screenWidth,
     backgroundColor: "black",
-  },
-
-  canvas:{
-    flex:1,
-    position: "absolute",
-    zIndex: -1,
-    elevation: -1
   },
 
   loadingBackgroundStyle:{

@@ -4,79 +4,27 @@ import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
 
 const ExpandedPost: React.FC = (props: any) => {
 
+    const [isLiked, setLikedState] = useState(false);
+    const [commentList, setCommentList] = useState([]);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
+
 
     const grabCommentsActual = async () => {
-
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
-                Authorization: "TokenToBePulledFromState"
+                Authorization: token
             }
         }).then(resp => {
-            setCommentList(resp.data.comments);
+            setCommentList(resp.data[0].comments);
+            console.log(resp.data);
         })
 
     }
-
-    const [isLiked, setLikedState] = useState(false);
-    const [commentList, setCommentList] = useState(
-        [{
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: 'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment over there"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: 'https://reactnative.dev/img/tiny_logo.png',
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment everywhere"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment over there"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment everywhere"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: "",
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment over there"
-        },
-        {
-            displayName: "Jesus",
-            displayImg: 'https://reactnative.dev/img/tiny_logo.png',
-            commentStamp: "12/1/21 6:30pm",
-            comment: "A comment everywhere"
-        }
-        ]);
 
     const renderNumOfLikes = (likes: number[]) => {
         if (likes.length) {
@@ -119,14 +67,12 @@ const ExpandedPost: React.FC = (props: any) => {
         }
     }
 
-    const { displayName, displayImg, userName, postBody, likes, timeStamp } = props.route.params
-    const mergePostCommentData = () => {
-        setCommentList([props.route.params, ...commentList]);
-    }
+    useEffect(() => {
+        grabCommentsActual();
+    }, []);
 
-    useEffect(() => mergePostCommentData(), []);
-
-
+    const { displayName, displayImg, userName, postBody, likes } = props.route.params
+    const timeStamp = new Date(Number(props.route.params.timeStamp)).toLocaleTimeString() + ' ' + new Date(Number(props.route.params.timeStamp)).toLocaleDateString()
 
     const renderSinglePost = () => {
 
@@ -166,7 +112,7 @@ const ExpandedPost: React.FC = (props: any) => {
 
     return (
 
-        <KeyboardAvoidingView style={styles.container} enabled-behavior={Platform.OS === "ios" ? "padding" : null} keyboardVerticalOffset={Platform.select({ ios: 80 })}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "null"} keyboardVerticalOffset={Platform.select({ ios: 64 })}>
             {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
@@ -176,19 +122,17 @@ const ExpandedPost: React.FC = (props: any) => {
             {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
-                //Rendering list of comments
                 <FlatList
-                    data={[commentList, timeStamp]}
+                    data={commentList}
                     ListHeaderComponent={() => renderSinglePost()}
                     renderItem={({ item }) => <IndividualComment item={item}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
                 />
 
             </View>
-
-            <View style={styles.addCommentContainer}>
-                <AddComment></AddComment>
-            </View>
+            {/* <View style={styles.addCommentContainer}> */}
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.timeStamp} submitComm={grabCommentsActual}></AddComment>
+            {/* </View> */}
             {/* </View> */}
         </KeyboardAvoidingView>
     )
@@ -265,12 +209,13 @@ const styles = StyleSheet.create({
     },
 
     commentsContainer: {
-        flex: 5,
+        flex: 8,
         marginBottom: 10
     },
 
     addCommentContainer: {
         flex: 1,
+        justifyContent: "flex-end"
     },
 
     displayName: {
