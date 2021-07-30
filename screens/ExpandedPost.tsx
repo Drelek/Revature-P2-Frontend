@@ -119,13 +119,13 @@ const ExpandedPost: React.FC = (props:any) => {
         }
     }
 
+    const {displayName, displayImg, userName, postBody, likes,timeStamp} = props.route.params
     const mergePostCommentData= () => {
         setCommentList([props.route.params,...commentList]);
     }
 
     useEffect(()=> mergePostCommentData(),[]);
 
-    const {displayName, displayImg, userName, postBody, likes, timeStamp} = props.route.params
     
 
     const renderSinglePost = () => {
@@ -165,7 +165,7 @@ const ExpandedPost: React.FC = (props:any) => {
 
     return (
         
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}  enabled-behavior={Platform.OS === "ios" ? "padding" : null}  keyboardVerticalOffset={Platform.select({ios: 80})}>
                 {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
@@ -175,26 +175,23 @@ const ExpandedPost: React.FC = (props:any) => {
         {/* <View style={styles.inner}> */}
             <View style={styles.commentsContainer}>
 
-                //Rendering list of comments
+                {/*Rendering list of comments */}
                 <FlatList 
-                    data={[commentList, timeStamp]}  //-->Pass post timeStamp to individual comment component
-                    renderItem={({item, index}) => {
-                        if (index !== 0){
-                            return (<IndividualComment item={item}></IndividualComment>)
-                        } else {
-                            return (renderSinglePost())
-                        }
-                    }}
+                    data={[commentList, timeStamp]}
+                    ListHeaderComponent={() => renderSinglePost()}
+                    renderItem={({item}) => <IndividualComment item={item}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
                 />
 
             </View>
 
             <View style={styles.addCommentContainer}>
-                <AddComment></AddComment>
+                <AddComment
+                    timeStamp={timeStamp}
+                ></AddComment>
             </View>
      {/* </View> */}
-        </View>
+        </KeyboardAvoidingView>
     )}
 
 const styles = StyleSheet.create({
