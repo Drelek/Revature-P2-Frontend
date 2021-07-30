@@ -3,6 +3,7 @@ export type RootDrawerParamList = {
   Profile: {userId: string};
   Settings: {userId: string};
   ExpandedPost: {userId: string};
+  Search: undefined;
 };
 
 export type RootStackParamList = {
