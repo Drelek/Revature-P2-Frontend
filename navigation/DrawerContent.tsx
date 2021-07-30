@@ -23,9 +23,8 @@ import { AppAction } from '../redux/actions';
 export const DrawerContent: React.FC = (props: any) => {
 
     const canvasToggle = useSelector((state: IAppState) => state.canvas);
-    const user = useSelector((state: IAppState) => state.user);
-
     const dispatch = useDispatch();
+    const user = useSelector((state: IAppState) => state.user);
 
     const toggleCanvas = () => {
         dispatch({
@@ -41,6 +40,7 @@ export const DrawerContent: React.FC = (props: any) => {
         })
     }
 
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -53,18 +53,18 @@ export const DrawerContent: React.FC = (props: any) => {
                                 style={{ marginTop: 8 }}
                             />
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>God</Title>
-                                <Caption style={styles.caption}>@God</Caption>
+                                <Title style={styles.title}>{user?.displayName}</Title>
+                                <Caption style={styles.caption}>{`@${user?.userName}`}</Caption>
                             </View>
                         </View>
 
                         <View style={styles.row}>
                             <View style={styles.section}>
-                                <Text style={[styles.paragraph, styles.caption]}>80</Text>
+                                <Text style={[styles.paragraph, styles.caption]}>{user?.following?.length}</Text>
                                 <Caption style={styles.caption}>Following</Caption>
                             </View>
                             <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
+                                <Paragraph style={[styles.paragraph, styles.caption]}>{user?.followers}</Paragraph>
                                 <Caption style={styles.caption}>Followers</Caption>
                             </View>
                         </View>
@@ -80,7 +80,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => { props.navigation.navigate("Home", { screen: "Home" }) }}
+                            onPress={() => { props.navigation.navigate("Home",{screen: "Home"}) }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
@@ -91,7 +91,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => { props.navigation.navigate('Home', { screen: "Profile", user }) }}
+                            onPress={() => { props.navigation.navigate('Profile',user) }}
                         />
                         <DrawerItem labelStyle={styles.label}
                             icon={({ color, size }) => (
@@ -102,7 +102,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Settings"
-                            onPress={() => { props.navigation.navigate("Home", { screen: "Settings" }) }}
+                            onPress={() => { props.navigation.navigate("Settings")}}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (

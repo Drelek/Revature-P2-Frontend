@@ -22,15 +22,23 @@ const Profile = (props: any) => {
 
     let thisProps: any;
 
+    if(props.profileInfo) {
+        setThisUser(false);
+        thisProps = props.profileInfo;
+    } else {
+        thisProps = props.route.params;
+
+    }
     useEffect(() => {
         //Is current user trying to access some other profile?
         if(props.profileInfo) {
-            setThisUser(false);
-            thisProps = props.profileInfo;
-        } else {
-            thisProps = props.route.params;
-        }
-    }, [])
+        // setThisUser(false);
+        thisProps = props.profileInfo;
+    } else {
+        thisProps = props.route.params;
+
+    }
+    })
 
     //Grab user posts of this specific user
     let userPostArray = []
@@ -70,6 +78,7 @@ const Profile = (props: any) => {
             style= {styles.outerContainer}
         >   
             <View
+
                 style={styles.profileContainer}
             >
                 <Card containerStyle={styles.profileCard}>
@@ -78,7 +87,7 @@ const Profile = (props: any) => {
                     > 
                         <View style={styles.imageContainer}>
                             <Image
-                            source={{uri : user?.profileImg}}
+                            source={{uri:`${thisProps.profileImg}`}}
                             style={styles.image}
                             />
                         </View>
@@ -87,19 +96,19 @@ const Profile = (props: any) => {
                         <View style={styles.infoContainer}>
                             <Text 
                                 style={styles.displayName}
-                            >{user?.displayName}</Text>
+                            >{thisProps.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{user?.userName}</Text>
+                            >{thisProps.userName}</Text>
                             <Text
                                 style={styles.email}
-                            >{user?.email}</Text>     
+                            >{thisProps.email}</Text>     
                         </View>
-
+                        {/* <View>{console.log(thisProps)}</View> */}
                         <View >
                         <Pressable
                             style={styles.followerContainer}
-                            onPress= {() => addFollower()}
+                            onPress= {() => {console.log(thisProps)}}
                         >
                             <Image 
                                 style={styles.followerIcon}

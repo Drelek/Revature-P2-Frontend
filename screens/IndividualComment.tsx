@@ -43,9 +43,10 @@ const IndividualComment = (props: any) => {
             <View
                 style={styles.container}
             >
-                <Text
-                    style={styles.comment}
-                >{comment}</Text>
+                <Image
+                    source={{uri:`${displayImg}`}}
+                    style={styles.imageContainer}
+                />
             </View>
 
             <View style={styles.dataContainer}>
