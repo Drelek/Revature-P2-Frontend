@@ -4,10 +4,14 @@ import { Card } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 import Profile from './Profile';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
 
 const PostCard = (props: any) => {
     const navigation = useNavigation();
     const[isLiked, setLikedState] = useState(false);
+    const[token] = useSelector((state: IAppState) => state.auth.AccessToken)
+    const[likes, setLikes] = useState(props.item);
 
     //Storing state for redirecting to Profile page
     const[profileInfo, setProfileInfo] = useState({
@@ -22,7 +26,7 @@ const PostCard = (props: any) => {
     const grabUserData = async() => {
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
             headers: {
-                Authorization: "TokenToBePulledFromState"
+                Authorization: token
             }
         }).then(resp => {
             setProfileInfo({
@@ -38,7 +42,7 @@ const PostCard = (props: any) => {
     const deletePost = async() => {
         await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.item.timeStamp}`, {
             headers: {
-                Authorization : "TokenToBePulledFromState"
+                Authorization : token
             }
         }).then(resp => {
             //Response will return deleted post...
@@ -61,7 +65,6 @@ const PostCard = (props: any) => {
     }
 
     const renderNumOfLikes = () => {
-        const {likes} = props.item;
         if(likes.length){
             return likes.length;
         } else {
@@ -130,7 +133,7 @@ const PostCard = (props: any) => {
                         
                         <Text
                             style={styles.username}
-                        >{`@${props.item.userName}`}</Text>
+                        >{`${props.item.userName}`}</Text>
                     </View>
                 </View>
                 

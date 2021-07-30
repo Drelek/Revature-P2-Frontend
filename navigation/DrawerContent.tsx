@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
     Avatar,
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { AppAction } from '../redux/actions';
 
+
 export const DrawerContent: React.FC = (props: any) => {
 
     const canvasToggle = useSelector((state: IAppState) => state.canvas);
@@ -29,6 +30,13 @@ export const DrawerContent: React.FC = (props: any) => {
             type: AppAction.TOGGLE_CANVAS,
             payload: {}
         });
+    }
+
+    const signOut = () => {
+        dispatch({
+            type: AppAction.LOGOUT,
+            payload:{}
+        })
     }
 
     return (
@@ -126,7 +134,7 @@ export const DrawerContent: React.FC = (props: any) => {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => { console.log("sign out") }}
+                    onPress={() => signOut()}
                 />
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>

@@ -6,9 +6,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { IAppState } from '../redux/store';
 
 
 const Profile = (props: any) => {
+
+    const user = useSelector((state: IAppState) => state.user);
+
+    
+    const userRedirect = useState(props.profileInfo);
 
     //Grab user posts of this specific user
     let userPostArray = []
