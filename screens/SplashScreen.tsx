@@ -1,40 +1,19 @@
 import React, {useState, useEffect, useRef}from 'react';
-import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView, Keyboard,Platform, KeyboardEvent} from 'react-native';
+import { StyleSheet, Text, View, Pressable, useWindowDimensions} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
-import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { AppAction } from '../redux/actions';
+import { screenWidth } from '../constants/Layout';
+
 
 const SplashScreen: React.FC = (props:any) => {
-
+  const windowHeight = useWindowDimensions().height;
   const [userSession, setUserSession] = useState({
     session: "login"
   });
-
-  const [keyboardOffset, setKeyboardOffset] = useState(0);
-    const onKeyboardShow = (event: KeyboardEvent) => {
-        if(Platform.OS === "android") {
-            setKeyboardOffset(event.endCoordinates.height + 100)
-        } else {
-            setKeyboardOffset(event.endCoordinates.height - 10)
-        }
-    }
-    const onKeyboardHide = () => setKeyboardOffset(0);
-    const keyboardDidShowListener:any = useRef();
-    const keyboardDidHideListener:any = useRef();
-
-    useEffect(() => {
-        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
-        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
-
-        return () => {
-            keyboardDidShowListener.current.remove();
-            keyboardDidHideListener.current.remove();
-        };
-    }, []);
 
   function returnToLogin() {
     setUserSession({session: "login"});
@@ -59,13 +38,13 @@ const SplashScreen: React.FC = (props:any) => {
   const renderSessionButton = () => {
     const session = userSession.session;
     if (session === "login"){
-      return <Pressable
+      return <Pressable style={styles.pressable}
         onPress={() => setUserSession({session: "sign-up"})}>
         <Text
           style={styles.text}>Sign Up</Text>
       </Pressable>
     } else if(session === "sign-up"){
-      return <Pressable
+      return <Pressable style={styles.pressable}
         onPress={() => setUserSession({session: "login"})}>
         <Text
           style={styles.text}>Login</Text>
@@ -78,20 +57,22 @@ const SplashScreen: React.FC = (props:any) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[{ minHeight: Math.round(windowHeight) }]}>
 
-      <SafeAreaView style={styles.messageView}>
+      {/* <View style={styles.smallView}/> */}
+    
+      <View style={styles.messageView}>
         {welcomeMessage()}
-      </SafeAreaView>
+      </View>
 
-      <SafeAreaView style={styles.largeView}>
+      <View style={styles.largeView}>
         {renderSession()}
-        <SafeAreaView>{renderSessionButton()}</SafeAreaView>
-      </SafeAreaView>
+        <View>{renderSessionButton()}</View>
+      </View>
       
-        <SafeAreaView style={styles.smallView} />
+        <View style={{flex:1}} />
 
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -102,25 +83,25 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     zIndex: 1,
+    elevation: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   smallView: {
-    flex: 1.5,
-    alignItems: 'center',
-    paddingHorizontal:15,
+    flex: 1,
     backgroundColor: "transparent",
     borderColor:"purple",
   },
 
   messageView: {
-    flex: 1,
+    flex: 1.5,
     alignItems: 'center',
     paddingHorizontal:15,
     backgroundColor: "transparent",
     borderColor:"purple",
     justifyContent: 'flex-end',
+
   },
 
   largeView: {
@@ -129,15 +110,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth:4,
     borderColor: 'purple',
-    width: screenWidth - 20,
-    justifyContent: 'flex-end',
-    marginTop:20
+    marginHorizontal:10,
+    width:screenWidth - 20,
+    marginTop:20,
+  
   },
 
   text:{
     color:"white",
     fontSize: 20,
     backgroundColor:"transparent",
+    textAlign:"center",
     // fontFamily: "Montserrat",
   },
 
@@ -151,5 +134,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal:15,
     // fontFamily: "BadScript-Regular"
-  }
+  },
+
+  pressable: {
+    backgroundColor:"purple",
+    
+  },
 })
