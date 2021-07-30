@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet,Pressable, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
+import { View, Text, TextInput, StyleSheet,TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
 import React, { useState } from 'react';
 import {Card} from 'react-native-elements'
 const SettingsScreens:React.FC = () => {
@@ -33,9 +33,9 @@ const SettingsScreens:React.FC = () => {
                 placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
             </View>
             <View>
-                <Pressable style={styles.button} onPress={() => submitForm()}>
+                <TouchableOpacity style={styles.button} onPress={() => submitForm()}>
                     <Text style={styles.buttonText}>Submit</Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
         </Card>
         </SafeAreaView>

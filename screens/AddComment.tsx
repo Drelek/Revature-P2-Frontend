@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, TextInput, StyleSheet, Pressable, View, PointPropType } from 'react-native';
+import { Text, TextInput, StyleSheet, TouchableOpacity, View, PointPropType } from 'react-native';
 import { useState } from 'react';
 import { Card } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,9 +44,9 @@ const AddComment = (props: any) => {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <Pressable style={styles.pressable} onPress={() => createNewComment()}>
+                        <TouchableOpacity style={styles.TouchableOpacity} onPress={() => createNewComment()}>
                             <Text style={styles.text}>Reply</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 </View>
         </Card>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         alignContent:"center",
     },
 
-    pressable:{
+    TouchableOpacity:{
         backgroundColor:"purple",
         paddingHorizontal:10,
         paddingVertical:15,

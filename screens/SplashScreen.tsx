@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef}from 'react';
-import { StyleSheet, Text, View, Pressable, useWindowDimensions} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
@@ -38,17 +38,17 @@ const SplashScreen: React.FC = (props:any) => {
   const renderSessionButton = () => {
     const session = userSession.session;
     if (session === "login"){
-      return <Pressable style={styles.pressable}
+      return <TouchableOpacity style={styles.TouchableOpacity}
         onPress={() => setUserSession({session: "sign-up"})}>
         <Text
           style={styles.text}>Sign Up</Text>
-      </Pressable>
+      </TouchableOpacity>
     } else if(session === "sign-up"){
-      return <Pressable style={styles.pressable}
+      return <TouchableOpacity style={styles.TouchableOpacity}
         onPress={() => setUserSession({session: "login"})}>
         <Text
           style={styles.text}>Login</Text>
-      </Pressable>
+      </TouchableOpacity>
     }
   }
   function welcomeMessage(){
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     // fontFamily: "BadScript-Regular"
   },
 
-  pressable: {
+  TouchableOpacity: {
     backgroundColor:"purple",
     
   },

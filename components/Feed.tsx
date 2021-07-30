@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { StyleSheet, View, Text, Pressable, TextInput } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
@@ -14,7 +14,7 @@ const Feed: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((state: IAppState) => state.user);
     const [postCards, setPostCards] = useState([]);
-
+    const [working, setWorking] = useState(false);
 
     const [newPost, setNewPost] = useState(' ');
 
@@ -38,6 +38,7 @@ const Feed: React.FC = (props: any) => {
     //Add post to global feed
     const createPost = async () => {
         try {
+            setWorking(true);
             await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
                 displayName: user?.displayName,
                 displayImg: user?.profileImg,
@@ -54,6 +55,9 @@ const Feed: React.FC = (props: any) => {
             return;
         }
         refresh();
+        setNewPost('');
+        setWorking(false);
+        
     }
 
     const addPost = () => {
@@ -69,9 +73,9 @@ const Feed: React.FC = (props: any) => {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <Pressable style={styles.pressable} onPress={createPost}>
+                        <TouchableOpacity style={styles.TouchableOpacity} onPress={createPost}>
                             <Text style={styles.text}>Post</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Card>
@@ -94,9 +98,9 @@ const Feed: React.FC = (props: any) => {
                             </View>
 
                             <View style={styles.buttonContainer}>
-                                <Pressable style={styles.pressable} onPress={() => createPost()}>
+                                <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => createPost()}>
                                     <Text style={styles.text}>Post</Text>
-                                </Pressable>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </Card>}
@@ -161,11 +165,19 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
 
-    pressable: {
+    TouchableOpacity: {
         backgroundColor: "purple",
         paddingHorizontal: 10,
         paddingVertical: 15,
         marginBottom: 10,
         borderRadius: 15,
+    },
+
+    working:{
+        backgroundColor:"grey"
+    },
+
+    notWorking:{
+        backgroundColor:"purple"
     }
 })

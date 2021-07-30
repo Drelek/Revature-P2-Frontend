@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent} from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -116,9 +116,9 @@ const ExpandedPost: React.FC = (props: any) => {
 
                     <View style={styles.footerContainer}>
                         <View style={styles.likesContainer}>
-                            <Pressable onPress={() => setLikedState(!isLiked)}>
+                            <TouchableOpacity onPress={() => setLikedState(!isLiked)}>
                                 {renderNotLikeOrLiked()}
-                            </Pressable>
+                            </TouchableOpacity>
 
                             <Text style={styles.likesText}>{renderNumOfLikes(likes)}</Text>
                         </View>

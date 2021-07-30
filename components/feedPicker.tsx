@@ -1,5 +1,5 @@
 import React, {useState}from 'react';
-import {StyleSheet, Pressable} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import GlobalEye from './globalEye';
 import FollowIcon from './followIcon';
 import { useNavigation } from '@react-navigation/native';
@@ -25,10 +25,10 @@ const FeedPicker:React.FC = () => {
   };
 
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={() => stateChange()}>
       {renderFeedIcon}
-    </Pressable>
+    </TouchableOpacity>
   )
   
 }

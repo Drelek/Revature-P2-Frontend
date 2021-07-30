@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 
 const SearchScreen: React.FC = (props: any) => {
@@ -23,8 +23,8 @@ const SearchScreen: React.FC = (props: any) => {
         <SafeAreaView style={styles.safeArea}>
             <View>
                 <TextInput style={styles.input} placeholder="Search" onChangeText={setSearch} />
-                <Pressable style={styles.button} onPress={() => Search()}>
-                </Pressable>
+                <TouchableOpacity style={styles.button} onPress={() => Search()}>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

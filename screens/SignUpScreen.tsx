@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView, Button, TouchableOpacity, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +15,7 @@ const SignUpScreen = (props: any) => {
   const [displayName, setDisplayName] = useState(' ');
   const [email, setEmail] = useState(' ');
   const [password, setPassword] = useState(' ');
+  const [working, setWorking] = useState(false);
   const navigation = useNavigation();
 
   const createNewUser = async () => {
@@ -22,6 +23,7 @@ const SignUpScreen = (props: any) => {
     console.log("Creating user");
 
     try {
+      setWorking(true)
       const resp = await axios.post('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/auth/signup', {
         userName: username,
         password: password,
@@ -106,12 +108,12 @@ const SignUpScreen = (props: any) => {
         }}
         keyboardType="ascii-capable"
       />
-      <Pressable
-        style={styles.button}
+      <TouchableOpacity
+        style={[styles.button, working ? styles.working : styles.notWorking]}
         onPress={() => createNewUser()}>
         <Text
           style={styles.text}>Submit</Text>
-      </Pressable>
+      </TouchableOpacity>
     </SafeAreaView>
     </TouchableWithoutFeedback>
     // </KeyboardAvoidingView>
@@ -141,6 +143,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'purple',
     fontSize: 18,
   },
+
+  notWorking:{
+    backgroundColor: 'purple'
+  },
+
+  working:{
+    backgroundColor: 'grey'
+  },
+
   text: {
     fontSize: 16,
     lineHeight: 21,
