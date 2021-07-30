@@ -131,7 +131,7 @@ const ExpandedPost: React.FC = (props: any) => {
 
             </View>
             {/* <View style={styles.addCommentContainer}> */}
-            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey}></AddComment>
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
             {/* </View> */}
             {/* </View> */}
         </KeyboardAvoidingView>
