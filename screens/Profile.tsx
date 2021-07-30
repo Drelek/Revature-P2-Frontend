@@ -12,30 +12,52 @@ import { IAppState } from '../redux/store';
 const Profile = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
+    const token = useSelector((state: IAppState) => state.auth?.AccessToken);    
+    const userRedirect = useState(props?.profileInfo);
+    const [postCards, setPostCards] = useState([]);
 
-    
-    const userRedirect = useState(props.profileInfo);
+    //We have to account for whether app user is reaching profile page
+    //Or app user is redirecting to another user profile
+    const[thisUser, setThisUser] = useState(true);
+
+    let thisProps: any;
+
+    useEffect(() => {
+        //Is current user trying to access some other profile?
+        if(props.profileInfo) {
+            setThisUser(false);
+            thisProps = props.profileInfo;
+        } else {
+            thisProps = props.route.params;
+        }
+    }, [])
 
     //Grab user posts of this specific user
     let userPostArray = []
     const grabUserSpecificPosts = async() => {
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.profileInfo.userName}/specific`, {
+        //
+        let userName;
+        if(thisUser) {
+            userName = user?.userName;
+        } else {
+            userName = thisProps.userName;
+        }
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${thisProps.userName}/specific`, {
             headers : {
-                Authorization : "TokenToBePulledFromState"
+                Authorization : token
             }
         }).then(resp => {
             //Response is an array of posts 
-            resp.data.forEach((elem: any) => {
-                userPostArray.push(elem);
-            })
+            setPostCards(resp.data[0]);
+            
         })
     }
 
     //Follow or unfollows dependant on whether user exists on following array 
     const addFollower = async() => {
-        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.profileInfo.userName}/follow`, {
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}/follow`, {
             headers: {
-                Authorization : "TokenToBePulledFromState"
+                Authorization : token
             }
         }).then(resp => {
             //Response returns entire user object after update operation has been completed
@@ -43,49 +65,7 @@ const Profile = (props: any) => {
         })
     }
 
-    
-
-    const [postCards, setPostCards] = useState([
-        {
-            displayImg: undefined,
-            displayName: "my name is Mo",
-            userName: "name",
-            postBody: "I know the truth,The search bar allows users to search for user handles. The user's input queries the database and returns the closest. We plan to implement follow, likes and comment functionality in the near future and even making our application mobile friendly!",
-            likes: [1,2,3,4],
-            timeStamp: "6/20/20 6:30pm",
-            comments: [1,2,3,4,112,3234523,343232]
-        },
-        {
-            displayImg: 'https://reactnative.dev/img/tiny_logo.png',
-            displayName: "Kai",
-            userName: "Kaiba",
-            postBody: "I know",
-            likes: [1,2,3],
-            timeStamp: "6/20/20 6:30pm",
-            comments: [1,2,3,4,112,3234523,343232,1,1,1,1,1,1]
-        },
-        {
-            displayImg: 'https://www.learnreligions.com/thmb/rlSNKScykYuF6qdA9tArkB-til8=/998x998/smart/filters:no_upscale()/SonOfGod1500x998-56a146083df78cf772691384.jpg',
-            displayName: "God",
-            userName: "God",
-            postBody: "I am back bb",
-            likes: [1,2,3,4,5],
-            timeStamp: " 01/01/22 12:00am",
-            comments: [1,2,3,4,112,3234523,343232]
-        },
-        {
-            displayImg: 'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-            displayName: "Jesus",
-            userName: "GodsFavoriteSon",
-            postBody: "Hello",
-            likes: [1,2,3,4,5,6,7],
-            timeStamp: "6/20/20 6:30pm",
-            comments: [1,2,3,4,112,3234523]
-        }
-    ]);
-
-
-    return(
+    return(        
         <View 
             style= {styles.outerContainer}
         >   
@@ -98,7 +78,7 @@ const Profile = (props: any) => {
                     > 
                         <View style={styles.imageContainer}>
                             <Image
-                            source={props.profileInfo.profileImg}
+                            source={{uri : user?.profileImg}}
                             style={styles.image}
                             />
                         </View>
@@ -107,13 +87,13 @@ const Profile = (props: any) => {
                         <View style={styles.infoContainer}>
                             <Text 
                                 style={styles.displayName}
-                            >{props.profileInfo.displayName}</Text>
+                            >{user?.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{props.profileInfo.userName}</Text>
+                            >{user?.userName}</Text>
                             <Text
                                 style={styles.email}
-                            >{props.profileInfo.email}</Text>     
+                            >{user?.email}</Text>     
                         </View>
 
                         <View >

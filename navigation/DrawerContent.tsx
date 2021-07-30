@@ -23,8 +23,10 @@ import { AppAction } from '../redux/actions';
 export const DrawerContent: React.FC = (props: any) => {
 
     const canvasToggle = useSelector((state: IAppState) => state.canvas);
+    const user = useSelector((state: IAppState) => state.user);
+
     const dispatch = useDispatch();
-    
+
     const toggleCanvas = () => {
         dispatch({
             type: AppAction.TOGGLE_CANVAS,
@@ -89,7 +91,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Profile"
-                            onPress={() => { props.navigation.navigate('Home', { screen: "Profile" }) }}
+                            onPress={() => { props.navigation.navigate('Home', { screen: "Profile", user }) }}
                         />
                         <DrawerItem labelStyle={styles.label}
                             icon={({ color, size }) => (

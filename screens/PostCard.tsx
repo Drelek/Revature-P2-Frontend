@@ -13,6 +13,9 @@ const PostCard = (props: any) => {
     const[token] = useSelector((state: IAppState) => state.auth.AccessToken)
     const[likes, setLikes] = useState(props.item);
 
+    useEffect(() => {
+        grabUserData();
+    }, [])
     //Storing state for redirecting to Profile page
     const[profileInfo, setProfileInfo] = useState({
         displayName: props.item?.displayName,
@@ -31,8 +34,8 @@ const PostCard = (props: any) => {
         }).then(resp => {
             setProfileInfo({
                 ...profileInfo,
-                email : resp.data.email,
-                profileImg : resp.data.profileImg
+                email : resp.data[0].email,
+                profileImg : resp.data[0].profileImg
             })
         })
     }
