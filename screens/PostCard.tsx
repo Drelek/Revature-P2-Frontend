@@ -13,9 +13,9 @@ const PostCard = (props: any) => {
     const[token] = useSelector((state: IAppState) => state.auth.AccessToken)
     const[likes, setLikes] = useState(props.item);
 
-    useEffect(() => {
-        grabUserData();
-    }, [])
+    // useEffect(() => {
+    //     grabUserData();
+    // }, [])
     //Storing state for redirecting to Profile page
     const[profileInfo, setProfileInfo] = useState({
         displayName: props.item?.displayName,
@@ -26,19 +26,19 @@ const PostCard = (props: any) => {
 
     //Move this functionality to Profile Screen
     //Grab user specific data: { email, profileImg}
-    const grabUserData = async() => {
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
-            headers: {
-                Authorization: token
-            }
-        }).then(resp => {
-            setProfileInfo({
-                ...profileInfo,
-                email : resp.data[0].email,
-                profileImg : resp.data[0].profileImg
-            })
-        })
-    }
+    // const grabUserData = async() => {
+    //     await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //     }).then(resp => {
+    //         setProfileInfo({
+    //             ...profileInfo,
+    //             email : resp.data[0].email,
+    //             profileImg : resp.data[0].profileImg
+    //         })
+    //     })
+    // }
 
     //On press of delete post 
     //Will need to refresh feeds at their respective sources
@@ -109,6 +109,9 @@ const PostCard = (props: any) => {
         }
     }
 
+    const postTime = new Date(Number(props.item.dataKey));
+    const timeText = `${postTime.getHours()}:${postTime.getMinutes()} ${postTime.getDate()}`
+
     return (
         <View
             style={styles.card}
@@ -172,7 +175,7 @@ const PostCard = (props: any) => {
                     </View>
                     
                     <View style={styles.timeStampContainer}>
-                        <Text style={styles.timestamp}>{props.item.timeStamp}</Text>
+                        <Text style={styles.timestamp}>{postTime.toLocaleTimeString() + ' ' + postTime.toLocaleDateString()}</Text>
                     </View>
                 </View>            
             </Card>

@@ -10,7 +10,7 @@ const AddComment = (props: any) => {
 
     const[newComment, setNewComment] = useState(' ');
     const user = useSelector((state: IAppState) => state.user);
-    const token = useSelector((state: IAppState) => state.auth.token);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
 
     //TODO
     //Create comment lambda here -->
@@ -27,7 +27,7 @@ const AddComment = (props: any) => {
             },  
         }).then(resp => {
             //Response is a post object containing the newly updated comment array
-            console.log(resp.data[0])
+            props.submitComm();
         })
     }
 
