@@ -9,20 +9,35 @@ import { IAppState } from '../redux/store';
 
 const PostCard = (props: any) => {
     const navigation = useNavigation();
-    const[isLiked, setLikedState] = useState(false);
-    const[token] = useSelector((state: IAppState) => state.auth.AccessToken)
-    const[likes, setLikes] = useState(props.item);
+    
+    const userName = useSelector((state: IAppState) => state.user?.userName);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    const item = {
+        comments: props.item.comments.L,
+        timeStamp: props.item.dataKey.S,
+        dataType: props.item.dataType.S,
+        displayImg: props.item.displayImg.S,
+        displayName: props.item.displayName.S,
+        likes: props.item.likes.SS || [],
+        postBody: props.item.postBody.S,
+        userName: props.item.userName.S
+    }
+    const[likes, setLikes] = useState(item.likes.length);
+
+    const[isLiked, setLikedState] = useState(item.likes.includes(userName));
 
     // useEffect(() => {
     //     grabUserData();
     // }, [])
     //Storing state for redirecting to Profile page
     const[profileInfo, setProfileInfo] = useState({
-        displayName: props.item?.displayName,
-        userName: props.item?.userName,
+        displayName: item?.displayName,
+        userName: item?.userName,
         email: "",
         profileImg: ""
     })
+
+    
 
     //Move this functionality to Profile Screen
     //Grab user specific data: { email, profileImg}
@@ -43,7 +58,7 @@ const PostCard = (props: any) => {
     //On press of delete post 
     //Will need to refresh feeds at their respective sources
     const deletePost = async() => {
-        await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.item.timeStamp}`, {
+        await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
             headers: {
                 Authorization : token
             }
@@ -53,13 +68,35 @@ const PostCard = (props: any) => {
 
     }
 
+    const toggleLike = async () => {
+        try {
+            await axios.patch(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
+                isLiked: isLiked,
+                userName: userName,
+                timeStamp: item.timeStamp
+            }, {
+                headers: {
+                    Authorization : token
+                }
+            })
+        } catch (err) {
+            console.log(err);
+            console.log(err.response.data);
+        }
+
+        if (isLiked) setLikes(likes-1);
+        else setLikes(likes+1);
+        
+        setLikedState(!isLiked);
+
+    }
+    
     const redirectToExtendedPostScreen = () => {
-        const {item} = props
         navigation.navigate("ExpandedPost", item)
     }
 
     const renderNumOfComments = () => {
-        const {comments} = props.item;
+        const {comments} = item;
         if(comments.length){
             return comments.length;
         } else {
@@ -68,15 +105,15 @@ const PostCard = (props: any) => {
     }
 
     const renderNumOfLikes = () => {
-        if(likes.length){
-            return likes.length;
+        if(likes - 1){
+            return likes - 1;
         } else {
             return ''; 
         }
     }
 
     const renderProfileImageOrDefault = () => {
-        const {displayImg} = props.item;
+        const {displayImg} = item;
         if (!displayImg) {
             return (
                 <Image
@@ -98,18 +135,18 @@ const PostCard = (props: any) => {
         if (isLiked){
             return (
             <Image 
-                source={require('../assets/images/likeIcon.png')}
+                source={require('../assets/images/likedIcon.png')}
                 style={styles.heart}
             />)
         } else {
             return(<Image 
-                source={require('../assets/images/likedIcon.png')}
+                source={require('../assets/images/likeIcon.png')}
                 style={styles.heart}
                 />)
         }
     }
 
-    const postTime = new Date(Number(props.item.dataKey));
+    const postTime = new Date(Number(item.timeStamp));
     const timeText = `${postTime.getHours()}:${postTime.getMinutes()} ${postTime.getDate()}`
 
     return (
@@ -133,20 +170,20 @@ const PostCard = (props: any) => {
                         >
                             <Text
                                 style={styles.displayName}
-                            >{props.item.displayName}</Text>
+                            >{item.displayName}</Text>
                         </Pressable>
 
                         
                         <Text
                             style={styles.username}
-                        >{`${props.item.userName}`}</Text>
+                        >{`${item.userName}`}</Text>
                     </View>
                 </View>
                 
                 <View style={styles.postContainer}>
                     <Text
                     style={styles.postBody}
-                >{props.item.postBody}</Text>
+                >{item.postBody}</Text>
                 </View>
                 
 
@@ -154,7 +191,7 @@ const PostCard = (props: any) => {
                     style={styles.containerViewAlignIcons}
                 >
                     <View style={styles.likesContainer}>
-                        <Pressable onPress={ () => setLikedState(!isLiked) }>
+                        <Pressable onPress={ toggleLike }>
                         {renderNotLikeOrLiked()}
                         </Pressable>
 

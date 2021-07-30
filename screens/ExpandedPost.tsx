@@ -36,7 +36,7 @@ const ExpandedPost: React.FC = (props: any) => {
     }, []);
     
     const grabCommentsActual = async () => {
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.dataKey}`, {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
                 Authorization: token
             }
@@ -93,7 +93,7 @@ const ExpandedPost: React.FC = (props: any) => {
     }, []);
 
     const { displayName, displayImg, userName, postBody, likes } = props.route.params
-    const timeStamp = new Date(Number(props.route.params.dataKey)).toLocaleTimeString() + ' ' + new Date(Number(props.route.params.dataKey)).toLocaleDateString()
+    const timeStamp = new Date(Number(props.route.params.timeStamp)).toLocaleTimeString() + ' ' + new Date(Number(props.route.params.timeStamp)).toLocaleDateString()
 
     const renderSinglePost = () => {
 

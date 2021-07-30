@@ -4,8 +4,14 @@ import { Card } from 'react-native-elements';
 import axios from 'axios';
 
 const IndividualComment = (props: any) => {
-    // console.log(!props.item.displayImg)
-    const {displayImg, comment, displayName, timeStamp} = props.item
+    const item = {
+        displayImg: props.item.displayImg.S,
+        comment: props.item.comment.S,
+        displayName: props.item.displayName.S,
+        commentStamp: props.item.commentStamp.N
+    }
+    
+    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
 
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
