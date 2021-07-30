@@ -67,14 +67,9 @@ const PostCard = (props: any) => {
         })
 
     }
-
-    useEffect(() => {
-        console.log(isLiked);
-    })
     
     const toggleLike = () => {
         try {
-            console.log(isLiked);
             axios.patch(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
                 isLiked: isLiked,
                 userName: userName,
