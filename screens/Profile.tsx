@@ -108,7 +108,7 @@ const Profile:React.FC = (props: any) => {
                         <View >
                         <Pressable
                             style={styles.followerContainer}
-                            onPress= {() => {console.log(thisProps)}}
+                            onPress= {() => {addFollower()}}
                         >
                             <Image 
                                 style={styles.followerIcon}
