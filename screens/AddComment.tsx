@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Text, TextInput, StyleSheet, Pressable, View } from 'react-native';
+import { Text, TextInput, StyleSheet, Pressable, View, PointPropType } from 'react-native';
 import { useState } from 'react';
+import { Card } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { IAppState } from '../redux/store';
 import axios from 'axios';
-import { IUser } from '../models/User';
-import { useSelector } from 'react-redux';
-import { IAppState } from '../Redux/Store';
 
 const AddComment = (props: any) => {
 
@@ -27,76 +27,90 @@ const AddComment = (props: any) => {
             },  
         }).then(resp => {
             //Response is a post object containing the newly updated comment array
+            console.log(resp.data[0])
         })
     }
 
 
     return(
-        <View style={styles.card}>
-            <View style={styles.inputContainer}> 
-                <TextInput
-                    placeholder="Add a comment..."
-                    placeholderTextColor="white" 
-                    style={styles.inputBox}
-                    onChangeText={(text)=> setNewComment(text)}
-                />
-            </View>
+        <Card containerStyle={styles.card}>
+                <View style={styles.postContainer}>
+                    <View style={styles.inputContainer}> 
+                        <TextInput
+                        placeholder={props.text}
+                        placeholderTextColor="white" 
+                        style={styles.inputBox}
+                        onChangeText={(text)=> setNewComment(text)}/>
+                    </View>
 
-            <View style={styles.buttonContainer}>
-                <Pressable style={styles.pressable} onPress={() => createNewComment()}        >
-                    <Text style={styles.text}>Submit</Text>
-                </Pressable>
-            </View>
-            
-
-        </View>
-
+                    <View style={styles.buttonContainer}>
+                        <Pressable style={styles.pressable} onPress={() => createNewComment()}>
+                            <Text style={styles.text}>Reply</Text>
+                        </Pressable>
+                    </View>
+                </View>
+        </Card>
     )
 }
 
 export default AddComment;
 
 const styles = StyleSheet.create({
-    inputBox: {
-        backgroundColor: "rgb(33, 37, 41)",
-        paddingVertical:9,
-        marginHorizontal:5,
-        fontSize:18,
-        fontFamily:"Montserrat",
-        textAlign:"center",
+    text:{
+        fontSize:14,
         color: "white",
     },
-    card: {
-        backgroundColor: 'rgb(33, 37, 41)',
-        flex:1, 
-        margin:0,
-        padding:0,
+
+    card:{
+        flex:1,
+        backgroundColor:'rgb(33, 37, 41)',
+        borderWidth:4,
         borderColor: 'purple',
-        borderWidth: 3,
-        borderTopEndRadius:10,
-        borderTopStartRadius:10,
-        // borderBottomEndRadius:50,
-        // borderBottomStartRadius:50,
+        borderRadius:30, 
+        paddingBottom:5,
+        marginHorizontal:9,
+        marginBottom:15,
+        justifyContent: 'flex-end'
     },
 
-    inputContainer: {
-        marginBottom:10
+    postContainer: {
+        flexDirection:'row',
+        justifyContent: 'center',
+        marginBottom:10,
     },
 
-    buttonContainer: {
-        // justifyContent: ''
+    inputBox:{
+        color: "white",
+        fontSize:16,
+        flexDirection:"row",
+        justifyContent: "center",
+        textAlignVertical: 'top',
+        marginLeft:10,
+        
+    },
+
+    buttonContainer:{
+        flex:1,
+        flexDirection:"row",
+        justifyContent:"flex-end",
+        alignItems: "center",
+        paddingLeft:5
+    },
+
+    inputContainer:{
+        flex:4,
+        marginBottom:10,
+        backgroundColor:'rgb(42,45,47)',
+        borderRadius:20,
+        justifyContent:"center",
+        alignContent:"center",
     },
 
     pressable:{
         backgroundColor:"purple",
-    },
-
-    text:{
-        color:"white",
-        fontSize:22,
-        paddingTop:5,
-        paddingBottom:100,
-        fontFamily:"Montserrat",
-        textAlign:"center"
+        paddingHorizontal:10,
+        paddingVertical:15,
+        marginBottom:10,
+        borderRadius: 15,
     }
 })

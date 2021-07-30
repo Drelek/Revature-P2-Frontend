@@ -78,24 +78,23 @@ const Feed: React.FC = (props: any) => {
             <FlatList  
                 data={postCards} 
                 ListHeaderComponent={
-                <Card containerStyle={styles.card}>
-                    <View style={styles.postContainer}>
-                        <View style={styles.inputContainer}> 
-                            <TextInput
-                            placeholder="What's happening?"
-                            placeholderTextColor="white" 
-                            style={styles.inputBox}
-                            onChangeText={(text)=> setNewPost(text)}/>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <Pressable style={styles.pressable} onPress={() => createPost()}>
-                                <Text style={styles.text}>Post</Text>
-                            </Pressable>
-                        </View>
+            <Card containerStyle={styles.card}>
+                <View style={styles.postContainer}>
+                    <View style={styles.inputContainer}> 
+                        <TextInput
+                        placeholder="Leave a Post"
+                        placeholderTextColor="white" 
+                        style={styles.inputBox}
+                        onChangeText={(text)=> setNewPost(text)}/>
                     </View>
-                </Card>
-                }
+
+                    <View style={styles.buttonContainer}>
+                        <Pressable style={styles.pressable} onPress={() => createPost()}>
+                            <Text style={styles.text}>Post</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Card>}
                 renderItem={({item }) => <PostCard item={item}> </PostCard>} 
                 keyExtractor={(item, index) => index.toString()}/>
         </View>
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     },
 
     text:{
-        fontSize:18,
+        fontSize:14,
         color: "white",
     },
 
@@ -120,34 +119,48 @@ const styles = StyleSheet.create({
         backgroundColor:'rgb(33, 37, 41)',
         borderWidth:4,
         borderColor: 'purple',
-        borderRadius:10,
+        borderRadius:30, 
+        paddingBottom:5
     },
+
     postContainer: {
-        flexDirection:'row'
+        flexDirection:'row',
+        justifyContent: 'center',
     },
 
     inputBox:{
         color: "white",
-        fontSize:18,
+        fontSize:16,
         flexDirection:"row",
         justifyContent: "center",
+        textAlignVertical: 'top',
+        paddingVertical:15,
+        paddingHorizontal:5,
+        marginLeft:10,
+        
     },
 
     buttonContainer:{
         flex:1,
         flexDirection:"row",
         justifyContent:"flex-end",
-        alignItems: "center"
+        alignItems: "center",
     },
 
     inputContainer:{
-        flex:5,
+        flex:4,
         marginBottom:10,
-        flexDirection:"row",
-        justifyContent: "center"
+        backgroundColor:'rgb(42,45,47)',
+        borderRadius:20,
+        justifyContent:"center",
+        alignContent:"center",
     },
 
     pressable:{
-
+        backgroundColor:"purple",
+        paddingHorizontal:10,
+        paddingVertical:15,
+        marginBottom:10,
+        borderRadius: 15,
     }
 })

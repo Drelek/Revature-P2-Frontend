@@ -8,13 +8,14 @@ import handleCanvas from './components/canvas';
 import Navigation from './navigation';
 import { screenWidth } from './constants/Layout';
 import * as Font from 'expo-font';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { createStore, Store } from 'redux';
 import { reducers } from './redux/session_reducers';
 import { IAppState } from './redux/store';
 import { IAppActions } from './redux/actions';
 import { registerRootComponent } from 'expo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import CanvasScreen from './screens/Canvas';
 
 
 const store: Store<IAppState, IAppActions> = createStore(reducers);
@@ -22,9 +23,9 @@ const store: Store<IAppState, IAppActions> = createStore(reducers);
 const App:React.FC = () => {
   const isLoadingComplete = useCachedResources();
   const [fontsLoaded, setFonts] = useState(false);
-  
-  useEffect(() => {loadFonts()});
 
+  useEffect(() => {loadFonts()});
+  
   const loadFonts = async() => {
     await Font.loadAsync({
       BadScript: require('./assets/fonts/BadScript-Regular.ttf'),
@@ -37,13 +38,11 @@ const App:React.FC = () => {
     return null;
   } else {
     return (
-      <Provider store={store}>
         <SafeAreaProvider style={styles.container}>
           <Navigation/>
-          <Canvas style={styles.canvas} ref={handleCanvas}/>
+          <CanvasScreen/>
           <StatusBar/>
         </SafeAreaProvider>
-      </Provider>
     );
   }
 }
@@ -55,17 +54,9 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
 
-  canvas:{
-    flex:1,
-    position: "absolute",
-    zIndex: -1,
-    elevation: -1
-  },
-
   loadingBackgroundStyle:{
     backgroundColor: 'rgb(33, 37, 41)'
   }
 });
 
-registerRootComponent(App);
 export default App;

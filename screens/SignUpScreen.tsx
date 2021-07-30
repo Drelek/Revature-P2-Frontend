@@ -51,6 +51,10 @@ const SignUpScreen = (props: any) => {
     props.submitFunc();
   }
 
+  const redirectGlobal = () => {
+
+  }
+
   const validateEmail = (text: string) => {
     console.log(text);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
