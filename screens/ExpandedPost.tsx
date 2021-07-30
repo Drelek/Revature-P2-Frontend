@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform} from 'react-native';
+import React, { useState, useEffect, useRef} from 'react';
+import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -18,9 +18,87 @@ const ExpandedPost: React.FC = (props:any) => {
             })
 
     }
+    
+    const [keyboardOffset, setKeyboardOffset] = useState(0);
+    const onKeyboardShow = (event: KeyboardEvent) => {
+        if(Platform.OS === "android") {
+            setKeyboardOffset(event.endCoordinates.height + 100)
+        } else {
+            setKeyboardOffset(event.endCoordinates.height - 10)
+        }
+    }
+    const onKeyboardHide = () => setKeyboardOffset(0);
+    const keyboardDidShowListener:any = useRef();
+    const keyboardDidHideListener:any = useRef();
+
+    useEffect(() => {
+        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
+        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
+
+        return () => {
+            keyboardDidShowListener.current.remove();
+            keyboardDidHideListener.current.remove();
+        };
+    }, []);
+    
 
     const[isLiked, setLikedState] = useState(false);
-    const [commentList, setCommentList]  = useState([]);
+    const [commentList, setCommentList]  = useState(
+    [{
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
+    },
+    {
+        displayName:"Jesus",
+        displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment over there"
+    },
+    {
+        displayName:"Jesus",
+        displayImg:'https://reactnative.dev/img/tiny_logo.png',
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment everywhere"
+    },
+    {   
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
+    },
+    {
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment over there"
+    },
+    {
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment everywhere"
+    },
+    {
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
+    },
+    {
+        displayName:"Jesus",
+        displayImg:"",
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment over there"
+    },
+    {
+        displayName:"Jesus",
+        displayImg:'https://reactnative.dev/img/tiny_logo.png',
+        timeStamp: "12/1/21 6:30pm",
+        comment: "A comment everywhere"
+    }
+    ]);
 
     const renderNumOfLikes = (likes: number[]) => {
         if(likes.length){
@@ -103,7 +181,7 @@ const ExpandedPost: React.FC = (props:any) => {
 
     return (
         
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "null"}  keyboardVerticalOffset={Platform.select({ios: 64})}>
+        <KeyboardAvoidingView style={styles.container}>
                 {/* <Pressable onPress={ () => mergePostCommentData()}>
                     <Text style={{color:"white"}}>HELLO</Text>
                 </Pressable>
@@ -121,9 +199,23 @@ const ExpandedPost: React.FC = (props:any) => {
                 />
 
             </View>
-            {/* <View style={styles.addCommentContainer}> */}
-                <AddComment text={"Leave a Reply"}></AddComment>
-            {/* </View> */}
+            <View style={{flex:1.5}}></View>
+            <View style={{
+                ...Platform.select({
+                    ios:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    },
+                    android:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    }
+                })
+            }}>
+            <AddComment text={"Leave a Reply"}></AddComment>
+            </View>
      {/* </View> */}
         </KeyboardAvoidingView>
     )}
@@ -199,7 +291,7 @@ const styles = StyleSheet.create({
     },
 
     commentsContainer: {
-        flex: 8,
+        flex: 7,
         marginBottom:10
     },
 

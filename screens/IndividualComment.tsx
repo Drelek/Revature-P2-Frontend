@@ -1,10 +1,11 @@
-import axios from 'axios';
 import * as React from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
+import axios from 'axios';
 
 const IndividualComment = (props: any) => {
-    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
+    // console.log(!props.item.displayImg)
+    const {displayImg, comment, displayName, timeStamp} = props.item
 
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
@@ -65,9 +66,8 @@ const IndividualComment = (props: any) => {
                     <Text style={styles.comment}>{comment}</Text>
                </View>
 
+            {/* </View> */}
             </View>
-            
-            
 
         </Card>
     )

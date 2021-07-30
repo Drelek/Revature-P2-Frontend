@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView, Button, Pressable, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { useState } from 'react';
 import { screenWidth } from '../constants/Layout';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +12,7 @@ const SignUpScreen = (props: any) => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState(' ');
-  const [displayname, setDisplayName] = useState(' ');
+  const [displayName, setDisplayName] = useState(' ');
   const [email, setEmail] = useState(' ');
   const [password, setPassword] = useState(' ');
   const navigation = useNavigation();
@@ -38,7 +37,7 @@ const SignUpScreen = (props: any) => {
       const resp2 = await axios.post('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + username, {
         dataKey: username,
         dataType: 'user',
-        displayName: displayname,
+        displayName: displayName,
         email: email,
         profileImg: 'https://image.flaticon.com/icons/png/512/3239/3239647.png'
       });
@@ -68,9 +67,14 @@ const SignUpScreen = (props: any) => {
   }
 
   return (
+    // <KeyboardAvoidingView
+    //   behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+    //   style={{flex:1}}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <SafeAreaView
       style={styles.safeArea}
     >
+      
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -109,6 +113,8 @@ const SignUpScreen = (props: any) => {
           style={styles.text}>Submit</Text>
       </Pressable>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
+    // </KeyboardAvoidingView>
   );
 };
 
