@@ -37,6 +37,22 @@ const SearchScreen: React.FC = (props: any) => {
             profileImg: user?.profileImg,
             followers: ["sam", "mo", "kai", "jared"]
 
+        },
+        {
+
+            userName: "asdadsxz",
+            displayName: "mama",
+            profileImg: user?.profileImg,
+            followers: ["sam", "mo", "kai", "jared"]
+
+        },
+        {
+
+            userName: "asdas",
+            displayName: "mama",
+            profileImg: user?.profileImg,
+            followers: ["sam", "mo", "kai", "jared"]
+
         }
 
     ]
@@ -70,28 +86,24 @@ const SearchScreen: React.FC = (props: any) => {
                     </Pressable>
                 </View>
             </View>
-            <View>
+            <View >
                 <FlatList data={searchedUsers}
-                    renderItem={({ item }) => <Card>
-                        <View >
+                    renderItem={({ item }) =>
+                        <View style={styles.userContainer}>
                             <Image
                                 source={{ uri: `${item.profileImg}` }}
-                                style={styles.image}
-                            />
-                        </View>
-                        <View>
+                                style={styles.image} />
+
+
                             <Text
                                 style={styles.displayName}
                             >{item.displayName}</Text>
                             <Text
                                 style={styles.username}
                             >{item.userName}</Text>
-                            <Text>
-                                {item.followers.size}
-                            </Text>
-                        </View>
 
-                    </Card>}
+                        </View>
+                    }
                     keyExtractor={item => item.userName} />
             </View>
         </View>
@@ -111,39 +123,49 @@ const styles = StyleSheet.create({
 
 
     },
-
-    card: {
-        flex: 1,
-        backgroundColor: 'rgb(33, 37, 41)',
-        borderWidth: 4,
-        borderColor: 'purple',
-        borderRadius: 30,
-        paddingBottom: 5
-    },
-
     container: {
         flex: 1,
         justifyContent: 'center',
+
+
     },
     topContainer: {
         flex: 1,
-        flexDirection: "row"
+        flexDirection: "row",
 
     },
 
     buttonContainer: {
-
+        flex: 1,
         justifyContent: "flex-end",
         alignItems: "flex-end",
+        marginLeft: 10,
+        marginRight: 15,
+        marginTop: 20,
+        marginBottom: 13
+    },
+    userContainer: {
+
+        flexDirection: "row",
+        justifyContent: 'center',
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderRadius: 10,
+        borderColor: 'purple',
+        borderWidth: 5,
+        marginBottom: 10,
+        marginTop: 10,
+        marginHorizontal: 15
     },
 
     inputContainer: {
-
         backgroundColor: 'rgb(42,45,47)',
-        borderRadius: 10,
+        borderRadius: 15,
         justifyContent: "center",
         alignContent: "center",
         marginLeft: 10,
+        marginTop: 25,
+        marginBottom: 10,
+        width: 330
 
     },
 
@@ -162,14 +184,16 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 100,
-        backgroundColor: "purple"
+        backgroundColor: "purple",
+
     },
     displayName: {
         fontWeight: "bold",
         fontSize: 22,
         color: "white",
         paddingLeft: 15,
-        marginBottom: 5
+        marginBottom: 5,
+
     },
     username: {
         fontSize: 18,
