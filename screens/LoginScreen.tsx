@@ -56,12 +56,12 @@ const LoginScreen: React.FC = (props:any) => {
     }
 
     const user: IUser = {
-      userName: userResult.data[0].dataKey,
-      displayName: userResult.data[0].displayName,
-      email: userResult.data[0].email,
-      profileImg: userResult.data[0].profileImg,
-      followers: userResult.data[0].followers,
-      following: userResult.data[0].following
+      userName: userResult.data[0].dataKey.S,
+      displayName: userResult.data[0].displayName.S,
+      email: userResult.data[0].email.S,
+      profileImg: userResult.data[0].profileImg.S,
+      followers: userResult.data[0].followers?.SS || [],
+      following: userResult.data[0].following?.SS || []
     }
 
     dispatch({
