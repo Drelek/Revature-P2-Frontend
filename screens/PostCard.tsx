@@ -6,23 +6,27 @@ import Profile from './Profile';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
+import Post from '../models/Post';
 
 const PostCard = (props: any) => {
     const navigation = useNavigation();
 
     const userName = useSelector((state: IAppState) => state.user?.userName);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
-    const item = {
-        comments: props.item.comments.L,
-        timeStamp: props.item.dataKey.S,
-        dataType: props.item.dataType.S,
-        displayImg: props.item.displayImg.S,
-        displayName: props.item.displayName.S,
-        likes: props.item.likes.SS || [],
-        postBody: props.item.postBody.S,
-        userName: props.item.userName.S
-    }
-    const [likes, setLikes] = useState(item.likes.length);
+ 
+        const item = {
+            comments: props.item.comments.L,
+            timeStamp: props.item.dataKey.S,
+            dataType: props.item.dataType.S,
+            displayImg: props.item.displayImg.S,
+            displayName: props.item.displayName.S,
+            likes: props.item.likes.SS || [],
+            postBody: props.item.postBody.S,
+            userName: props.item.userName.S
+        }
+    
+
+    const[likes, setLikes] = useState(item.likes.length);
 
     const [isLiked, setLikedState] = useState(item.likes.includes(userName));
 
@@ -39,21 +43,7 @@ const PostCard = (props: any) => {
 
 
 
-    //Move this functionality to Profile Screen
-    //Grab user specific data: { email, profileImg}
-    // const grabUserData = async() => {
-    //     await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
-    //         headers: {
-    //             Authorization: token
-    //         }
-    //     }).then(resp => {
-    //         setProfileInfo({
-    //             ...profileInfo,
-    //             email : resp.data[0].email,
-    //             profileImg : resp.data[0].profileImg
-    //         })
-    //     })
-    // }
+
 
     //On press of delete post 
     //Will need to refresh feeds at their respective sources
@@ -101,8 +91,15 @@ const PostCard = (props: any) => {
         if (comments.length) {
 
         } else {
-            return '';
+            const comments = item.comments;
+            if(comments.length){
+                return comments.length;
+            } else {
+                return '';
+            }
         }
+
+       
     }
 
     const renderNumOfLikes = () => {

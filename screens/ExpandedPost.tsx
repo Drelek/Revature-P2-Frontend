@@ -25,6 +25,8 @@ const ExpandedPost: React.FC = (props: any) => {
     const keyboardDidShowListener:any = useRef();
     const keyboardDidHideListener:any = useRef();
 
+    let commentArray: any = [];
+    let tempObject: any = {};
     useEffect(() => {
         keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
         keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
@@ -36,12 +38,15 @@ const ExpandedPost: React.FC = (props: any) => {
     }, []);
     
     const grabCommentsActual = async () => {
+        console.log(23, props.route.params.timeStamp);
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            setCommentList(resp.data[0].comments);
+            console.log(resp.data[0].comments.L[0].M);
+
+            setCommentList(resp.data[0].comments.L);
             console.log(resp.data);
         })
 
@@ -138,7 +143,8 @@ const ExpandedPost: React.FC = (props: any) => {
                 <FlatList
                     data={commentList}
                     ListHeaderComponent={() => renderSinglePost()}
-                    renderItem={({ item }) => <IndividualComment item={item}></IndividualComment>}
+                    renderItem={({ item }) => <IndividualComment item={item} deleteComment={ grabCommentsActual } 
+                                                        timeStamp={props.route.params.timeStamp}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
                 />
 

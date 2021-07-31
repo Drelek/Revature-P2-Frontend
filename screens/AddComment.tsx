@@ -13,10 +13,7 @@ const AddComment = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const [working, setWorking] = useState(false);
 
-    //TODO
-    //Create comment lambda here -->
-    //Needs user pulled from state, specifically { diplayImg, displayName }
-    //Needs timeStamp of post passed through props
+    
     const createNewComment = async() => {
         setWorking(true)
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.timeStamp}`, {

@@ -1,47 +1,55 @@
+import axios from 'axios';
 import * as React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { Pressable } from 'react-native';
 import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
 
 const IndividualComment = (props: any) => {
     const item = {
-        displayImg: props.item.displayImg.S,
-        comment: props.item.comment.S,
-        displayName: props.item.displayName.S,
-        commentStamp: props.item.commentStamp.N
+        displayImg: props.item.M.displayImg.S,
+        comment: props.item.M.comment.S,
+        displayName: props.item.M.displayName.S,
+        commentStamp: props.item.M.commentStamp.N,
+        timeStamp: props.timeStamp
     }
     
-    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    const user = useSelector((state: IAppState) => state.user);
+    const {displayImg, comment, displayName, commentStamp, timeStamp} = item
+    const adaptedCommentStamp = new Date(Number(commentStamp)).toLocaleTimeString() + ' ' + new Date(Number(commentStamp)).toLocaleDateString()
+
+
+
+    const determineIfCurrentUser = () => {
+        console.log(displayName, user?.displayName, timeStamp, commentStamp);
+        if(user?.displayName == displayName) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
     const deleteComment = async() => {
+        console.log(timeStamp, commentStamp)
         await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${timeStamp}/${commentStamp}`, {
             headers: {
-                Authorization: "TokenToBePulledFromState"
+                Authorization: token
             }
         }).then(resp => {
             //Response returns deleted comment...
+            console.log(resp.data[0].comments);
+            props.deleteComment();    
         })
-    }
-    // const renderProfileImageOrDefault = (displayImg:string) => {
-    //     if (!displayImg) {
-    //         return (
-    //             <Image
-    //                 source={require('../assets/images/illuminati.png')}
-    //                 style={styles.defaultProfileImage}
-    //             />
-    //         )
-    //     } else {
-    //         return (
-    //             <Image
-    //                 source={{uri:`${displayImg}`}}
-    //                 style={styles.profileImage}
-    //             />
-    //         )
-    //     }
-    // }
 
+        
+    }
+    
     return(
 
         <Card
@@ -58,13 +66,29 @@ const IndividualComment = (props: any) => {
 
             <View style={styles.dataContainer}>
 
-                <View style={styles.nameTimeContainer}>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.displayName}>{displayName}</Text>
-                    </View>
-
+                <View>
+                    <View style={styles.nameTimeContainer}>
+                        <View style={styles.nameContainer}>
+                            <Text style={styles.displayName}>{displayName}</Text>
+                        </View>
+                        <View>
+                        { determineIfCurrentUser() &&
+                        <View style={{flex: 1, alignItems: 'flex-end'}}>
+                            <Pressable 
+                                onPress= { () => deleteComment()}>
+                             <Image
+                                source={require('../assets/images/trash-can-icon.png')}
+                                style={styles.trashCanContainer}
+                             />
+                            </Pressable> 
+                        </View>
+                        }
+                        </View>
+                        
+                </View>
+                
                     <View style={styles.timeContainer}>
-                        <Text style={styles.timeStamp}>{timeStamp}</Text>
+                        <Text style={styles.timeStamp}>{adaptedCommentStamp}</Text>
                     </View>
                 </View>
                
@@ -72,8 +96,9 @@ const IndividualComment = (props: any) => {
                     <Text style={styles.comment}>{comment}</Text>
                </View>
 
-            {/* </View> */}
             </View>
+            
+            
 
         </Card>
     )
@@ -112,6 +137,11 @@ const styles = StyleSheet.create({
         paddingBottom:5,
         borderBottomWidth:2,
         borderColor: 'purple'
+    },
+    trashCanContainer: {
+        flex: 1,
+        width: 20,
+        height: 20
     },
 
     nameContainer:{

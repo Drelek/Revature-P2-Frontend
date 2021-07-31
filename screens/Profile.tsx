@@ -14,50 +14,43 @@ const Profile: React.FC = (props: any) => {
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
     const userRedirect = useState(props?.profileInfo);
-    const [postCards, setPostCards] = useState([]);
-
-    //We have to account for whether app user is reaching profile page
-    //Or app user is redirecting to another user profile
-    const [thisUser, setThisUser] = useState(true);
+    const [postCards, setPostCards] = useState<any[]>([]);
+    const[profileInfo, setProfileInfo] = useState({ });
 
     let thisProps: any;
-
-    if (props.profileInfo) {
-        setThisUser(false);
+    if(props.profileInfo) {
         thisProps = props.profileInfo;
     } else {
         thisProps = props.route.params;
-
     }
+
     useEffect(() => {
-        //Is current user trying to access some other profile?
-        if (props.profileInfo) {
-            // setThisUser(false);
-            thisProps = props.profileInfo;
-        } else {
-            thisProps = props.route.params;
+        console.log(props.route.params, 23);
+        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
+            headers : {
+                Authorization : token
+            }
+        }).then(resp => {
+            //Response is an array of posts 
+            //console.log(resp);
+            setPostCards(resp.data[0]);
+            console.log(postCards);
+           
+        })
+    }, [])
 
-        }
-    })
-
-    //Grab user posts of this specific user
-    let userPostArray = []
-    const grabUserSpecificPosts = async () => {
-        //
-        let userName;
-        if (thisUser) {
-            userName = user?.userName;
-        } else {
-            userName = thisProps.userName;
-        }
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${thisProps.userName}/specific`, {
+    //Grab user specific data (not of current user): { email, profileImg}
+    const grabUserData = async() => {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            //Response is an array of posts 
-            setPostCards(resp.data[0]);
-
+            setProfileInfo({
+                ...profileInfo,
+                email : resp.data[0].email,
+                profileImg : resp.data[0].profileImg
+            })
         })
     }
 
@@ -123,13 +116,12 @@ const Profile: React.FC = (props: any) => {
             </View>
 
             <SafeAreaView style={styles.postContainer}>
-
-                <FlatList
+                
+                <FlatList 
                     data={postCards}
-                    renderItem={({ item }) =>
-                        <PostCard item={item}>
-
-                        </PostCard>
+                    renderItem={({item}) => 
+                        <PostCard item={item}
+                        ></PostCard>
                     }
                     keyExtractor={(item, index) => index.toString()}
                 />
