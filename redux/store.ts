@@ -3,10 +3,12 @@ export interface IAppState {
     auth?: any;
     user?: IUser;
     canvas: boolean;
+    feed: boolean;
 }
 
 export const initialState: IAppState = {
     auth: undefined,
     user: undefined,
-    canvas: true
+    canvas: true,
+    feed: true
 }
