@@ -16,7 +16,7 @@ const ExpandedPost: React.FC = (props: any) => {
     const [keyboardOffset, setKeyboardOffset] = useState(0);
     const onKeyboardShow = (event: KeyboardEvent) => {
         if(Platform.OS === "android") {
-            setKeyboardOffset(event.endCoordinates.height + 100)
+            setKeyboardOffset(event.endCoordinates.height + 150)
         } else {
             setKeyboardOffset(event.endCoordinates.height + 10)
         }
