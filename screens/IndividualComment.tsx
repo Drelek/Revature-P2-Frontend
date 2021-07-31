@@ -10,15 +10,16 @@ import { IAppState } from '../redux/store';
 
 const IndividualComment = (props: any) => {
     const item = {
-        displayImg: props.item.displayImg.S,
-        comment: props.item.comment.S,
-        displayName: props.item.displayName.S,
-        commentStamp: props.item.commentStamp.N
+        displayImg: props.item.M.displayImg.S,
+        comment: props.item.M.comment.S,
+        displayName: props.item.M.displayName.S,
+        commentStamp: props.item.M.commentStamp.N,
+        timeStamp: props.timeStamp
     }
     
-    const token = useSelector((state: IAppState) => state.auth.AccesToken);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((state: IAppState) => state.user);
-    const {displayImg, comment, displayName, commentStamp, timeStamp} = props.item
+    const {displayImg, comment, displayName, commentStamp, timeStamp} = item
     const adaptedCommentStamp = new Date(Number(commentStamp)).toLocaleTimeString() + ' ' + new Date(Number(commentStamp)).toLocaleDateString()
 
 
@@ -35,34 +36,20 @@ const IndividualComment = (props: any) => {
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
     const deleteComment = async() => {
+        console.log(timeStamp, commentStamp)
         await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${timeStamp}/${commentStamp}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
             //Response returns deleted comment...
-            console.log(resp.data[0]);
-            
+            console.log(resp.data[0].comments);
+            props.deleteComment();    
         })
-    }
-    // const renderProfileImageOrDefault = (displayImg:string) => {
-    //     if (!displayImg) {
-    //         return (
-    //             <Image
-    //                 source={require('../assets/images/illuminati.png')}
-    //                 style={styles.defaultProfileImage}
-    //             />
-    //         )
-    //     } else {
-    //         return (
-    //             <Image
-    //                 source={{uri:`${displayImg}`}}
-    //                 style={styles.profileImage}
-    //             />
-    //         )
-    //     }
-    // }
 
+        
+    }
+    
     return(
 
         <Card

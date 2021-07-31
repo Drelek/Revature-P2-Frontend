@@ -15,7 +15,6 @@ const Profile: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
     const userRedirect = useState(props?.profileInfo);
     const [postCards, setPostCards] = useState<any[]>([]);
-    const [adaptedPostCards, setAdaptedPostCards] = useState<any[]>([]);
     const[profileInfo, setProfileInfo] = useState({ });
 
     let thisProps: any;
@@ -25,45 +24,9 @@ const Profile: React.FC = (props: any) => {
         thisProps = props.route.params;
     }
 
-    const adaptDataToJaredType = () => {
-        let tempJSON = {};
-        let tempArr = [];
-        for(let elem of postCards) {
-            tempJSON = {
-                comments : {
-                    L : elem.comments
-                },
-                dataKey : {
-                    S : elem.dataKey
-                },
-                displayImg : {
-                    S : elem.displayImg
-                },
-                displayName : {
-                    S : elem.displayName
-                },
-                likes : {
-                    SS : elem.likes
-                },
-                postBody : {
-                    S : elem.postBody
-                },
-                userName : {
-                    S : elem.userName
-                },
-                dataType : {
-                    S : elem.dataType
-                }
-            }
-            tempArr.push(tempJSON);            
-        }
-        
-        setAdaptedPostCards(tempArr);
-        console.log(adaptedPostCards);
-    }
     useEffect(() => {
-        console.log(thisProps);
-        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/2/${thisProps.userName}`, {
+        console.log(props.route.params, 23);
+        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
             headers : {
                 Authorization : token
             }
@@ -72,7 +35,6 @@ const Profile: React.FC = (props: any) => {
             //console.log(resp);
             setPostCards(resp.data[0]);
             console.log(postCards);
-            adaptDataToJaredType();
            
         })
     }, [])
@@ -156,7 +118,7 @@ const Profile: React.FC = (props: any) => {
             <SafeAreaView style={styles.postContainer}>
                 
                 <FlatList 
-                    data={adaptedPostCards}
+                    data={postCards}
                     renderItem={({item}) => 
                         <PostCard item={item}
                         ></PostCard>
