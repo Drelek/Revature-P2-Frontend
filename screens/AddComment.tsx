@@ -13,9 +13,10 @@ const AddComment = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const [working, setWorking] = useState(false);
 
-    
+
     const createNewComment = async() => {
         setWorking(true)
+        
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.timeStamp}`, {
             displayName: user?.displayName,
             displayImg: user?.profileImg,
@@ -25,6 +26,7 @@ const AddComment = (props: any) => {
                 Authorization : token
             },  
         }).then(resp => {
+            console.log(resp);
             //Response is a post object containing the newly updated comment array
             props.submitComm();
         }).then(resp => {
