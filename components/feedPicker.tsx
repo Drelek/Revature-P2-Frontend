@@ -3,31 +3,35 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import GlobalEye from './globalEye';
 import FollowIcon from './followIcon';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
+import { AppAction } from '../redux/actions';
 
 const FeedPicker:React.FC = () => {
+  const currentFeed = useSelector((state: IAppState) => state.feed);
+  const dispatch = useDispatch();
   const [feedIcon, setFeedIcon] = useState("global");
   const navigation = useNavigation();
 
   const renderFeedIcon = () =>{
-    if (feedIcon === "global"){
+    if (currentFeed){
       return <GlobalEye/>
-    } else if (feedIcon === "follower"){
+    } else {
       return <FollowIcon/>
     }
   }
   //we will to change state and also push new data to render cards
   const stateChange = () => {
-    if (feedIcon === "global"){
-      setFeedIcon("follower");
-    } else if (feedIcon === "follower"){
-      setFeedIcon("global");
-    }
+    dispatch({
+      type: AppAction.TOGGLE_FEED,
+      payload: {}
+    });
   };
 
   return (
     <TouchableOpacity
       onPress={() => stateChange()}>
-      {renderFeedIcon}
+      {renderFeedIcon()}
     </TouchableOpacity>
   )
   

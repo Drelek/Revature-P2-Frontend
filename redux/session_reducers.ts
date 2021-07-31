@@ -13,6 +13,8 @@ export const reducers = (state: IAppState = initialState, action: IAppActions): 
             return {...state, user: action.payload?.user};
         case AppAction.TOGGLE_CANVAS:
             return {...state, canvas: !state.canvas};
+        case AppAction.TOGGLE_FEED:
+            return {...state, feed: !state.feed};
         default:
             return newState;
     }
