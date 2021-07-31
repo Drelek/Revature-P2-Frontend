@@ -44,7 +44,6 @@ const ExpandedPost: React.FC = (props: any) => {
                 Authorization: token
             }
         }).then(resp => {
-            console.log(resp.data[0].comments.L[0].M);
 
             setCommentList(resp.data[0].comments.L);
             console.log(resp.data);
@@ -164,7 +163,7 @@ const ExpandedPost: React.FC = (props: any) => {
                     }
                 })
             }}>
-            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.timeStamp} submitComm={grabCommentsActual}></AddComment>
             </View>
     
             
