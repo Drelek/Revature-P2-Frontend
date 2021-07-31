@@ -13,13 +13,18 @@ const ExpandedPost: React.FC = (props: any) => {
     const [commentList, setCommentList] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
 
-
+    let commentArray: any = [];
     const grabCommentsActual = async () => {
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
+            for(let elem of resp.data[0].comments) {
+                elem['timeStamp'] = props.route.params.timeStamp;
+                commentArray.push(elem);
+            }
+            console.log(commentArray);
             setCommentList(resp.data[0].comments);
             console.log(resp.data);
         })

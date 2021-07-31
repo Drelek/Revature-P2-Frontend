@@ -14,50 +14,81 @@ const Profile:React.FC = (props: any) => {
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);    
     const userRedirect = useState(props?.profileInfo);
-    const [postCards, setPostCards] = useState([]);
-
-    //We have to account for whether app user is reaching profile page
-    //Or app user is redirecting to another user profile
-    const[thisUser, setThisUser] = useState(true);
+    const [postCards, setPostCards] = useState<any[]>([]);
+    const [adaptedPostCards, setAdaptedPostCards] = useState<any[]>([]);
+    const[profileInfo, setProfileInfo] = useState({ });
 
     let thisProps: any;
-
     if(props.profileInfo) {
-        setThisUser(false);
         thisProps = props.profileInfo;
     } else {
         thisProps = props.route.params;
+    }
 
+    const adaptDataToJaredType = () => {
+        let tempJSON = {};
+        let tempArr = [];
+        for(let elem of postCards) {
+            tempJSON = {
+                comments : {
+                    L : elem.comments
+                },
+                dataKey : {
+                    S : elem.dataKey
+                },
+                displayImg : {
+                    S : elem.displayImg
+                },
+                displayName : {
+                    S : elem.displayName
+                },
+                likes : {
+                    SS : elem.likes
+                },
+                postBody : {
+                    S : elem.postBody
+                },
+                userName : {
+                    S : elem.userName
+                },
+                dataType : {
+                    S : elem.dataType
+                }
+            }
+            tempArr.push(tempJSON);            
+        }
+        
+        setAdaptedPostCards(tempArr);
+        console.log(adaptedPostCards);
     }
     useEffect(() => {
-        //Is current user trying to access some other profile?
-        if(props.profileInfo) {
-        // setThisUser(false);
-        thisProps = props.profileInfo;
-    } else {
-        thisProps = props.route.params;
-
-    }
-    })
-
-    //Grab user posts of this specific user
-    let userPostArray = []
-    const grabUserSpecificPosts = async() => {
-        //
-        let userName;
-        if(thisUser) {
-            userName = user?.userName;
-        } else {
-            userName = thisProps.userName;
-        }
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${thisProps.userName}/specific`, {
+        console.log(thisProps);
+        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/2/${thisProps.userName}`, {
             headers : {
                 Authorization : token
             }
         }).then(resp => {
             //Response is an array of posts 
+            //console.log(resp);
             setPostCards(resp.data[0]);
-            
+            console.log(postCards);
+            adaptDataToJaredType();
+           
+        })
+    }, [])
+
+    //Grab user specific data (not of current user): { email, profileImg}
+    const grabUserData = async() => {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+            headers: {
+                Authorization: token
+            }
+        }).then(resp => {
+            setProfileInfo({
+                ...profileInfo,
+                email : resp.data[0].email,
+                profileImg : resp.data[0].profileImg
+            })
         })
     }
 
@@ -125,7 +156,7 @@ const Profile:React.FC = (props: any) => {
             <SafeAreaView style={styles.postContainer}>
                 
                 <FlatList 
-                    data={postCards}
+                    data={adaptedPostCards}
                     renderItem={({item}) => 
                         <PostCard item={item}
                         ></PostCard>
