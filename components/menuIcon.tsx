@@ -1,17 +1,17 @@
 import React from "react";
-import {Image, StyleSheet, View, Pressable} from 'react-native';
+import {Image, StyleSheet, View, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const MenuIcon: React.FC = () => {
   const navigation = useNavigation<any>();
   return (
-    <Pressable onPress={() => navigation.toggleDrawer()}>
+    <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
       <View>
         <Image
         style={styles.logo}
         source={require('../assets/images/menuIcon.png')}/>
       </View>
-    </Pressable>
+    </TouchableOpacity>
     
   )
 }

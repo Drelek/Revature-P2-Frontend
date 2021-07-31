@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, Pressable, Text, StyleSheet, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useEffect, useRef} from 'react';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -12,8 +12,30 @@ const ExpandedPost: React.FC = (props: any) => {
     const [isLiked, setLikedState] = useState(false);
     const [commentList, setCommentList] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    
+    const [keyboardOffset, setKeyboardOffset] = useState(0);
+    const onKeyboardShow = (event: KeyboardEvent) => {
+        if(Platform.OS === "android") {
+            setKeyboardOffset(event.endCoordinates.height + 150)
+        } else {
+            setKeyboardOffset(event.endCoordinates.height + 10)
+        }
+    }
+    const onKeyboardHide = () => setKeyboardOffset(0);
+    const keyboardDidShowListener:any = useRef();
+    const keyboardDidHideListener:any = useRef();
 
     let commentArray: any = [];
+    useEffect(() => {
+        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
+        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
+
+        return () => {
+            keyboardDidShowListener.current.remove();
+            keyboardDidHideListener.current.remove();
+        };
+    }, []);
+    
     const grabCommentsActual = async () => {
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
@@ -100,9 +122,9 @@ const ExpandedPost: React.FC = (props: any) => {
 
                     <View style={styles.footerContainer}>
                         <View style={styles.likesContainer}>
-                            <Pressable onPress={() => setLikedState(!isLiked)}>
+                            <TouchableOpacity onPress={() => setLikedState(!isLiked)}>
                                 {renderNotLikeOrLiked()}
-                            </Pressable>
+                            </TouchableOpacity>
 
                             <Text style={styles.likesText}>{renderNumOfLikes(likes)}</Text>
                         </View>
@@ -116,15 +138,7 @@ const ExpandedPost: React.FC = (props: any) => {
     }
 
     return (
-
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "null"} keyboardVerticalOffset={Platform.select({ ios: 64 })}>
-            {/* <Pressable onPress={ () => mergePostCommentData()}>
-                    <Text style={{color:"white"}}>HELLO</Text>
-                </Pressable>
-                <Pressable onPress={ () => console.log(commentList)}>
-                    <Text style={{color:"white"}}>EAZYMONEY</Text>
-                </Pressable> */}
-            {/* <View style={styles.inner}> */}
+        <KeyboardAvoidingView style={styles.container}>    
             <View style={styles.commentsContainer}>
 
                 <FlatList
@@ -135,10 +149,25 @@ const ExpandedPost: React.FC = (props: any) => {
                 />
 
             </View>
-            {/* <View style={styles.addCommentContainer}> */}
-            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.timeStamp} submitComm={grabCommentsActual}></AddComment>
-            {/* </View> */}
-            {/* </View> */}
+            <View style={{flex:1.5}}></View>
+            <View style={{
+                ...Platform.select({
+                    ios:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    },
+                    android:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    }
+                })
+            }}>
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
+            </View>
+    
+            
         </KeyboardAvoidingView>
     )
 }
@@ -208,19 +237,14 @@ const styles = StyleSheet.create({
     },
 
     timeStampContainer: {
-        flex: 1,
+        flex: 2,
         flexDirection: "row",
         justifyContent: "flex-end"
     },
 
     commentsContainer: {
-        flex: 8,
-        marginBottom: 10
-    },
-
-    addCommentContainer: {
-        flex: 1,
-        justifyContent: "flex-end"
+        flex: 7,
+        marginBottom:10
     },
 
     displayName: {

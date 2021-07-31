@@ -41,7 +41,8 @@ const IndividualComment = (props: any) => {
             }
         }).then(resp => {
             //Response returns deleted comment...
-            console.log(resp.data[0])
+            console.log(resp.data[0]);
+            
         })
     }
     // const renderProfileImageOrDefault = (displayImg:string) => {

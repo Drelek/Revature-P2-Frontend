@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { StyleSheet, View, Text, Pressable, TextInput } from "react-native";
+import React, { useState, useEffect, useRef} from "react";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Platform, KeyboardEvent, KeyboardAvoidingView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
@@ -14,9 +13,30 @@ const Feed: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((state: IAppState) => state.user);
     const [postCards, setPostCards] = useState([]);
-
-
+    const [working, setWorking] = useState(false);
     const [newPost, setNewPost] = useState(' ');
+
+    const [keyboardOffset, setKeyboardOffset] = useState(0);
+    const onKeyboardShow = (event: KeyboardEvent) => {
+        if(Platform.OS === "android") {
+            setKeyboardOffset(event.endCoordinates.height + 100)
+        } else {
+            setKeyboardOffset(event.endCoordinates.height - 25)
+        }
+    }
+    const onKeyboardHide = () => setKeyboardOffset(0);
+    const keyboardDidShowListener:any = useRef();
+    const keyboardDidHideListener:any = useRef();
+
+    useEffect(() => {
+        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
+        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
+
+        return () => {
+            keyboardDidShowListener.current.remove();
+            keyboardDidHideListener.current.remove();
+        };
+    }, []);
 
     useEffect(() => {
         refresh();
@@ -30,14 +50,15 @@ const Feed: React.FC = (props: any) => {
             }
         }).then(resp => {
             //resp.data is an array of posts
-            console.log(resp.data[0]);
             setPostCards(resp.data[0]);
         })
     }
 
     //Add post to global feed
     const createPost = async () => {
+        Keyboard.dismiss;
         try {
+            setWorking(true);
             await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
                 displayName: user?.displayName,
                 displayImg: user?.profileImg,
@@ -54,55 +75,62 @@ const Feed: React.FC = (props: any) => {
             return;
         }
         refresh();
+        setNewPost('');
+        setWorking(false);
+        
     }
 
-    const addPost = () => {
+    const addPostComponent = () => {
         return (
             <Card containerStyle={styles.card}>
-                <View style={styles.postContainer}>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            placeholder="What's happening?"
-                            placeholderTextColor="white"
-                            style={styles.inputBox}
-                            onChangeText={(text) => setNewPost(text)} />
-                    </View>
-
-                    <View style={styles.buttonContainer}>
-                        <Pressable style={styles.pressable} onPress={createPost}>
-                            <Text style={styles.text}>Post</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Card>
-        )
-    }
-
-    return (
-        <View style={styles.container}>
-            <FlatList
-                data={postCards}
-                ListHeaderComponent={
-                    <Card containerStyle={styles.card}>
-                        <View style={styles.postContainer}>
+                    <View style={styles.postContainer}>
                             <View style={styles.inputContainer}>
                                 <TextInput
                                     placeholder="Leave a Post"
                                     placeholderTextColor="white"
                                     style={styles.inputBox}
+                                    value={newPost}
                                     onChangeText={(text) => setNewPost(text)} />
                             </View>
 
                             <View style={styles.buttonContainer}>
-                                <Pressable style={styles.pressable} onPress={() => createPost()}>
+                                <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => createPost()}>
                                     <Text style={styles.text}>Post</Text>
-                                </Pressable>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                    </Card>}
+                    </Card>
+        )
+    }
+
+    return (
+        <KeyboardAvoidingView>
+            
+            <View style={styles.listContainer}>
+                <FlatList
+                keyboardShouldPersistTaps={"always"}
+                data={postCards}
                 renderItem={({ item }) => <PostCard item={item}> </PostCard>}
                 keyExtractor={(item, index) => index.toString()} />
-        </View>
+            </View>
+
+
+            <View style={{
+                ...Platform.select({
+                    ios:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset,
+                    },
+                    android:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    }
+                })}}>
+                    {addPostComponent()}
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -110,12 +138,14 @@ const Feed: React.FC = (props: any) => {
 export default Feed;
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 0
+    
+    
+    listContainer: {
+        paddingBottom:100
     },
 
     text: {
-        fontSize: 14,
+        fontSize: 12,
         color: "white",
     },
 
@@ -161,11 +191,19 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
 
-    pressable: {
+    TouchableOpacity: {
         backgroundColor: "purple",
         paddingHorizontal: 10,
         paddingVertical: 15,
         marginBottom: 10,
         borderRadius: 15,
+    },
+
+    working:{
+        backgroundColor:"grey"
+    },
+
+    notWorking:{
+        backgroundColor:"purple"
     }
 })

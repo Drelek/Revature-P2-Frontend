@@ -1,5 +1,5 @@
 import React, { useState, FormEvent}from 'react';
-import { StyleSheet, TextInput, SafeAreaView,  Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView,  TouchableOpacity, Text } from 'react-native';
 import { IAppState } from '../redux/store';
 import { screenWidth } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ const LoginScreen: React.FC = (props:any) => {
   const user = useSelector((state: IAppState) => state.user);
   const dispatch = useDispatch();
 
+  const [working, setWorking] = useState(false);
   const [userInfo, setUserInfo] = useState({
         userName: '',
         password: ''
@@ -23,6 +24,7 @@ const LoginScreen: React.FC = (props:any) => {
 
     let authResult;
     try {
+      setWorking(true);
       authResult = await axios.post('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/auth/signin', {
         userName: userInfo.userName,
         password: userInfo.password
@@ -45,6 +47,7 @@ const LoginScreen: React.FC = (props:any) => {
           "Authorization": authResult.data[0].AccessToken
         }
       });
+      setWorking(false);
       console.log(userResult.data);
     } catch (err) {
       console.log(err);
@@ -53,12 +56,12 @@ const LoginScreen: React.FC = (props:any) => {
     }
 
     const user: IUser = {
-      userName: userResult.data[0].dataKey,
-      displayName: userResult.data[0].displayName,
-      email: userResult.data[0].email,
-      profileImg: userResult.data[0].profileImg,
-      followers: userResult.data[0].followers,
-      following: userResult.data[0].following
+      userName: userResult.data[0].dataKey.S,
+      displayName: userResult.data[0].displayName.S,
+      email: userResult.data[0].email.S,
+      profileImg: userResult.data[0].profileImg.S,
+      followers: userResult.data[0].followers?.SS || [],
+      following: userResult.data[0].following?.SS || []
     }
 
     dispatch({
@@ -89,20 +92,20 @@ const LoginScreen: React.FC = (props:any) => {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <Pressable
-        style={styles.button}
+      <TouchableOpacity
+        style={[styles.button, working ? styles.working : styles.notWorking]}
         // onPress={(e) => submitForm(e)}>
         onPress={() => submit()}>
         <Text
           style={styles.text}>Submit</Text>
-      </Pressable>
-      {/* <Pressable
+      </TouchableOpacity>
+      {/* <TouchableOpacity
         style={styles.button}
         // onPress={(e) => submitForm(e)}>
         onPress={() => reduxChecker()}>
         <Text
           style={styles.text}>redux</Text>
-      </Pressable> */}
+      </TouchableOpacity> */}
       </SafeAreaView>
       <SafeAreaView style={styles.fillArea}/>
     </SafeAreaView>
@@ -140,6 +143,15 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'white',
   },
+
+  notWorking:{
+    backgroundColor: 'purple'
+  },
+
+  working:{
+    backgroundColor: 'grey'
+  },
+
   safeArea: {
     flex: 3,
     justifyContent: 'space-evenly',
