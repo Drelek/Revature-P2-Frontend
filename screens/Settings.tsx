@@ -1,16 +1,53 @@
-import { View, Text, TextInput, StyleSheet,TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react';
-import {Card} from 'react-native-elements'
-const SettingsScreens:React.FC = () => {
+import { Card } from 'react-native-elements'
+import { useDispatch, useSelector } from 'react-redux';
+import { IAppState } from '../redux/store';
+import axios from 'axios';
+import { AppAction } from '../redux/actions';
 
-    const [email, setEmail] = useState(' ');
-    const [handle, setHandle] = useState(' ');
-    const [password, setPassword] = useState(' ');
-    const [profileImg, setProfileImage] = useState(' ');
-    const [working, setWorking] = useState(false);
-    
-    function submitForm() {
+const SettingsScreens: React.FC = () => {
 
+    let user = useSelector((store: IAppState) => store.user);
+    const token = useSelector((state: IAppState) => state.auth.AccessToken);
+
+    const dispatch = useDispatch();
+
+
+    const [handle, setHandle] = useState(user?.displayName);
+    const [profileImg, setProfileImage] = useState(user?.profileImg);
+
+
+    async function submitForm() {
+        const body = {
+            'dataType': 'user',
+            'dataKey': user?.userName,
+            'displayName': handle,
+            'profileImg': profileImg
+        }
+        const headers = {
+            Authorization: token
+        }
+        try {
+            const res = await axios.put('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + user?.userName, body, { headers });
+
+            const updatedUser = {
+                'userName': user?.userName,
+                'displayName': handle,
+                'profileImg': profileImg
+            }
+
+
+            dispatch({
+                type: AppAction.UPDATE_USER,
+                payload: { user: updatedUser }
+            })
+            user = useSelector((store: IAppState) => store.user);
+        }
+        catch (err) {
+
+            console.log(err.response)
+        }
     }
 
     return (
@@ -46,33 +83,33 @@ const SettingsScreens:React.FC = () => {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center'
+    container: {
+        flex: 1,
+        justifyContent: 'center'
     },
-    smallView:{
-        flex:1,
+    smallView: {
+        flex: 1,
     },
-    bottomView:{
-        flex:1
+    bottomView: {
+        flex: 1
     },
-    largeView:{
+    largeView: {
         flex: 2,
         justifyContent: 'flex-end'
     },
     cardActual: {
-        borderRadius:10,
-        borderColor: 'purple', 
+        borderRadius: 10,
+        borderColor: 'purple',
         borderWidth: 2,
         backgroundColor: 'rgb(33, 37, 41)',
         color: 'white',
     },
 
     topForm: {
-        margin:10
+        margin: 10
     },
     form: {
-        margin:10
+        margin: 10
     },
 
     titleContainer: {
@@ -88,7 +125,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
     },
-    input:{
+    input: {
         fontFamily: "BadScript",
         fontSize: 18,
         color: "white",
@@ -103,8 +140,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         backgroundColor: 'purple',
-        marginVertical:10,
-        marginHorizontal:25
+        marginVertical: 10,
+        marginHorizontal: 25
     },
     buttonText: {
         fontSize: 20,

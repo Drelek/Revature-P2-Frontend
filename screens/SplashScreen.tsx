@@ -16,21 +16,21 @@ const SplashScreen: React.FC = (props:any) => {
   });
 
   function returnToLogin() {
-    setUserSession({session: "login"});
+    setUserSession({ session: "login" });
   }
-  
+
   const canvas = useSelector((state: IAppState) => state.canvas);
   const dispatch = useDispatch();
 
   const renderSession = () => {
     const session = userSession.session;
-    if (session === "login"){
+    if (session === "login") {
       return (
-        <LoginScreen/>
+        <LoginScreen />
       )
-    } else if(session === "sign-up"){
+    } else if (session === "sign-up") {
       return (
-        <SignUpScreen submitFunc={returnToLogin}/>
+        <SignUpScreen submitFunc={returnToLogin} />
       )
     }
   }
@@ -51,9 +51,9 @@ const SplashScreen: React.FC = (props:any) => {
       </TouchableOpacity>
     }
   }
-  function welcomeMessage(){
-    const message:string = "Welcome to Bohemian Grove, the message app for those in the know.";
-    return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`}/>
+  function welcomeMessage() {
+    const message: string = "Welcome to Bohemian Grove, the message app for those in the know.";
+    return <AnimatedTypeWriter containerStyle={styles.message} textStyle={styles.text} text={`${message}`} />
   }
 
   return (
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   messageView: {
     flex: 1.5,
     alignItems: 'center',
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
     backgroundColor: "transparent",
     borderColor:"purple",
     justifyContent: 'flex-end',
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
 
   largeView: {
     flex: 3,
-    backgroundColor:'rgb(33, 37, 41)',
+    backgroundColor: 'rgb(33, 37, 41)',
     borderRadius: 10,
-    borderWidth:4,
+    borderWidth: 4,
     borderColor: 'purple',
     marginHorizontal:10,
     width:screenWidth - 20,
@@ -116,23 +116,23 @@ const styles = StyleSheet.create({
   
   },
 
-  text:{
-    color:"white",
+  text: {
+    color: "white",
     fontSize: 20,
     backgroundColor:"transparent",
     textAlign:"center",
     // fontFamily: "Montserrat",
   },
 
-  message:{
+  message: {
     color: 'white',
     fontSize: 18,
     backgroundColor: 'rgb(33, 37, 41)',
-    textAlign:"center",
+    textAlign: "center",
     borderColor: 'purple',
     borderWidth: 4,
     borderRadius: 10,
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
     // fontFamily: "BadScript-Regular"
   },
 
