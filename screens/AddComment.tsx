@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, TextInput, StyleSheet, Pressable, View, PointPropType } from 'react-native';
+import { Text, TextInput, StyleSheet, TouchableOpacity, View, PointPropType } from 'react-native';
 import { useState } from 'react';
 import { Card } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,12 +11,14 @@ const AddComment = (props: any) => {
     const[newComment, setNewComment] = useState(' ');
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    const [working, setWorking] = useState(false);
 
     //TODO
     //Create comment lambda here -->
     //Needs user pulled from state, specifically { diplayImg, displayName }
     //Needs timeStamp of post passed through props
     const createNewComment = async() => {
+        setWorking(true)
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.timeStamp}`, {
             displayName: user?.displayName,
             displayImg: user?.profileImg,
@@ -28,6 +30,9 @@ const AddComment = (props: any) => {
         }).then(resp => {
             //Response is a post object containing the newly updated comment array
             props.submitComm();
+        }).then(resp => {
+            setWorking(false);
+            setNewComment(' ');
         })
     }
 
@@ -37,6 +42,7 @@ const AddComment = (props: any) => {
                 <View style={styles.postContainer}>
                     <View style={styles.inputContainer}> 
                         <TextInput
+                        value={newComment}
                         placeholder={props.text}
                         placeholderTextColor="white" 
                         style={styles.inputBox}
@@ -44,9 +50,9 @@ const AddComment = (props: any) => {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <Pressable style={styles.pressable} onPress={() => createNewComment()}>
+                        <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => createNewComment()}>
                             <Text style={styles.text}>Reply</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 </View>
         </Card>
@@ -57,26 +63,22 @@ export default AddComment;
 
 const styles = StyleSheet.create({
     text:{
-        fontSize:14,
+        fontSize:12,
         color: "white",
     },
 
     card:{
-        flex:1,
-        backgroundColor:'rgb(33, 37, 41)',
-        borderWidth:4,
+        flex: 1,
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderWidth: 4,
         borderColor: 'purple',
-        borderRadius:30, 
-        paddingBottom:5,
-        marginHorizontal:9,
-        marginBottom:15,
-        justifyContent: 'flex-end'
+        borderRadius: 30,
+        paddingBottom: 5
     },
 
     postContainer: {
         flexDirection:'row',
         justifyContent: 'center',
-        marginBottom:10,
     },
 
     inputBox:{
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textAlignVertical: 'top',
         marginLeft:10,
-        
+        paddingVertical: 15,
+        paddingHorizontal: 5,
     },
 
     buttonContainer:{
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-end",
         alignItems: "center",
-        paddingLeft:5
+        // paddingLeft:5,
+    
     },
 
     inputContainer:{
@@ -106,11 +110,19 @@ const styles = StyleSheet.create({
         alignContent:"center",
     },
 
-    pressable:{
+    TouchableOpacity:{
         backgroundColor:"purple",
         paddingHorizontal:10,
         paddingVertical:15,
         marginBottom:10,
         borderRadius: 15,
+    },
+
+    working:{
+        backgroundColor:"grey"
+    },
+
+    notWorking:{
+        backgroundColor:"purple"
     }
 })

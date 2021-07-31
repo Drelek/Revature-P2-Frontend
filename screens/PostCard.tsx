@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
+import React, { useState, useEffect }  from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 import Profile from './Profile';
@@ -166,13 +166,13 @@ const PostCard = (props: any) => {
 
 
                     <View style={styles.nameContainer}>
-                        <Pressable
+                        <TouchableOpacity
                             onPress={() => navigation.navigate("Profile", profileInfo)}
                         >
                             <Text
                                 style={styles.displayName}
                             >{item.displayName}</Text>
-                        </Pressable>
+                        </TouchableOpacity>
 
 
                         <Text
@@ -192,21 +192,21 @@ const PostCard = (props: any) => {
                     style={styles.containerViewAlignIcons}
                 >
                     <View style={styles.likesContainer}>
-                        <Pressable onPress={toggleLike}>
-                            {renderNotLikeOrLiked()}
-                        </Pressable>
+                        <TouchableOpacity onPress={ toggleLike }>
+                        {renderNotLikeOrLiked()}
+                        </TouchableOpacity>
 
                         <Text style={styles.likesText}>{renderNumOfLikes()}</Text>
                     </View>
 
                     <View style={styles.commentsContainer}>
-                        <Pressable
-                            onPress={() => redirectToExtendedPostScreen()}>
-                            <Image
-                                source={require('../assets/images/commentIcon.png')}
-                                style={styles.comment}
-                            />
-                        </Pressable>
+                       <TouchableOpacity 
+                        onPress= { () => redirectToExtendedPostScreen()}>
+                        <Image
+                            source={require('../assets/images/commentIcon.png')}
+                            style={styles.comment}
+                        />
+                        </TouchableOpacity> 
                         <Text style={styles.likesText}>
                             {renderNumOfComments()}
                         </Text>
@@ -276,8 +276,9 @@ const styles = StyleSheet.create({
         width: 90,
         height: 90,
         borderRadius: 100,
-        borderWidth: 2,
-        borderColor: 'purple',
+        borderWidth:2,
+        borderColor:'purple',
+        backgroundColor:'purple'
     },
     displayName: {
         fontSize: 22,

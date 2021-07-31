@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, SafeAreaView, Pressable, FlatList } from 'react-native';
+import React, { useState }from 'react';
+import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -106,16 +106,16 @@ const Profile: React.FC = (props: any) => {
                         </View>
                         {/* <View>{console.log(thisProps)}</View> */}
                         <View >
-                            <Pressable
-                                style={styles.followerContainer}
-                                onPress={() => { addFollower() }}
-                            >
-                                <Image
-                                    style={styles.followerIcon}
-                                    source={require('../assets/images/followerIcon.png')}
-                                />
-                            </Pressable>
-                        </View>
+                        <TouchableOpacity
+                            style={styles.followerContainer}
+                            onPress= {() => {addFollower()}}
+                        >
+                            <Image 
+                                style={styles.followerIcon}
+                               source={require('../assets/images/followerIcon.png')}
+                          />
+                         </TouchableOpacity>
+                          </View>
                     </View>
                 </Card>
 

@@ -1,20 +1,19 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, TextInput, Pressable, StyleSheet, Text, Image } from 'react-native';
-import { Card } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
+import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, FlatList, Pressable, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
-import PostCard from './PostCard';
-
+import { Card } from 'react-native-elements'
 
 const SearchScreen: React.FC = (props: any) => {
 
+    const [search, setSearch] = useState(' ');
+    const [working, setWorking] = useState(false);
+    const [results, setResults] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);
 
-    const [search, setSearch] = useState(' ');
     //const [searchedUsers, setUsers] = useState(' ')
     const searchedUsers = [
         {
@@ -43,11 +42,12 @@ const SearchScreen: React.FC = (props: any) => {
     ]
 
     async function Search() {
-
         console.log(search);
         try {
+            // setWorking(true);
             const res = await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/search/${search}`, { headers: { Authorization: token } });
             console.log(res);
+
         }
         catch (err) {
             console.log(err.response)
@@ -55,7 +55,6 @@ const SearchScreen: React.FC = (props: any) => {
     }
 
     return (
-
         <View style={styles.container}>
             <View style={styles.topContainer}>
                 <View style={styles.inputContainer}>
@@ -106,13 +105,21 @@ export default SearchScreen;
 const styles = StyleSheet.create({
 
     text: {
-        fontSize: 14,
+        fontSize: 12,
         color: "white",
         marginTop: 0,
 
 
     },
 
+    card: {
+        flex: 1,
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderWidth: 4,
+        borderColor: 'purple',
+        borderRadius: 30,
+        paddingBottom: 5
+    },
 
     container: {
         flex: 1,
@@ -137,7 +144,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         marginLeft: 10,
-
 
     },
 

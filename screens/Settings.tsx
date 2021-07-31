@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Pressable, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react';
 import { Card } from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,31 +51,34 @@ const SettingsScreens: React.FC = () => {
     }
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-            <View style={styles.smallView}></View>
-            <SafeAreaView style={styles.largeView}>
-                <Card containerStyle={styles.cardActual}>
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.text}> Change your handle/profile image </Text>
-                    </View>
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
+        <View style={styles.smallView}></View>
+        <SafeAreaView style={styles.largeView}>
+        <Card containerStyle={styles.cardActual}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.text}> Login and Security </Text>
+            </View>
+            
+            <View style={styles.topForm}>
 
-                    <View style={styles.form}>
-                        <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder={user?.displayName} onChangeText={(text) => setHandle(text)} />
-                    </View>
-                    <View style={styles.form}>
-                        <TextInput style={styles.input}
-                            placeholderTextColor="white" placeholder="Profile image" onChangeText={(text) => setProfileImage(text)} />
-                    </View>
-                    <View>
-                        <Pressable style={styles.button} onPress={() => submitForm()}>
-                            <Text style={styles.buttonText}>Submit</Text>
-                        </Pressable>
-                    </View>
-                </Card>
-            </SafeAreaView>
-            <View style={styles.bottomView}></View>
-        </KeyboardAvoidingView>
+            </View>
+            <View style={styles.form}>
+                <TextInput style={styles.input}
+                placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+            </View>
+            <View style={styles.form}>
+                <TextInput style={styles.input}
+                placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+            </View>
+            <View>
+                <TouchableOpacity style={styles.button} onPress={() => submitForm()}>
+                    <Text style={styles.buttonText}>Submit</Text>
+                </TouchableOpacity>
+            </View>
+        </Card>
+        </SafeAreaView>
+        <View style={styles.bottomView}></View>
+    </KeyboardAvoidingView>
     );
 }
 

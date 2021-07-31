@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView, Pressable, KeyboardAvoidingView } from 'react-native';
+import React, {useState, useEffect, useRef}from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions} from 'react-native';
 import AnimatedTypeWriter from 'react-native-animated-typewriter';
-import { screenWidth } from '../constants/Layout';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { AppAction } from '../redux/actions';
+import { screenWidth } from '../constants/Layout';
 
-const SplashScreen: React.FC = (props: any) => {
 
+const SplashScreen: React.FC = (props:any) => {
+  const windowHeight = useWindowDimensions().height;
   const [userSession, setUserSession] = useState({
     session: "login"
   });
@@ -36,18 +37,18 @@ const SplashScreen: React.FC = (props: any) => {
 
   const renderSessionButton = () => {
     const session = userSession.session;
-    if (session === "login") {
-      return <Pressable
-        onPress={() => setUserSession({ session: "sign-up" })}>
+    if (session === "login"){
+      return <TouchableOpacity style={styles.TouchableOpacity}
+        onPress={() => setUserSession({session: "sign-up"})}>
         <Text
           style={styles.text}>Sign Up</Text>
-      </Pressable>
-    } else if (session === "sign-up") {
-      return <Pressable
-        onPress={() => setUserSession({ session: "login" })}>
+      </TouchableOpacity>
+    } else if(session === "sign-up"){
+      return <TouchableOpacity style={styles.TouchableOpacity}
+        onPress={() => setUserSession({session: "login"})}>
         <Text
           style={styles.text}>Login</Text>
-      </Pressable>
+      </TouchableOpacity>
     }
   }
   function welcomeMessage() {
@@ -56,21 +57,22 @@ const SplashScreen: React.FC = (props: any) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <SafeAreaView style={styles.smallView} />
+    <View style={[{ minHeight: Math.round(windowHeight) }]}>
 
-      <SafeAreaView style={styles.smallView}>
+      {/* <View style={styles.smallView}/> */}
+    
+      <View style={styles.messageView}>
         {welcomeMessage()}
-      </SafeAreaView>
+      </View>
 
-      <SafeAreaView style={styles.largeView}>
+      <View style={styles.largeView}>
         {renderSession()}
-        <SafeAreaView>{renderSessionButton()}</SafeAreaView>
-      </SafeAreaView>
+        <View>{renderSessionButton()}</View>
+      </View>
+      
+        <View style={{flex:1}} />
 
-      <SafeAreaView style={styles.smallView} />
-
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -81,16 +83,25 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     zIndex: 1,
+    elevation: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   smallView: {
     flex: 1,
+    backgroundColor: "transparent",
+    borderColor:"purple",
+  },
+
+  messageView: {
+    flex: 1.5,
     alignItems: 'center',
     paddingHorizontal: 15,
     backgroundColor: "transparent",
-    borderColor: "purple"
+    borderColor:"purple",
+    justifyContent: 'flex-end',
+
   },
 
   largeView: {
@@ -99,13 +110,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 4,
     borderColor: 'purple',
-    width: screenWidth - 20,
+    marginHorizontal:10,
+    width:screenWidth - 20,
+    marginTop:20,
+  
   },
 
   text: {
     color: "white",
     fontSize: 20,
-    backgroundColor: "transparent",
+    backgroundColor:"transparent",
+    textAlign:"center",
     // fontFamily: "Montserrat",
   },
 
@@ -119,5 +134,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     // fontFamily: "BadScript-Regular"
-  }
+  },
+
+  TouchableOpacity: {
+    backgroundColor:"purple",
+    
+  },
 })

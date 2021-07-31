@@ -1,7 +1,7 @@
-import axios from 'axios';
 import * as React from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
 import { Card } from 'react-native-elements';
+import axios from 'axios';
 
 const IndividualComment = (props: any) => {
     const item = {
@@ -72,9 +72,8 @@ const IndividualComment = (props: any) => {
                     <Text style={styles.comment}>{comment}</Text>
                </View>
 
+            {/* </View> */}
             </View>
-            
-            
 
         </Card>
     )
