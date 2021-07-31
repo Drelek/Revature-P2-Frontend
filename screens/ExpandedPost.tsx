@@ -18,7 +18,7 @@ const ExpandedPost: React.FC = (props: any) => {
         if(Platform.OS === "android") {
             setKeyboardOffset(event.endCoordinates.height + 100)
         } else {
-            setKeyboardOffset(event.endCoordinates.height - 10)
+            setKeyboardOffset(event.endCoordinates.height + 10)
         }
     }
     const onKeyboardHide = () => setKeyboardOffset(0);
@@ -239,11 +239,6 @@ const styles = StyleSheet.create({
     commentsContainer: {
         flex: 7,
         marginBottom:10
-    },
-
-    addCommentContainer: {
-        flex: 1,
-        justifyContent: "flex-end"
     },
 
     displayName: {

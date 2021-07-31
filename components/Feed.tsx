@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect} from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard} from "react-native";
+import React, { useState, useEffect, useRef} from "react";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Platform, KeyboardEvent, KeyboardAvoidingView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
@@ -15,6 +15,28 @@ const Feed: React.FC = (props: any) => {
     const [postCards, setPostCards] = useState([]);
     const [working, setWorking] = useState(false);
     const [newPost, setNewPost] = useState(' ');
+
+    const [keyboardOffset, setKeyboardOffset] = useState(0);
+    const onKeyboardShow = (event: KeyboardEvent) => {
+        if(Platform.OS === "android") {
+            setKeyboardOffset(event.endCoordinates.height + 100)
+        } else {
+            setKeyboardOffset(event.endCoordinates.height - 25)
+        }
+    }
+    const onKeyboardHide = () => setKeyboardOffset(0);
+    const keyboardDidShowListener:any = useRef();
+    const keyboardDidHideListener:any = useRef();
+
+    useEffect(() => {
+        keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
+        keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
+
+        return () => {
+            keyboardDidShowListener.current.remove();
+            keyboardDidHideListener.current.remove();
+        };
+    }, []);
 
     useEffect(() => {
         refresh();
@@ -58,42 +80,10 @@ const Feed: React.FC = (props: any) => {
         
     }
 
-    // const onSubmit = (text:string) => {
-    //     Keyboard.dismiss;
-    //     setNewPost(text);
-    // }
-
-    // const addPost = () => {
-    //     return (
-    //         <Card containerStyle={styles.card}>
-    //             <View style={styles.postContainer}>
-    //                 <View style={styles.inputContainer}>
-    //                     <TextInput
-    //                         placeholder="What's happening?"
-    //                         placeholderTextColor="white"
-    //                         style={styles.inputBox}
-    //                         value={newPost}
-    //                         onChangeText={(text) => onSubmit(text)} />
-    //                 </View>
-
-    //                 <View style={styles.buttonContainer}>
-    //                     <TouchableOpacity style={styles.TouchableOpacity} onPress={createPost}>
-    //                         <Text style={styles.text}>Post</Text>
-    //                     </TouchableOpacity>
-    //                 </View>
-    //             </View>
-    //         </Card>
-    //     )
-    // }
-
-    return (
-        <View style={styles.container}>
-            <FlatList
-                keyboardShouldPersistTaps={"always"}
-                data={postCards}
-                ListHeaderComponent={
-                    <Card containerStyle={styles.card}>
-                        <View style={styles.postContainer}>
+    const addPostComponent = () => {
+        return (
+            <Card containerStyle={styles.card}>
+                    <View style={styles.postContainer}>
                             <View style={styles.inputContainer}>
                                 <TextInput
                                     placeholder="Leave a Post"
@@ -109,10 +99,38 @@ const Feed: React.FC = (props: any) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </Card>}
+                    </Card>
+        )
+    }
+
+    return (
+        <KeyboardAvoidingView>
+            
+            <View style={styles.listContainer}>
+                <FlatList
+                keyboardShouldPersistTaps={"always"}
+                data={postCards}
                 renderItem={({ item }) => <PostCard item={item}> </PostCard>}
                 keyExtractor={(item, index) => index.toString()} />
-        </View>
+            </View>
+
+
+            <View style={{
+                ...Platform.select({
+                    ios:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset,
+                    },
+                    android:{
+                        position:'absolute',
+                        width:'100%',
+                        bottom:keyboardOffset
+                    }
+                })}}>
+                    {addPostComponent()}
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -120,12 +138,14 @@ const Feed: React.FC = (props: any) => {
 export default Feed;
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 0
+    
+    
+    listContainer: {
+        paddingBottom:100
     },
 
     text: {
-        fontSize: 14,
+        fontSize: 12,
         color: "white",
     },
 

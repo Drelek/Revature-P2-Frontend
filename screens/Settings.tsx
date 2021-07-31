@@ -7,7 +7,8 @@ const SettingsScreens:React.FC = () => {
     const [handle, setHandle] = useState(' ');
     const [password, setPassword] = useState(' ');
     const [profileImg, setProfileImage] = useState(' ');
-
+    const [working, setWorking] = useState(false);
+    
     function submitForm() {
 
     }

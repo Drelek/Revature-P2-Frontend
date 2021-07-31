@@ -68,21 +68,17 @@ const styles = StyleSheet.create({
     },
 
     card:{
-        flex:1,
-        backgroundColor:'rgb(33, 37, 41)',
-        borderWidth:4,
+        flex: 1,
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderWidth: 4,
         borderColor: 'purple',
-        borderRadius:30, 
-        paddingBottom:5,
-        marginHorizontal:9,
-        marginBottom:15,
-        justifyContent: 'flex-end'
+        borderRadius: 30,
+        paddingBottom: 5
     },
 
     postContainer: {
         flexDirection:'row',
         justifyContent: 'center',
-        marginBottom:10,
     },
 
     inputBox:{
@@ -92,7 +88,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         textAlignVertical: 'top',
         marginLeft:10,
-        
+        paddingVertical: 15,
+        paddingHorizontal: 5,
     },
 
     buttonContainer:{
@@ -100,7 +97,8 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-end",
         alignItems: "center",
-        paddingLeft:5
+        // paddingLeft:5,
+    
     },
 
     inputContainer:{
