@@ -3,16 +3,19 @@ import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { IAppState } from '../redux/store';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppAction } from '../redux/actions';
+import { IUser } from '../models/User';
 
 const Profile: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
+    const dispatch = useDispatch();
     const [refreshing, setRefreshing] = useState(false);
     const [userGrab, setUserGrab] = useState<any>({});
     const [postCards, setPostCards] = useState<any[]>([]);
@@ -45,6 +48,20 @@ const Profile: React.FC = (props: any) => {
                 email: resp.data[0].email.S
             };
             setUserGrab(thisProps);
+            const newUser: IUser = {
+                userName: thisProps.userName,
+                displayName: thisProps.displayName,
+                profileImg: thisProps.profileImg,
+                email: thisProps.email,
+                followers: resp.data[0].followers.SS,
+                following: resp.data[0].following.SS
+            }
+            if (thisProps.userName == user?.userName) dispatch({
+                type: AppAction.UPDATE_USER,
+                payload: {
+                    user: newUser
+                }
+            });
         })
         setRefreshing(false);
     }
@@ -108,19 +125,17 @@ const Profile: React.FC = (props: any) => {
                             />
                         </View>
 
-
+                    <View style={styles.allRightContainer}>
+                    <View style={styles.topRightContainer}>
                         <View style={styles.infoContainer}>
                             <Text
                                 style={styles.displayName}
                             >{userGrab.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{userGrab.userName}</Text>
-                            <Text
-                                style={styles.email}
-                            >{userGrab.email}</Text>
+                            >{`@${userGrab.userName}`}</Text>
                         </View>
-                        {/* <View>{console.log(thisProps)}</View> */}
+                        
                         <View >
                             <TouchableOpacity
                                 style={styles.followerContainer}
@@ -129,6 +144,15 @@ const Profile: React.FC = (props: any) => {
                                 {renderFollowing()}
                             </TouchableOpacity>
                         </View>
+                    </View>
+
+                        <View style={styles.emailContainer}><Text
+                        style={styles.email}
+                        adjustsFontSizeToFit 
+                        numberOfLines={1}
+                        >{userGrab.email}</Text></View>
+                    </View>
+
                     </View>
                 </Card>
 
@@ -155,6 +179,21 @@ const Profile: React.FC = (props: any) => {
 export default Profile;
 
 const styles = StyleSheet.create({
+    emailContainer: {
+        flex:1
+    },
+
+    allRightContainer: {
+
+        flex:2,
+        flexDirection:"column"
+    },
+
+    topRightContainer: {
+        flex:3,
+        flexDirection:"row",
+    },
+
     outerContainer: {
         flex: 1,
         flexDirection: "column",
@@ -184,7 +223,9 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 100,
-        backgroundColor: "purple"
+        backgroundColor: "purple",
+        borderWidth: 2,
+        borderColor: "purple",
     },
     displayName: {
         fontWeight: "bold",
@@ -200,10 +241,8 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     email: {
-        fontSize: 18,
         color: "white",
         paddingLeft: 15,
-        marginBottom: 5
     },
     welcomeMessage: {
         fontSize: 30,

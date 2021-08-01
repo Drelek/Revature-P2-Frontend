@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { AppAction } from '../redux/actions';
-let toggle = true;
+
 export const DrawerContent: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);

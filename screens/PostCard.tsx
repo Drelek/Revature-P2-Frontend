@@ -31,35 +31,6 @@ const PostCard = (props: any) => {
 
     const [isLiked, setLikedState] = useState(item.likes.includes(userName));
 
-    //Storing state for redirecting to Profile page
-    const [profileInfo, setProfileInfo] = useState({
-        displayName: item?.displayName,
-        userName: item?.userName,
-        email: "",
-        profileImg: ""
-    })
-
-    
-        //Grab user specific data (not of current user): { email, profileImg}
-        const grabUserData = async() => {
-            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
-                headers: {
-                    Authorization: token
-                }
-            }).then(resp => {
-                console.log(resp.data[0].email.S)
-                setProfileInfo({
-                    ...profileInfo,
-                    email : resp.data[0].email,
-                    profileImg : resp.data[0].profileImg
-                })
-            })
-        }
-
-
-
-
-
     //On press of delete post 
     //Will need to refresh feeds at their respective sources
     const deletePost = async () => {
@@ -188,7 +159,7 @@ const PostCard = (props: any) => {
 
                     <View style={styles.nameContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("Profile", profileInfo)}
+                            onPress={() => navigation.navigate("Profile", {displayName: item.displayName, userName: item.userName})}
                         >
                             <Text
                                 style={styles.displayName}
