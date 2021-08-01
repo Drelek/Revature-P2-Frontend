@@ -41,6 +41,23 @@ const PostCard = (props: any) => {
         profileImg: ""
     })
 
+    
+        //Grab user specific data (not of current user): { email, profileImg}
+        const grabUserData = async() => {
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+                headers: {
+                    Authorization: token
+                }
+            }).then(resp => {
+                console.log(resp.data[0].email.S)
+                setProfileInfo({
+                    ...profileInfo,
+                    email : resp.data[0].email,
+                    profileImg : resp.data[0].profileImg
+                })
+            })
+        }
+
 
 
 

@@ -13,19 +13,27 @@ const Profile: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
+    const[userGrab, setUserGrab] = useState<any>({ });
     const userRedirect = useState(props?.profileInfo);
     const [postCards, setPostCards] = useState<any[]>([]);
-    const[profileInfo, setProfileInfo] = useState({ });
+
+    //    //Grab user specific data (not of current user): { email, profileImg}
+    //    const grabUserData = async() => {
+    //        console.log(46, thisProps);
+    //     await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //     }).then(resp => {
+    //         console.log(resp)
+    //     })
+    // }
 
     let thisProps: any;
-    if(props.profileInfo) {
-        thisProps = props.profileInfo;
-    } else {
-        thisProps = props.route.params;
-    }
+    thisProps = props.route.params;
 
     useEffect(() => {
-        console.log(props.route.params, 23);
+        console.log(props.route.params.userName, 23);
         axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
             headers : {
                 Authorization : token
@@ -34,25 +42,28 @@ const Profile: React.FC = (props: any) => {
             //Response is an array of posts 
             //console.log(resp);
             setPostCards(resp.data[0]);
-            console.log(postCards);
            
         })
-    }, [])
 
-    //Grab user specific data (not of current user): { email, profileImg}
-    const grabUserData = async() => {
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            setProfileInfo({
-                ...profileInfo,
-                email : resp.data[0].email,
-                profileImg : resp.data[0].profileImg
-            })
+            console.log(resp.data[0])
+
+            
+            thisProps = {
+                userName : resp.data[0].dataKey.S,
+                displayName : resp.data[0].displayName.S,
+                profileImg : resp.data[0].profileImg.S,
+                email : resp.data[0].email.S
+            };
+            setUserGrab(thisProps);
         })
-    }
+    }, [])
+
+ 
 
     //Follow or unfollows dependant on whether user exists on following array 
     const addFollower = async () => {
@@ -80,7 +91,7 @@ const Profile: React.FC = (props: any) => {
                     >
                         <View style={styles.imageContainer}>
                             <Image
-                                source={{ uri: `${thisProps.profileImg}` }}
+                                source={{ uri: `${userGrab.profileImg}` }}
                                 style={styles.image}
                             />
                         </View>
@@ -89,13 +100,13 @@ const Profile: React.FC = (props: any) => {
                         <View style={styles.infoContainer}>
                             <Text
                                 style={styles.displayName}
-                            >{thisProps.displayName}</Text>
+                            >{userGrab.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{thisProps.userName}</Text>
+                            >{userGrab.userName}</Text>
                             <Text
                                 style={styles.email}
-                            >{thisProps.email}</Text>
+                            >{userGrab.email}</Text>
                         </View>
                         {/* <View>{console.log(thisProps)}</View> */}
                         <View >
