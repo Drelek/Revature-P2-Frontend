@@ -148,6 +148,8 @@ const Profile: React.FC = (props: any) => {
 
                         <View style={styles.emailContainer}><Text
                         style={styles.email}
+                        adjustsFontSizeToFit 
+                        numberOfLines={1}
                         >{userGrab.email}</Text></View>
                     </View>
 
@@ -178,7 +180,7 @@ export default Profile;
 
 const styles = StyleSheet.create({
     emailContainer: {
-
+        flex:1
     },
 
     allRightContainer: {
@@ -239,10 +241,8 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     email: {
-        fontSize: 15,
         color: "white",
         paddingLeft: 15,
-        marginBottom: 5
     },
     welcomeMessage: {
         fontSize: 30,
