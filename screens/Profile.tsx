@@ -3,16 +3,19 @@ import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { IAppState } from '../redux/store';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppAction } from '../redux/actions';
+import { IUser } from '../models/User';
 
 const Profile: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
+    const dispatch = useDispatch();
     const [refreshing, setRefreshing] = useState(false);
     const [userGrab, setUserGrab] = useState<any>({});
     const [postCards, setPostCards] = useState<any[]>([]);
@@ -45,6 +48,20 @@ const Profile: React.FC = (props: any) => {
                 email: resp.data[0].email.S
             };
             setUserGrab(thisProps);
+            const newUser: IUser = {
+                userName: thisProps.userName,
+                displayName: thisProps.displayName,
+                profileImg: thisProps.profileImg,
+                email: thisProps.email,
+                followers: resp.data[0].followers.SS,
+                following: resp.data[0].following.SS
+            }
+            if (thisProps.userName == user?.userName) dispatch({
+                type: AppAction.UPDATE_USER,
+                payload: {
+                    user: newUser
+                }
+            });
         })
         setRefreshing(false);
     }
