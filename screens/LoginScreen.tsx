@@ -20,6 +20,8 @@ const LoginScreen: React.FC = (props:any) => {
   const navigation = useNavigation();
 
   const submit = async () => {
+    if (working) return;
+    
     console.log("Logging in");
 
     let authResult;
@@ -32,6 +34,7 @@ const LoginScreen: React.FC = (props:any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      setWorking(false);
       return;
     }
 
@@ -51,6 +54,7 @@ const LoginScreen: React.FC = (props:any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      setWorking(false);
       return;
     }
 

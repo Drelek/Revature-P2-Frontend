@@ -19,11 +19,11 @@ const SignUpScreen = (props: any) => {
   const navigation = useNavigation();
 
   const createNewUser = async () => {
-
+    if (working) return;
     console.log("Creating user");
 
     try {
-      setWorking(true)
+      setWorking(true);
       const resp = await axios.post('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/auth/signup', {
         userName: username,
         password: password,
@@ -32,6 +32,7 @@ const SignUpScreen = (props: any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      setWorking(false);
       return;
     }
 
@@ -46,6 +47,7 @@ const SignUpScreen = (props: any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      setWorking(false);
       return;
     }
 

@@ -15,6 +15,7 @@ const AddComment = (props: any) => {
 
 
     const createNewComment = async() => {
+        if (working) return;
         setWorking(true)
         
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.timeStamp}`, {
