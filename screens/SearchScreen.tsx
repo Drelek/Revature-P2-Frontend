@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, FlatList} from 'react-native';
+import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { Card } from 'react-native-elements'
+import UserCard from '../components/UserCard';
 
 const SearchScreen: React.FC = (props: any) => {
 
@@ -12,48 +14,88 @@ const SearchScreen: React.FC = (props: any) => {
     const [working, setWorking] = useState(false);
     const [results, setResults] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
+    const user = useSelector((store: IAppState) => store.user);
+
+    //const [searchedUsers, setUsers] = useState(' ')
+    const searchedUsers = [
+        {
+            userName: 'theSponge',
+            displayName: 'captain',
+            profileImg: user?.profileImg,
+            followers: "100"
+        },
+        {
+
+            userName: "admin",
+            displayName: "no name",
+            profileImg: user?.profileImg,
+            followers: "1"
+
+        },
+        {
+
+            userName: "joe",
+            displayName: "mama",
+            profileImg: user?.profileImg,
+            followers: "10"
+
+        },
+        {
+
+            userName: "asdadsxz",
+            displayName: "mama",
+            profileImg: user?.profileImg,
+            followers: "50"
+
+        },
+        {
+
+            userName: "asdas",
+            displayName: "mama",
+            profileImg: user?.profileImg,
+            followers: ["sam", "mo", "kai", "jared"]
+
+        }
+
+    ]
 
     async function Search() {
         console.log(search);
         try {
             // setWorking(true);
             const res = await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/search/${search}`, { headers: { Authorization: token } });
-            console.log(res);
-            
+            console.log(res.data);
+            setResults(res.data[0]);
         }
         catch (err) {
             console.log(err.response)
         }
     }
 
+
     return (
         <View style={styles.container}>
-            <Card containerStyle={styles.card}>
-                    <View style={styles.postContainer}>
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    placeholder="Search"
-                                    placeholderTextColor="white"
-                                    style={styles.inputBox}
-                                    value={search}
-                                    onChangeText={(text) => setSearch(text)} />
-                            </View>
+            <View style={styles.topContainer}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        placeholder="Search"
+                        placeholderTextColor="white"
 
-                            <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={styles.TouchableOpacity} onPress={() => Search()}>
-                                    <Text style={styles.text}>Post</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Card>
-{/* assuming search backend and then saving onto local state */}
-            <View style={styles.resultContainer}>
-                {/* <FlatList
-                data={results}
-                renderItem={({ item }) => <PostCard item={item}> </PostCard>}
-                keyExtractor={(item, index) => index.toString()} /> */}
+                        onChangeText={setSearch} />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Pressable style={styles.pressable} onPress={() => Search()}>
+                        <Text style={styles.text}>Search</Text>
+                    </Pressable>
+                </View>
             </View>
-
+            <View>
+                <FlatList
+                    data={results}
+                    renderItem={({ item }) => <UserCard item={item} />}
+                    keyExtractor={(item, index) => index.toString()
+                    } />
+            </View>
         </View>
     );
 
@@ -63,71 +105,96 @@ const SearchScreen: React.FC = (props: any) => {
 export default SearchScreen;
 
 const styles = StyleSheet.create({
-    container:{
-
-    },
 
     text: {
         fontSize: 12,
         color: "white",
-    },
+        marginTop: 0,
 
-    card: {
+
+    },
+    container: {
         flex: 1,
-        backgroundColor: 'rgb(33, 37, 41)',
-        borderWidth: 4,
-        borderColor: 'purple',
-        borderRadius: 30,
-        paddingBottom: 5
-    },
-
-    postContainer: {
-        flexDirection: 'row',
         justifyContent: 'center',
-    },
 
-    inputBox: {
-        color: "white",
-        fontSize: 16,
+
+    },
+    topContainer: {
         flexDirection: "row",
-        justifyContent: "center",
-        textAlignVertical: 'top',
-        paddingVertical: 15,
-        paddingHorizontal: 5,
-        marginLeft: 10,
+        height: 150
 
     },
 
     buttonContainer: {
         flex: 1,
-        flexDirection: "row",
         justifyContent: "flex-end",
-        alignItems: "center",
+        alignItems: "flex-end",
+        marginLeft: 10,
+        marginRight: 15,
+        marginTop: 20,
+        marginBottom: 13
+    },
+    userContainer: {
+
+        flexDirection: "row",
+        justifyContent: 'center',
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderRadius: 10,
+        borderColor: 'purple',
+        borderWidth: 5,
+        marginBottom: 15,
+        marginTop: 15,
+        marginHorizontal: 15,
     },
 
     inputContainer: {
-        flex: 4,
-        marginBottom: 10,
         backgroundColor: 'rgb(42,45,47)',
-        borderRadius: 20,
+        borderRadius: 15,
         justifyContent: "center",
         alignContent: "center",
+        marginLeft: 10,
+        marginTop: 90,
+        marginBottom: 10,
+        width: 330
+
     },
 
-    TouchableOpacity: {
+    pressable: {
+
         backgroundColor: "purple",
         paddingHorizontal: 10,
         paddingVertical: 15,
+        borderRadius: 20,
+        width: 70,
+
+
+    },
+
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+        backgroundColor: "purple",
+        marginRight: 10,
+        marginTop: 10,
         marginBottom: 10,
-        borderRadius: 15,
-    },
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
 
-    working:{
-        backgroundColor:"grey"
     },
+    displayName: {
+        fontWeight: "bold",
+        fontSize: 22,
+        color: "white",
+        paddingLeft: 15,
+        marginBottom: 5,
 
-    notWorking:{
-        backgroundColor:"purple"
-    }
+    },
+    username: {
+        fontSize: 18,
+        color: "white",
+        paddingLeft: 15,
+        marginBottom: 5
+    },
 })
 
