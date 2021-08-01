@@ -128,7 +128,7 @@ const Feed: React.FC = (props: any) => {
                 <FlatList
                     keyboardShouldPersistTaps={"always"}
                     data={postCards}
-                    renderItem={({ item }) => <PostCard item={item}> </PostCard>}
+                    renderItem={({ item }) => <PostCard deletePost={refresh} item={item}> </PostCard>}
                     keyExtractor={(item, index) => index.toString()} />
             </View>
 
