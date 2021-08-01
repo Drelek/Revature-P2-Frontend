@@ -1,48 +1,68 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
+import { Card } from 'react-native-elements'
 
 const UserCard = (props: any) => {
 
     return (
-        <View style={styles.userContainer}>
-            <Image
+        
+        <Card containerStyle={styles.userContainer}>
+        <View style={{ flexDirection: "row" }}>
+            <View style={styles.imageContainer}>
+                <Image
                 source={{ uri: `${props.item.profileImg.S}` }}
                 style={styles.image} />
+            </View>
+            
 
-            <View style={{ marginRight: 30, marginTop: 20 }}>
-                <Text
+            <View style={styles.rightContainer}>
+                <View style={styles.names}>
+                    <Text
                     style={styles.displayName}
-                >{props.item.displayName.S}</Text>
-                <Text
+                    >{props.item.displayName.S}</Text>
+                    <Text
                     style={styles.username}
-                >{"@" + props.item.dataKey.S}</Text>
+                    >{"@" + props.item.dataKey.S}</Text>
+                </View>
 
-            </View>
-            <View style={{ marginRight: 30, marginTop: 20 }}>
-                <Text
+                <View style={styles.follow}>
+                    <Text
                     style={styles.username}>
-                    Followers</Text>
-                <Text
-                    style={styles.username}
-                >{props.item.followers.SS.length - 1}</Text>
+                    {`Followers: ${props.item.followers.SS.length - 1}`}</Text>
+                </View>
+        
             </View>
+
+            
         </View>
+        </Card>
     )
 
 }
 export default UserCard
 
 const styles = StyleSheet.create({
+    imageContainer:{
+        flex:1
+    },
+    rightContainer: {
+        flex:2
+    },
+    names:{
+        flex:2
+    },
+
+    follow:{
+        flex:1
+    },
+
     image: {
         width: 100,
         height: 100,
         borderRadius: 100,
         backgroundColor: "purple",
-        marginRight: 10,
-        marginTop: 10,
-        marginBottom: 10,
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
+        borderWidth: 2,
+        borderColor: "purple",
 
     },
     displayName: {
@@ -60,13 +80,12 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     userContainer: {
-
-        flexDirection: "row",
+        flex:1,
         justifyContent: 'center',
         backgroundColor: 'rgb(33, 37, 41)',
         borderRadius: 10,
         borderColor: 'purple',
-        borderWidth: 5,
+        borderWidth: 4,
         marginBottom: 15,
         marginTop: 15,
         marginHorizontal: 15,

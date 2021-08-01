@@ -159,8 +159,6 @@ const Feed: React.FC = (props: any) => {
 export default Feed;
 
 const styles = StyleSheet.create({
-
-
     listContainer: {
         paddingBottom: 100
     },
