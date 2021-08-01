@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { IAppState } from '../redux/store';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Profile: React.FC = (props: any) => {
 
@@ -114,10 +114,21 @@ const Profile: React.FC = (props: any) => {
                             style={styles.followerContainer}
                             onPress= {() => {addFollower()}}
                         >
-                            <Image 
-                                style={styles.followerIcon}
-                               source={require('../assets/images/followerIcon.png')}
-                          />
+                            <Icon
+                                    name="account-check"
+                                    size={40}
+                                    color={"purple"}  
+                                />
+                         </TouchableOpacity>
+                         <TouchableOpacity
+                            style={styles.followerContainer}
+                            onPress= {() => {addFollower()}}
+                        >
+                            <Icon
+                                    name="account-plus"
+                                    size={40}
+                                    color={"white"}    
+                                />
                          </TouchableOpacity>
                           </View>
                     </View>
