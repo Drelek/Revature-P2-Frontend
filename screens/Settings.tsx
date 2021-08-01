@@ -30,7 +30,7 @@ const SettingsScreens: React.FC = () => {
         }
         try {
             const res = await axios.put('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + user?.userName, body, { headers });
-
+            console.log(res.data)
             const updatedUser = {
                 'userName': user?.userName,
                 'displayName': handle,
@@ -51,34 +51,34 @@ const SettingsScreens: React.FC = () => {
     }
 
     return (
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
-        <View style={styles.smallView}></View>
-        <SafeAreaView style={styles.largeView}>
-        <Card containerStyle={styles.cardActual}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.text}> Profile Settings </Text>
-            </View>
-            
-            <View style={styles.topForm}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
+            <View style={styles.smallView}></View>
+            <SafeAreaView style={styles.largeView}>
+                <Card containerStyle={styles.cardActual}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.text}> Profile Settings </Text>
+                    </View>
 
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Display Name" onChangeText={(text) => setHandle(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Link to Profile Image" onChangeText={(text) => setProfileImage(text)} />
-            </View>
-            <View>
-                <TouchableOpacity style={styles.button} onPress={() => submitForm()}>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
-            </View>
-        </Card>
-        </SafeAreaView>
-        <View style={styles.bottomView}></View>
-    </KeyboardAvoidingView>
+                    <View style={styles.topForm}>
+
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Display Name" onChangeText={(text) => setHandle(text)} />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Link to Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                    </View>
+                    <View>
+                        <TouchableOpacity style={styles.button} onPress={() => submitForm()}>
+                            <Text style={styles.buttonText}>Submit</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Card>
+            </SafeAreaView>
+            <View style={styles.bottomView}></View>
+        </KeyboardAvoidingView>
     );
 }
 
