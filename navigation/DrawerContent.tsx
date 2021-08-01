@@ -49,7 +49,7 @@ export const DrawerContent: React.FC = (props: any) => {
                     <View style={styles.userInfoSection}>
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <Avatar.Image
-                                source={require('../assets/images/illuminati.png')}
+                                source={{uri: user?.profileImg}}
                                 size={60}
                                 style={{ marginTop: 8 }}
                             />
@@ -61,11 +61,11 @@ export const DrawerContent: React.FC = (props: any) => {
 
                         <View style={styles.row}>
                             <View style={styles.section}>
-                                <Text style={[styles.paragraph, styles.caption]}>{user?.following?.length}</Text>
+                                <Text style={[styles.paragraph, styles.caption]}>{(user?.following?.length || 1) - 1}</Text>
                                 <Caption style={styles.caption}>Following</Caption>
                             </View>
                             <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>{user?.followers}</Paragraph>
+                                <Paragraph style={[styles.paragraph, styles.caption]}>{(user?.followers?.length || 1) - 1}</Paragraph>
                                 <Caption style={styles.caption}>Followers</Caption>
                             </View>
                         </View>

@@ -26,8 +26,6 @@ const AddComment = (props: any) => {
                 Authorization : token
             },  
         }).then(resp => {
-            console.log(resp);
-            //Response is a post object containing the newly updated comment array
             props.submitComm();
         }).then(resp => {
             setWorking(false);
