@@ -14,36 +14,19 @@ const Profile: React.FC = (props: any) => {
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
     const [userGrab, setUserGrab] = useState<any>({});
-    const userRedirect = useState(props?.profileInfo);
     const [postCards, setPostCards] = useState<any[]>([]);
     const [isFollowing, setIsFollowing] = useState(user?.following?.includes(props.route.params.userName));
-
-    //    //Grab user specific data (not of current user): { email, profileImg}
-    //    const grabUserData = async() => {
-    //        console.log(46, thisProps);
-    //     await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
-    //         headers: {
-    //             Authorization: token
-    //         }
-    //     }).then(resp => {
-    //         console.log(resp)
-    //     })
-    // }
 
     let thisProps: any;
     thisProps = props.route.params;
 
     useEffect(() => {
-        console.log(props.route.params.userName, 23);
         axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            //Response is an array of posts 
-            //console.log(resp);
             setPostCards(resp.data[0]);
-
         })
 
         axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}`, {
@@ -51,7 +34,6 @@ const Profile: React.FC = (props: any) => {
                 Authorization: token
             }
         }).then(resp => {
-            console.log(resp.data[0])
 
 
             thisProps = {
