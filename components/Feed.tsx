@@ -44,11 +44,11 @@ const Feed: React.FC = (props: any) => {
         refresh();
     }, [globalFeed])
 
-    function refresh() {
+    async function refresh() {
         setRefreshing(true);
         if (globalFeed) {
             //Grab global feed
-            axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
                 headers: {
                     Authorization: token
                 }
@@ -58,7 +58,7 @@ const Feed: React.FC = (props: any) => {
             });
         } else {
             //Grab follower feed
-            axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${user?.userName}`, {
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${user?.userName}`, {
                 headers: {
                     Authorization: token
                 },

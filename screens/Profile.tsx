@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -13,6 +13,7 @@ const Profile: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
+    const [refreshing, setRefreshing] = useState(false);
     const [userGrab, setUserGrab] = useState<any>({});
     const [postCards, setPostCards] = useState<any[]>([]);
     const [isFollowing, setIsFollowing] = useState(user?.following?.includes(props.route.params.userName));
@@ -20,8 +21,9 @@ const Profile: React.FC = (props: any) => {
     let thisProps: any;
     thisProps = props.route.params;
 
-    useEffect(() => {
-        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
+    async function refresh() {
+        setRefreshing(true);
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
             headers: {
                 Authorization: token
             }
@@ -29,7 +31,7 @@ const Profile: React.FC = (props: any) => {
             setPostCards(resp.data[0]);
         })
 
-        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}`, {
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}`, {
             headers: {
                 Authorization: token
             }
@@ -44,6 +46,11 @@ const Profile: React.FC = (props: any) => {
             };
             setUserGrab(thisProps);
         })
+        setRefreshing(false);
+    }
+    
+    useEffect(() => {
+        refresh();
     }, [])
 
     const renderFollowing = () => {
@@ -137,6 +144,7 @@ const Profile: React.FC = (props: any) => {
                         ></PostCard>
                     }
                     keyExtractor={(item, index) => index.toString()}
+                    refreshControl={<RefreshControl colors={["purple"]} refreshing={refreshing} onRefresh={refresh} enabled={true}/>}
                 />
 
             </SafeAreaView>
