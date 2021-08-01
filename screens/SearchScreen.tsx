@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
@@ -16,49 +16,7 @@ const SearchScreen: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);
 
-    //const [searchedUsers, setUsers] = useState(' ')
-    const searchedUsers = [
-        {
-            userName: 'theSponge',
-            displayName: 'captain',
-            profileImg: user?.profileImg,
-            followers: "100"
-        },
-        {
-
-            userName: "admin",
-            displayName: "no name",
-            profileImg: user?.profileImg,
-            followers: "1"
-
-        },
-        {
-
-            userName: "joe",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: "10"
-
-        },
-        {
-
-            userName: "asdadsxz",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: "50"
-
-        },
-        {
-
-            userName: "asdas",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
-
-        }
-
-    ]
-
+    
     async function Search() {
         console.log(search);
         try {
@@ -78,15 +36,13 @@ const SearchScreen: React.FC = (props: any) => {
             <View style={styles.topContainer}>
                 <View style={styles.inputContainer}>
                     <TextInput
-                        placeholder="Search"
-                        placeholderTextColor="white"
-
+                        style={styles.textInput}
                         onChangeText={setSearch} />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Pressable style={styles.pressable} onPress={() => Search()}>
+                    <TouchableOpacity style={styles.pressable} onPress={() => Search()}>
                         <Text style={styles.text}>Search</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View>
@@ -110,7 +66,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "white",
         marginTop: 0,
-
 
     },
     container: {
@@ -196,5 +151,9 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         marginBottom: 5
     },
+
+    textInput:{
+        color: "white",
+    }
 })
 

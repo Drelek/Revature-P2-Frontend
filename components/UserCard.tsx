@@ -3,8 +3,6 @@ import { View, Image, Text, StyleSheet } from "react-native";
 
 const UserCard = (props: any) => {
 
-    console.log(props.item)
-
     return (
         <View style={styles.userContainer}>
             <Image

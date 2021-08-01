@@ -40,7 +40,6 @@ const AddComment = (props: any) => {
                     <View style={styles.inputContainer}> 
                         <TextInput
                         value={newComment}
-                        placeholder={props.text}
                         placeholderTextColor="white" 
                         style={styles.inputBox}
                         onChangeText={(text)=> setNewComment(text)}/>

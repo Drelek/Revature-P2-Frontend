@@ -105,7 +105,6 @@ const Feed: React.FC = (props: any) => {
                 <View style={styles.postContainer}>
                     <View style={styles.inputContainer}>
                         <TextInput
-                            placeholder="Leave a Post"
                             placeholderTextColor="white"
                             style={styles.inputBox}
                             value={newPost}
