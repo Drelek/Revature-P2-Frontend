@@ -48,7 +48,6 @@ const LoginScreen: React.FC = (props:any) => {
         }
       });
       setWorking(false);
-      console.log(userResult.data);
     } catch (err) {
       console.log(err);
       console.log(err.response.data);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent} from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image, KeyboardAvoidingView, Platform, Keyboard, KeyboardEvent, RefreshControl} from 'react-native';
 import IndividualComment from './IndividualComment';
 import AddComment from './AddComment';
 import { Card } from 'react-native-elements'
@@ -9,7 +9,9 @@ import { IAppState } from '../redux/store';
 
 const ExpandedPost: React.FC = (props: any) => {
 
-    const [isLiked, setLikedState] = useState(false);
+    const thisUserName = useSelector((state: IAppState) => state.user?.userName);
+    const [refreshing, setRefreshing] = useState(false);
+    const [isLiked, setLikedState] = useState(props.route.params.likes.includes(thisUserName));
     const [commentList, setCommentList] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     
@@ -38,23 +40,22 @@ const ExpandedPost: React.FC = (props: any) => {
     }, []);
     
     const grabCommentsActual = async () => {
-        console.log(23, props.route.params.timeStamp);
+        setRefreshing(true);
         await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${props.route.params.timeStamp}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            console.log(resp.data[0].comments.L[0].M);
 
             setCommentList(resp.data[0].comments.L);
-            console.log(resp.data);
+            setRefreshing(false);
         })
 
     }
 
     const renderNumOfLikes = (likes: number[]) => {
-        if (likes.length) {
-            return likes.length;
+        if (likes.length - 1) {
+            return likes.length - 1;
         } else {
             return '';
         }
@@ -82,12 +83,12 @@ const ExpandedPost: React.FC = (props: any) => {
         if (isLiked) {
             return (
                 <Image
-                    source={require('../assets/images/likeIcon.png')}
+                    source={require('../assets/images/likedIcon.png')}
                     style={styles.heart}
                 />)
         } else {
             return (<Image
-                source={require('../assets/images/likedIcon.png')}
+                source={require('../assets/images/likeIcon.png')}
                 style={styles.heart}
             />)
         }
@@ -146,6 +147,7 @@ const ExpandedPost: React.FC = (props: any) => {
                     renderItem={({ item }) => <IndividualComment item={item} deleteComment={ grabCommentsActual } 
                                                         timeStamp={props.route.params.timeStamp}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
+                    refreshControl={<RefreshControl colors={["purple"]} refreshing={refreshing} onRefresh={grabCommentsActual} enabled={true}/>}
                 />
 
             </View>
@@ -164,7 +166,7 @@ const ExpandedPost: React.FC = (props: any) => {
                     }
                 })
             }}>
-            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.dataKey} submitComm={grabCommentsActual}></AddComment>
+            <AddComment text={"Leave a Reply"} timeStamp={props.route.params.timeStamp} submitComm={grabCommentsActual}></AddComment>
             </View>
     
             

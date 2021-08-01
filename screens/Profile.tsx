@@ -1,68 +1,108 @@
-import React, { useState }from 'react';
-import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import { Card } from 'react-native-elements';
 import PostCard from './PostCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { IAppState } from '../redux/store';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppAction } from '../redux/actions';
+import { IUser } from '../models/User';
 
 const Profile: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
-    const userRedirect = useState(props?.profileInfo);
+    const dispatch = useDispatch();
+    const [refreshing, setRefreshing] = useState(false);
+    const [userGrab, setUserGrab] = useState<any>({});
     const [postCards, setPostCards] = useState<any[]>([]);
-    const[profileInfo, setProfileInfo] = useState({ });
+    const [isFollowing, setIsFollowing] = useState(user?.following?.includes(props.route.params.userName));
 
     let thisProps: any;
-    if(props.profileInfo) {
-        thisProps = props.profileInfo;
-    } else {
-        thisProps = props.route.params;
-    }
+    thisProps = props.route.params;
 
-    useEffect(() => {
-        console.log(props.route.params, 23);
-        axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
-            headers : {
-                Authorization : token
-            }
-        }).then(resp => {
-            //Response is an array of posts 
-            //console.log(resp);
-            setPostCards(resp.data[0]);
-            console.log(postCards);
-           
-        })
-    }, [])
-
-    //Grab user specific data (not of current user): { email, profileImg}
-    const grabUserData = async() => {
-        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${props.item.userName}`, {
+    async function refresh() {
+        setRefreshing(true);
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${thisProps.userName}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            setProfileInfo({
-                ...profileInfo,
-                email : resp.data[0].email,
-                profileImg : resp.data[0].profileImg
-            })
+            setPostCards(resp.data[0]);
         })
+
+        await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}`, {
+            headers: {
+                Authorization: token
+            }
+        }).then(resp => {
+
+
+            thisProps = {
+                userName: resp.data[0].dataKey.S,
+                displayName: resp.data[0].displayName.S,
+                profileImg: resp.data[0].profileImg.S,
+                email: resp.data[0].email.S
+            };
+            setUserGrab(thisProps);
+            const newUser: IUser = {
+                userName: thisProps.userName,
+                displayName: thisProps.displayName,
+                profileImg: thisProps.profileImg,
+                email: thisProps.email,
+                followers: resp.data[0].followers.SS,
+                following: resp.data[0].following.SS
+            }
+            if (thisProps.userName == user?.userName) dispatch({
+                type: AppAction.UPDATE_USER,
+                payload: {
+                    user: newUser
+                }
+            });
+        })
+        setRefreshing(false);
+    }
+    
+    useEffect(() => {
+        refresh();
+    }, [])
+
+    const renderFollowing = () => {
+        if (isFollowing) {
+            return (
+                <Icon
+                    name="account-check"
+                    size={40}
+                    color={"purple"}
+                />
+            );
+        } else {
+            return (
+                <Icon
+                    name="account-plus"
+                    size={40}
+                    color={"white"}
+                />
+            );
+        }
     }
 
     //Follow or unfollows dependant on whether user exists on following array 
     const addFollower = async () => {
-        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${thisProps.userName}/follow`, {
+        const body = {
+            isFollowing: isFollowing,
+            userToFollow: thisProps.userName
+        }
+
+        await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}/follow`, body, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
-            //Response returns entire user object after update operation has been completed
-
+            setIsFollowing(!isFollowing);
         })
     }
 
@@ -80,35 +120,37 @@ const Profile: React.FC = (props: any) => {
                     >
                         <View style={styles.imageContainer}>
                             <Image
-                                source={{ uri: `${thisProps.profileImg}` }}
+                                source={{ uri: `${userGrab.profileImg}` }}
                                 style={styles.image}
                             />
                         </View>
 
-
+                    <View style={styles.allRightContainer}>
+                    <View style={styles.topRightContainer}>
                         <View style={styles.infoContainer}>
                             <Text
                                 style={styles.displayName}
-                            >{thisProps.displayName}</Text>
+                            >{userGrab.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{thisProps.userName}</Text>
-                            <Text
-                                style={styles.email}
-                            >{thisProps.email}</Text>
+                            >{`@${userGrab.userName}`}</Text>
                         </View>
-                        {/* <View>{console.log(thisProps)}</View> */}
+                        
                         <View >
-                        <TouchableOpacity
-                            style={styles.followerContainer}
-                            onPress= {() => {addFollower()}}
-                        >
-                            <Image 
-                                style={styles.followerIcon}
-                               source={require('../assets/images/followerIcon.png')}
-                          />
-                         </TouchableOpacity>
-                          </View>
+                            <TouchableOpacity
+                                style={styles.followerContainer}
+                                onPress={() => { addFollower() }}
+                            >
+                                {renderFollowing()}
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                        <View style={styles.emailContainer}><Text
+                        style={styles.email}
+                        >{userGrab.email}</Text></View>
+                    </View>
+
                     </View>
                 </Card>
 
@@ -116,14 +158,15 @@ const Profile: React.FC = (props: any) => {
             </View>
 
             <SafeAreaView style={styles.postContainer}>
-                
-                <FlatList 
+
+                <FlatList
                     data={postCards}
-                    renderItem={({item}) => 
+                    renderItem={({ item }) =>
                         <PostCard item={item}
                         ></PostCard>
                     }
                     keyExtractor={(item, index) => index.toString()}
+                    refreshControl={<RefreshControl colors={["purple"]} refreshing={refreshing} onRefresh={refresh} enabled={true}/>}
                 />
 
             </SafeAreaView>
@@ -134,6 +177,21 @@ const Profile: React.FC = (props: any) => {
 export default Profile;
 
 const styles = StyleSheet.create({
+    emailContainer: {
+
+    },
+
+    allRightContainer: {
+
+        flex:2,
+        flexDirection:"column"
+    },
+
+    topRightContainer: {
+        flex:3,
+        flexDirection:"row",
+    },
+
     outerContainer: {
         flex: 1,
         flexDirection: "column",
@@ -163,7 +221,9 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 100,
-        backgroundColor: "purple"
+        backgroundColor: "purple",
+        borderWidth: 2,
+        borderColor: "purple",
     },
     displayName: {
         fontWeight: "bold",
@@ -179,7 +239,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     email: {
-        fontSize: 18,
+        fontSize: 15,
         color: "white",
         paddingLeft: 15,
         marginBottom: 5

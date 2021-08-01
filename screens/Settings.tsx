@@ -56,7 +56,7 @@ const SettingsScreens: React.FC = () => {
         <SafeAreaView style={styles.largeView}>
         <Card containerStyle={styles.cardActual}>
             <View style={styles.titleContainer}>
-                <Text style={styles.text}> Login and Security </Text>
+                <Text style={styles.text}> Profile Settings </Text>
             </View>
             
             <View style={styles.topForm}>
@@ -64,11 +64,11 @@ const SettingsScreens: React.FC = () => {
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Handle" onChangeText={(text) => setHandle(text)} />
+                placeholderTextColor="white" placeholder="Display Name" onChangeText={(text) => setHandle(text)} />
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                placeholderTextColor="white" placeholder="Link to Profile Image" onChangeText={(text) => setProfileImage(text)} />
             </View>
             <View>
                 <TouchableOpacity style={styles.button} onPress={() => submitForm()}>

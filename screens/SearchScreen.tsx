@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
@@ -16,39 +16,47 @@ const SearchScreen: React.FC = (props: any) => {
     const user = useSelector((store: IAppState) => store.user);
 
 
-
-
     async function Search() {
         console.log(search);
         try {
-
+            setWorking(true);
             const res = await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/search/${search}`, { headers: { Authorization: token } });
             console.log(res.data);
             setResults(res.data[0]);
+            setWorking(false);
         }
         catch (err) {
             console.log(err.response)
         }
     }
 
+    const renderSearch = () => {
+        return (
+            <Card containerStyle={styles.card}>
+                <View style={styles.postContainer}>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputBox}
+                            onChangeText={setSearch} />
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => Search()}>
+                            <Text style={styles.text}>Search</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Card>
+        )
+    }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.topContainer}>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder="Search"
-                        placeholderTextColor="white"
+        <View style={styles.wholeScreenContainer}>
 
-                        onChangeText={setSearch} />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Pressable style={styles.pressable} onPress={() => Search()}>
-                        <Text style={styles.text}>Search</Text>
-                    </Pressable>
-                </View>
+            <View style={styles.searchContainer}>
+                {renderSearch()}
             </View>
-            <View>
+            <View style={styles.listContainer}>
                 <FlatList
                     data={results}
                     renderItem={({ item }) => <UserCard item={item} />}
@@ -57,7 +65,6 @@ const SearchScreen: React.FC = (props: any) => {
             </View>
         </View>
     );
-
 }
 
 
@@ -65,58 +72,84 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
 
+    wholeScreenContainer: {
+        flex: 1
+    },
+
+    searchContainer: {
+        flex: 1
+    },
+
+    listContainer: {
+        flex: 6
+    },
+
     text: {
         fontSize: 12,
         color: "white",
-        marginTop: 0,
-
-
     },
-    container: {
+
+    card: {
         flex: 1,
-        justifyContent: 'center',
-
-
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderWidth: 4,
+        borderColor: 'purple',
+        borderRadius: 30,
+        paddingBottom: 5
     },
-    topContainer: {
+
+    postContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    inputBox: {
+        color: "white",
+        fontSize: 16,
         flexDirection: "row",
-        height: 150
+        justifyContent: "center",
+        textAlignVertical: 'top',
+        paddingVertical: 15,
+        paddingHorizontal: 5,
+        marginLeft: 10,
 
     },
 
     buttonContainer: {
-        flex: 1,
+        flex: 1.3,
+        flexDirection: "row",
         justifyContent: "flex-end",
-        alignItems: "flex-end",
-        marginLeft: 10,
-        marginRight: 15,
-        marginTop: 20,
-        marginBottom: 13
+        alignContent: "center",
     },
 
     inputContainer: {
+        flex: 4,
+        marginBottom: 10,
         backgroundColor: 'rgb(42,45,47)',
-        borderRadius: 15,
+        borderRadius: 20,
         justifyContent: "center",
         alignContent: "center",
-        marginLeft: 10,
-        marginTop: 90,
-        marginBottom: 10,
-        width: 330
-
     },
 
-    pressable: {
-
+    TouchableOpacity: {
         backgroundColor: "purple",
         paddingHorizontal: 10,
         paddingVertical: 15,
-        borderRadius: 20,
-        width: 70,
-
-
+        marginBottom: 10,
+        borderRadius: 15,
     },
 
+    working: {
+        backgroundColor: "grey"
+    },
+
+    notWorking: {
+        backgroundColor: "purple"
+    }
 
 })
+
+function setWorking(arg0: boolean) {
+    throw new Error('Function not implemented.');
+}
 

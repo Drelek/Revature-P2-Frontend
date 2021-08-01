@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Platform, KeyboardEvent, KeyboardAvoidingView } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Platform, KeyboardEvent, KeyboardAvoidingView, RefreshControl } from "react-native";
+import { FlatList } from "react-native";
 import PostCard from "../screens/PostCard";
 import { Card } from 'react-native-elements'
 import { useSelector } from "react-redux";
@@ -13,6 +13,7 @@ const Feed: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((state: IAppState) => state.user);
     const globalFeed = useSelector((state: IAppState) => state.feed);
+    const [refreshing, setRefreshing] = useState(false);
     const [postCards, setPostCards] = useState([]);
     const [working, setWorking] = useState(false);
     const [newPost, setNewPost] = useState(' ');
@@ -43,11 +44,11 @@ const Feed: React.FC = (props: any) => {
         refresh();
     }, [globalFeed])
 
-    function refresh() {
-        
+    async function refresh() {
+        setRefreshing(true);
         if (globalFeed) {
             //Grab global feed
-            axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post`, {
                 headers: {
                     Authorization: token
                 }
@@ -57,7 +58,7 @@ const Feed: React.FC = (props: any) => {
             });
         } else {
             //Grab follower feed
-            axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${user?.userName}`, {
+            await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/user/${user?.userName}`, {
                 headers: {
                     Authorization: token
                 },
@@ -69,7 +70,7 @@ const Feed: React.FC = (props: any) => {
                 setPostCards(resp.data[0]);
             });
         }
-
+        setRefreshing(false);
     }
 
     //Add post to global feed
@@ -104,7 +105,6 @@ const Feed: React.FC = (props: any) => {
                 <View style={styles.postContainer}>
                     <View style={styles.inputContainer}>
                         <TextInput
-                            placeholder="Leave a Post"
                             placeholderTextColor="white"
                             style={styles.inputBox}
                             value={newPost}
@@ -128,8 +128,10 @@ const Feed: React.FC = (props: any) => {
                 <FlatList
                     keyboardShouldPersistTaps={"always"}
                     data={postCards}
-                    renderItem={({ item }) => <PostCard item={item}> </PostCard>}
-                    keyExtractor={(item, index) => index.toString()} />
+                    renderItem={({ item }) => <PostCard deletePost={refresh} item={item}> </PostCard>}
+                    keyExtractor={(item, index) => index.toString()} 
+                    refreshControl={<RefreshControl colors={["purple"]} refreshing={refreshing} onRefresh={refresh} enabled={true}/>}
+                />
             </View>
 
 
@@ -157,8 +159,6 @@ const Feed: React.FC = (props: any) => {
 export default Feed;
 
 const styles = StyleSheet.create({
-
-
     listContainer: {
         paddingBottom: 100
     },

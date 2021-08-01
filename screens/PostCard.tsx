@@ -7,10 +7,11 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import Post from '../models/Post';
+import { Pressable } from 'react-native';
 
 const PostCard = (props: any) => {
     const navigation = useNavigation();
-
+    const user = useSelector((state: IAppState) => state.user);
     const userName = useSelector((state: IAppState) => state.user?.userName);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
  
@@ -30,21 +31,6 @@ const PostCard = (props: any) => {
 
     const [isLiked, setLikedState] = useState(item.likes.includes(userName));
 
-    // useEffect(() => {
-    //     grabUserData();
-    // }, [])
-    //Storing state for redirecting to Profile page
-    const [profileInfo, setProfileInfo] = useState({
-        displayName: item?.displayName,
-        userName: item?.userName,
-        email: "",
-        profileImg: ""
-    })
-
-
-
-
-
     //On press of delete post 
     //Will need to refresh feeds at their respective sources
     const deletePost = async () => {
@@ -54,6 +40,8 @@ const PostCard = (props: any) => {
             }
         }).then(resp => {
             //Response will return deleted post...
+            console.log(resp.data[0]);
+            props.deletePost();
         })
 
     }
@@ -144,6 +132,12 @@ const PostCard = (props: any) => {
         }
     }
 
+    const determineIfCurrentUser = () => {
+        if(user?.userName === item.userName) { return true; }
+        else { return false; }
+    }
+
+
     const postTime = new Date(Number(item.timeStamp));
     const timeText = `${postTime.getHours()}:${postTime.getMinutes()} ${postTime.getDate()}`
 
@@ -154,6 +148,7 @@ const PostCard = (props: any) => {
 
             <Card containerStyle={styles.cardActual}>
 
+            <View style={styles.wrapperToContainerHeadOfCard}>
                 <View
                     style={styles.containerHeadOfCard}
                 >
@@ -164,7 +159,7 @@ const PostCard = (props: any) => {
 
                     <View style={styles.nameContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("Profile", profileInfo)}
+                            onPress={() => navigation.navigate("Profile", {displayName: item.displayName, userName: item.userName})}
                         >
                             <Text
                                 style={styles.displayName}
@@ -174,10 +169,25 @@ const PostCard = (props: any) => {
 
                         <Text
                             style={styles.username}
-                        >{`${item.userName}`}</Text>
+                        >{`@${item.userName}`}</Text>
                     </View>
-                </View>
 
+
+                </View>
+                    <View>
+                        { determineIfCurrentUser() &&
+                        <View style={{flex: 1, alignItems: 'flex-end'}}>
+                            <Pressable 
+                                onPress= { () => deletePost()}>
+                             <Image
+                                source={require('../assets/images/trash-can-icon.png')}
+                                style={styles.trashCanContainer}
+                             />
+                            </Pressable> 
+                        </View>
+                        }
+                    </View>
+             </View>
                 <View style={styles.postContainer}>
                     <Text
                         style={styles.postBody}
@@ -237,7 +247,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: 10
     },
-
+    wrapperToContainerHeadOfCard: {
+        flex: 1,
+        flexDirection: "row",
+    },
     imageContainer: {
         flex: 1,
     },
@@ -292,7 +305,10 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat",
         marginBottom: 10
     },
-
+    trashCanContainer: {
+        width: 25,
+        height: 25
+    },
     heart: {
         width: 25,
         height: 25
