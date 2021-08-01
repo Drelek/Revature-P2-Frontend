@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const SignUpScreen = (props: any) => {
   const auth = useSelector((state: IAppState) => state.auth);
@@ -32,6 +33,13 @@ const SignUpScreen = (props: any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Invalid input",
+        text2: "Password must contain lowercase, uppercase, and number",
+        visibilityTime: 8000
+      });
       setWorking(false);
       return;
     }
@@ -48,9 +56,20 @@ const SignUpScreen = (props: any) => {
       console.log(err);
       console.log(err.response.data);
       setWorking(false);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Signup Error",
+        text2: "Failed to stash user info, contact an administrator"
+      });
       return;
     }
 
+    Toast.show({
+      type: "success",
+      text1: "Account Creation Successful",
+      text2: "Please check your email for a verification link"
+    })
     props.submitFunc();
   }
 

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import axios from 'axios';
 import { AppAction } from '../redux/actions';
+import { IUser } from '../models/User';
+import Toast from 'react-native-toast-message';
 
 const SettingsScreens: React.FC = () => {
 
@@ -16,9 +18,13 @@ const SettingsScreens: React.FC = () => {
 
     const [handle, setHandle] = useState(user?.displayName);
     const [profileImg, setProfileImage] = useState(user?.profileImg);
+    const [working, setWorking] = useState(false);
 
 
     async function submitForm() {
+        if (working) return;
+        setWorking(true);
+
         const body = {
             'dataType': 'user',
             'dataKey': user?.userName,
@@ -29,56 +35,69 @@ const SettingsScreens: React.FC = () => {
             Authorization: token
         }
         try {
-            const res = await axios.put('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + user?.userName, body, { headers });
+            const userResult = await axios.put('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/' + user?.userName, body, { headers });
 
-            const updatedUser = {
-                'userName': user?.userName,
-                'displayName': handle,
-                'profileImg': profileImg
+            const newUser: IUser = {
+                ...user,
+                userName: userResult.data[0].dataKey,
+                displayName: userResult.data[0].displayName,
+                email: userResult.data[0].email,
+                profileImg: userResult.data[0].profileImg,
             }
 
+            console.log(newUser);
 
             dispatch({
                 type: AppAction.UPDATE_USER,
-                payload: { user: updatedUser }
-            })
-            user = useSelector((store: IAppState) => store.user);
+                payload: { user: newUser }
+            });
+
+            Toast.show({
+                type: "success",
+                text1: "Submitted",
+                text2: "Your new information has been submitted successfully"
+            });
         }
         catch (err) {
-
             console.log(err.response)
+            Toast.show({
+                type: "error",
+                text1: "Update Failed",
+                text2: "Failed to update user data"
+            })
         }
+        setWorking(false);
     }
 
     return (
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
-        <View style={styles.smallView}></View>
-        <SafeAreaView style={styles.largeView}>
-        <Card containerStyle={styles.cardActual}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.text}> Profile Settings </Text>
-            </View>
-            
-            <View style={styles.topForm}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
+            <View style={styles.smallView}></View>
+            <SafeAreaView style={styles.largeView}>
+                <Card containerStyle={styles.cardActual}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.text}> Profile Settings </Text>
+                    </View>
 
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Display Name" onChangeText={(text) => setHandle(text)} />
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                placeholderTextColor="white" placeholder="Link to Profile Image" onChangeText={(text) => setProfileImage(text)} />
-            </View>
-            <View>
-                <TouchableOpacity style={styles.button} onPress={() => submitForm()}>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
-            </View>
-        </Card>
-        </SafeAreaView>
-        <View style={styles.bottomView}></View>
-    </KeyboardAvoidingView>
+                    <View style={styles.topForm}>
+
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Display Name" onChangeText={(text) => setHandle(text)} />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white" placeholder="Link to Profile Image" onChangeText={(text) => setProfileImage(text)} />
+                    </View>
+                    <View>
+                        <TouchableOpacity style={[styles.button, working ? styles.working : styles.notWorking]} onPress={() => submitForm()}>
+                            <Text style={styles.buttonText}>Submit</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Card>
+            </SafeAreaView>
+            <View style={styles.bottomView}></View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -147,6 +166,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: "BadScript",
         color: "white",
+    },
+    notWorking: {
+        backgroundColor: 'purple'
+    },
+
+    working: {
+        backgroundColor: 'grey'
     }
 })
 
