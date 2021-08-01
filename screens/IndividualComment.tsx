@@ -25,7 +25,6 @@ const IndividualComment = (props: any) => {
 
 
     const determineIfCurrentUser = () => {
-        console.log(displayName, user?.displayName, timeStamp, commentStamp);
         if (user?.displayName == displayName) {
             return true;
         } else {
@@ -36,14 +35,12 @@ const IndividualComment = (props: any) => {
     //Delete a comment
     //Requires timeStamp of post and commentStamp of the comment
     const deleteComment = async () => {
-        console.log(timeStamp, commentStamp)
         await axios.delete(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${timeStamp}/${commentStamp}`, {
             headers: {
                 Authorization: token
             }
         }).then(resp => {
             //Response returns deleted comment...
-            console.log(resp.data[0].comments);
             props.deleteComment();
         })
 

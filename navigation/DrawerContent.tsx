@@ -120,7 +120,7 @@ export const DrawerContent: React.FC = (props: any) => {
                     <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => { toggleCanvas() }}>
                             <View style={styles.preference}>
-                                <Text>Canvas Toggle</Text>
+                                <Text>Background Animation</Text>
                                 <View pointerEvents="none">
                                     <Switch value={canvasToggle} />
                                 </View>
