@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, FlatList, Pressable, Image } from 'react-native';
+import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { Card } from 'react-native-elements'
+import UserCard from '../components/UserCard';
 
 const SearchScreen: React.FC = (props: any) => {
 
@@ -20,14 +22,14 @@ const SearchScreen: React.FC = (props: any) => {
             userName: 'theSponge',
             displayName: 'captain',
             profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
+            followers: "100"
         },
         {
 
             userName: "admin",
             displayName: "no name",
             profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
+            followers: "1"
 
         },
         {
@@ -35,7 +37,7 @@ const SearchScreen: React.FC = (props: any) => {
             userName: "joe",
             displayName: "mama",
             profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
+            followers: "10"
 
         },
         {
@@ -43,7 +45,7 @@ const SearchScreen: React.FC = (props: any) => {
             userName: "asdadsxz",
             displayName: "mama",
             profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
+            followers: "50"
 
         },
         {
@@ -62,13 +64,14 @@ const SearchScreen: React.FC = (props: any) => {
         try {
             // setWorking(true);
             const res = await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/search/${search}`, { headers: { Authorization: token } });
-            console.log(res);
-
+            console.log(res.data);
+            setResults(res.data[0]);
         }
         catch (err) {
             console.log(err.response)
         }
     }
+
 
     return (
         <View style={styles.container}>
@@ -86,25 +89,12 @@ const SearchScreen: React.FC = (props: any) => {
                     </Pressable>
                 </View>
             </View>
-            <View >
-                <FlatList data={searchedUsers}
-                    renderItem={({ item }) =>
-                        <View style={styles.userContainer}>
-                            <Image
-                                source={{ uri: `${item.profileImg}` }}
-                                style={styles.image} />
-
-
-                            <Text
-                                style={styles.displayName}
-                            >{item.displayName}</Text>
-                            <Text
-                                style={styles.username}
-                            >{item.userName}</Text>
-
-                        </View>
-                    }
-                    keyExtractor={item => item.userName} />
+            <View>
+                <FlatList
+                    data={results}
+                    renderItem={({ item }) => <UserCard item={item} />}
+                    keyExtractor={(item, index) => index.toString()
+                    } />
             </View>
         </View>
     );
@@ -130,8 +120,8 @@ const styles = StyleSheet.create({
 
     },
     topContainer: {
-        flex: 1,
         flexDirection: "row",
+        height: 150
 
     },
 
@@ -152,9 +142,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: 'purple',
         borderWidth: 5,
-        marginBottom: 10,
-        marginTop: 10,
-        marginHorizontal: 15
+        marginBottom: 15,
+        marginTop: 15,
+        marginHorizontal: 15,
     },
 
     inputContainer: {
@@ -163,7 +153,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         marginLeft: 10,
-        marginTop: 25,
+        marginTop: 90,
         marginBottom: 10,
         width: 330
 
@@ -185,6 +175,11 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 100,
         backgroundColor: "purple",
+        marginRight: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
 
     },
     displayName: {
