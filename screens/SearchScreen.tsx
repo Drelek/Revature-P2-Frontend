@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
@@ -16,80 +16,48 @@ const SearchScreen: React.FC = (props: any) => {
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);
 
-    //const [searchedUsers, setUsers] = useState(' ')
-    const searchedUsers = [
-        {
-            userName: 'theSponge',
-            displayName: 'captain',
-            profileImg: user?.profileImg,
-            followers: "100"
-        },
-        {
-
-            userName: "admin",
-            displayName: "no name",
-            profileImg: user?.profileImg,
-            followers: "1"
-
-        },
-        {
-
-            userName: "joe",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: "10"
-
-        },
-        {
-
-            userName: "asdadsxz",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: "50"
-
-        },
-        {
-
-            userName: "asdas",
-            displayName: "mama",
-            profileImg: user?.profileImg,
-            followers: ["sam", "mo", "kai", "jared"]
-
-        }
-
-    ]
-
+    
     async function Search() {
         console.log(search);
         try {
-            // setWorking(true);
+            setWorking(true);
             const res = await axios.get(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/search/${search}`, { headers: { Authorization: token } });
             console.log(res.data);
             setResults(res.data[0]);
+            setWorking(false);
         }
         catch (err) {
             console.log(err.response)
         }
     }
 
+    const renderSearch = () => {
+        return (
+            <Card containerStyle={styles.card}>
+                <View style={styles.postContainer}>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                        style={styles.inputBox}
+                        onChangeText={setSearch} />
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={[styles.TouchableOpacity, working ? styles.working : styles.notWorking]} onPress={() => Search()}>
+                            <Text style={styles.text}>Search</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Card>
+        )
+    }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.topContainer}>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder="Search"
-                        placeholderTextColor="white"
+        <View style={styles.wholeScreenContainer}>
 
-                        onChangeText={setSearch} />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Pressable style={styles.pressable} onPress={() => Search()}>
-                        <Text style={styles.text}>Search</Text>
-                    </Pressable>
-                </View>
+            <View style={styles.searchContainer}>
+                {renderSearch()}
             </View>
-            <View>
+            <View style={styles.listContainer}>
                 <FlatList
                     data={results}
                     renderItem={({ item }) => <UserCard item={item} />}
@@ -98,103 +66,87 @@ const SearchScreen: React.FC = (props: any) => {
             </View>
         </View>
     );
-
 }
 
 
 export default SearchScreen;
 
 const styles = StyleSheet.create({
+    
+    wholeScreenContainer: {
+        flex:1
+    },
+
+    searchContainer: {
+        flex:1
+    },
+
+    listContainer: {
+        flex:6
+    },
 
     text: {
         fontSize: 12,
         color: "white",
-        marginTop: 0,
-
-
     },
-    container: {
+
+    card: {
         flex: 1,
-        justifyContent: 'center',
-
-
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderWidth: 4,
+        borderColor: 'purple',
+        borderRadius: 30,
+        paddingBottom: 5
     },
-    topContainer: {
+
+    postContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    inputBox: {
+        color: "white",
+        fontSize: 16,
         flexDirection: "row",
-        height: 150
+        justifyContent: "center",
+        textAlignVertical: 'top',
+        paddingVertical: 15,
+        paddingHorizontal: 5,
+        marginLeft: 10,
 
     },
 
     buttonContainer: {
-        flex: 1,
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        marginLeft: 10,
-        marginRight: 15,
-        marginTop: 20,
-        marginBottom: 13
-    },
-    userContainer: {
-
+        flex: 1.3,
         flexDirection: "row",
-        justifyContent: 'center',
-        backgroundColor: 'rgb(33, 37, 41)',
-        borderRadius: 10,
-        borderColor: 'purple',
-        borderWidth: 5,
-        marginBottom: 15,
-        marginTop: 15,
-        marginHorizontal: 15,
+        justifyContent: "flex-end",
+        alignContent:"center",
     },
 
     inputContainer: {
+        flex: 4,
+        marginBottom: 10,
         backgroundColor: 'rgb(42,45,47)',
-        borderRadius: 15,
+        borderRadius: 20,
         justifyContent: "center",
         alignContent: "center",
-        marginLeft: 10,
-        marginTop: 90,
-        marginBottom: 10,
-        width: 330
-
     },
 
-    pressable: {
-
+    TouchableOpacity: {
         backgroundColor: "purple",
         paddingHorizontal: 10,
         paddingVertical: 15,
-        borderRadius: 20,
-        width: 70,
-
-
-    },
-
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 100,
-        backgroundColor: "purple",
-        marginRight: 10,
-        marginTop: 10,
         marginBottom: 10,
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
+        borderRadius: 15,
+    },
 
+    working: {
+        backgroundColor: "grey"
     },
-    displayName: {
-        fontWeight: "bold",
-        fontSize: 22,
-        color: "white",
-        paddingLeft: 15,
-        marginBottom: 5,
 
-    },
-    username: {
-        fontSize: 18,
-        color: "white",
-        paddingLeft: 15,
-        marginBottom: 5
-    },
+    notWorking: {
+        backgroundColor: "purple"
+    }
+
 })
 

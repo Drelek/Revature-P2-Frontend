@@ -125,19 +125,17 @@ const Profile: React.FC = (props: any) => {
                             />
                         </View>
 
-
+                    <View style={styles.allRightContainer}>
+                    <View style={styles.topRightContainer}>
                         <View style={styles.infoContainer}>
                             <Text
                                 style={styles.displayName}
                             >{userGrab.displayName}</Text>
                             <Text
                                 style={styles.username}
-                            >{userGrab.userName}</Text>
-                            <Text
-                                style={styles.email}
-                            >{userGrab.email}</Text>
+                            >{`@${userGrab.userName}`}</Text>
                         </View>
-                        {/* <View>{console.log(thisProps)}</View> */}
+                        
                         <View >
                             <TouchableOpacity
                                 style={styles.followerContainer}
@@ -146,6 +144,13 @@ const Profile: React.FC = (props: any) => {
                                 {renderFollowing()}
                             </TouchableOpacity>
                         </View>
+                    </View>
+
+                        <View style={styles.emailContainer}><Text
+                        style={styles.email}
+                        >{userGrab.email}</Text></View>
+                    </View>
+
                     </View>
                 </Card>
 
@@ -172,6 +177,21 @@ const Profile: React.FC = (props: any) => {
 export default Profile;
 
 const styles = StyleSheet.create({
+    emailContainer: {
+
+    },
+
+    allRightContainer: {
+
+        flex:2,
+        flexDirection:"column"
+    },
+
+    topRightContainer: {
+        flex:3,
+        flexDirection:"row",
+    },
+
     outerContainer: {
         flex: 1,
         flexDirection: "column",
@@ -201,7 +221,9 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 100,
-        backgroundColor: "purple"
+        backgroundColor: "purple",
+        borderWidth: 2,
+        borderColor: "purple",
     },
     displayName: {
         fontWeight: "bold",
@@ -217,7 +239,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     email: {
-        fontSize: 18,
+        fontSize: 15,
         color: "white",
         paddingLeft: 15,
         marginBottom: 5
