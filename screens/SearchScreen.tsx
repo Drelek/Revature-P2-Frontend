@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, useWindowDimensions, Keyboard } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
@@ -12,7 +12,7 @@ const SearchScreen: React.FC = (props: any) => {
 
     const [search, setSearch] = useState(' ');
     const [results, setResults] = useState([]);
-    const [working, setWorking] = useState(false);
+    const windowHeight = useWindowDimensions().height;
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);
 
@@ -25,6 +25,7 @@ const SearchScreen: React.FC = (props: any) => {
             console.log(res.data);
             setResults(res.data[0]);
             setWorking(false);
+            Keyboard.dismiss();
         }
         catch (err) {
             console.log(err.response)
@@ -52,7 +53,7 @@ const SearchScreen: React.FC = (props: any) => {
     }
 
     return (
-        <View style={styles.wholeScreenContainer}>
+        <View style={[styles.wholeScreenContainer, { minHeight: Math.round(windowHeight) }]}>
 
             <View style={styles.searchContainer}>
                 {renderSearch()}
@@ -96,7 +97,8 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: 'purple',
         borderRadius: 30,
-        paddingBottom: 5
+        paddingBottom: 5,
+        justifyContent: 'center'
     },
 
     postContainer: {
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 5,
         marginLeft: 10,
-
     },
 
     buttonContainer: {
