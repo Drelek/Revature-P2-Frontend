@@ -15,5 +15,6 @@ phases:
       - echo Publishing to expo...
       - expo publish
   post_build:
+    commands:
       - echo Starting an expo build...
       - expo ba --no-wait -t apk
