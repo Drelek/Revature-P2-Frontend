@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { AppAction } from '../redux/actions';
 import { IUser } from '../models/User';
+import Toast from 'react-native-toast-message';
 const LoginScreen: React.FC = (props:any) => {
   const user = useSelector((state: IAppState) => state.user);
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const LoginScreen: React.FC = (props:any) => {
   const navigation = useNavigation();
 
   const submit = async () => {
+    if (working) return;
+    
     console.log("Logging in");
 
     let authResult;
@@ -32,6 +35,13 @@ const LoginScreen: React.FC = (props:any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Login Error",
+        text2: "Invalid username or password"
+      });
+      setWorking(false);
       return;
     }
 
@@ -51,6 +61,13 @@ const LoginScreen: React.FC = (props:any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Login Error",
+        text2: "Failed to fetch user data, contact an administrator"
+      });
+      setWorking(false);
       return;
     }
 

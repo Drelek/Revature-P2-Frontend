@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const SignUpScreen = (props: any) => {
   const auth = useSelector((state: IAppState) => state.auth);
@@ -19,11 +20,11 @@ const SignUpScreen = (props: any) => {
   const navigation = useNavigation();
 
   const createNewUser = async () => {
-
+    if (working) return;
     console.log("Creating user");
 
     try {
-      setWorking(true)
+      setWorking(true);
       const resp = await axios.post('https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/auth/signup', {
         userName: username,
         password: password,
@@ -32,6 +33,14 @@ const SignUpScreen = (props: any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Invalid input",
+        text2: "Password must contain lowercase, uppercase, and number",
+        visibilityTime: 8000
+      });
+      setWorking(false);
       return;
     }
 
@@ -46,9 +55,21 @@ const SignUpScreen = (props: any) => {
     } catch (err) {
       console.log(err);
       console.log(err.response.data);
+      setWorking(false);
+      Toast.show({
+        type: "error",
+        position: "top",
+        text1: "Signup Error",
+        text2: "Failed to stash user info, contact an administrator"
+      });
       return;
     }
 
+    Toast.show({
+      type: "success",
+      text1: "Account Creation Successful",
+      text2: "Please check your email for a verification link"
+    })
     props.submitFunc();
   }
 

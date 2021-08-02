@@ -97,13 +97,12 @@ const Profile: React.FC = (props: any) => {
             userToFollow: thisProps.userName
         }
 
+        setIsFollowing(!isFollowing);
         await axios.post(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/user/${user?.userName}/follow`, body, {
             headers: {
                 Authorization: token
             }
-        }).then(resp => {
-            setIsFollowing(!isFollowing);
-        })
+        });
     }
 
     return (

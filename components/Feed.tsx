@@ -75,6 +75,7 @@ const Feed: React.FC = (props: any) => {
 
     //Add post to global feed
     const createPost = async () => {
+        if (working || !newPost) return;
         Keyboard.dismiss;
         try {
             setWorking(true);
@@ -91,6 +92,7 @@ const Feed: React.FC = (props: any) => {
         } catch (err) {
             console.log(err);
             console.log(err.response);
+            setWorking(false);
             return;
         }
         refresh();

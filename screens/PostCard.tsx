@@ -48,6 +48,11 @@ const PostCard = (props: any) => {
 
     const toggleLike = async () => {
         try {
+            
+            setLikedState(!isLiked);
+            
+            if (isLiked) setLikes(likes - 1);
+            else setLikes(likes + 1);
             await axios.patch(`https://w822121nz1.execute-api.us-east-2.amazonaws.com/Prod/post/${item.timeStamp}`, {
                 isLiked: isLiked,
                 userName: userName,
@@ -62,10 +67,7 @@ const PostCard = (props: any) => {
             console.log(err.response.data);
         }
 
-        if (isLiked) setLikes(likes - 1);
-        else setLikes(likes + 1);
 
-        setLikedState(!isLiked);
 
     }
 
