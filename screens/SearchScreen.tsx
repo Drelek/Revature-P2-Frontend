@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { Card } from 'react-native-elements'
 import UserCard from '../components/UserCard';
+import Toast from 'react-native-toast-message';
 
 const SearchScreen: React.FC = (props: any) => {
 
@@ -66,10 +67,10 @@ const SearchScreen: React.FC = (props: any) => {
                     keyExtractor={(item, index) => index.toString()
                     } />
             </View>
+            <View style={{flex:1}}></View>
         </View>
     );
 }
-
 
 export default SearchScreen;
 
