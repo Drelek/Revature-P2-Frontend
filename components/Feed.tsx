@@ -16,7 +16,7 @@ const Feed: React.FC = (props: any) => {
     const [refreshing, setRefreshing] = useState(false);
     const [postCards, setPostCards] = useState([]);
     const [working, setWorking] = useState(false);
-    const [newPost, setNewPost] = useState(' ');
+    const [newPost, setNewPost] = useState('');
 
     const [keyboardOffset, setKeyboardOffset] = useState(0);
     const onKeyboardShow = (event: KeyboardEvent) => {
