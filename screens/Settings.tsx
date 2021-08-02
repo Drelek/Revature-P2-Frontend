@@ -1,5 +1,5 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, SafeAreaView, Platform, Image, Keyboard, useWindowDimensions } from 'react-native'
+import React, { useState} from 'react';
 import { Card } from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
@@ -9,12 +9,12 @@ import { IUser } from '../models/User';
 import Toast from 'react-native-toast-message';
 
 const SettingsScreens: React.FC = () => {
+    const windowHeight = useWindowDimensions().height;
 
     let user = useSelector((store: IAppState) => store.user);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
 
     const dispatch = useDispatch();
-
 
     const [handle, setHandle] = useState(user?.displayName);
     const [profileImg, setProfileImage] = useState(user?.profileImg);
@@ -69,9 +69,51 @@ const SettingsScreens: React.FC = () => {
         setWorking(false);
     }
 
+
+    const renderProfileCard = () => {
+        return (
+            <Card containerStyle={styles.profileCard}>
+                    <View
+                        style={{ flexDirection: "row" }}
+                    >
+                        <View style={styles.imageContainer}>
+                            <Image
+                                source={{ uri: `${user?.profileImg}` }}
+                                style={styles.image}
+                            />
+                        </View>
+
+                    <View style={styles.allRightContainer}>
+                    <View style={styles.topRightContainer}>
+                        <View style={styles.infoContainer}>
+                            <Text
+                                style={styles.displayName}
+                            >{user?.displayName}</Text>
+                            <Text
+                                style={styles.username}
+                            >{`@${user?.userName}`}</Text>
+                        </View>
+                        
+                        <View style={styles.followerContainer}>
+                        
+                        </View>
+                    </View>
+
+                        <View style={styles.emailContainer}><Text
+                        style={styles.email}
+                        adjustsFontSizeToFit 
+                        numberOfLines={1}
+                        >{user?.email}</Text></View>
+                    </View>
+
+                    </View>
+                </Card>
+        )
+    }
+
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={styles.container}>
-            <View style={styles.smallView}></View>
+        <View style={[styles.container,{minHeight: Math.round(windowHeight)}]}>
+            <View style={styles.smallView}>{renderProfileCard()}</View>
             <SafeAreaView style={styles.largeView}>
                 <Card containerStyle={styles.cardActual}>
                     <View style={styles.titleContainer}>
@@ -97,24 +139,23 @@ const SettingsScreens: React.FC = () => {
                 </Card>
             </SafeAreaView>
             <View style={styles.bottomView}></View>
-        </KeyboardAvoidingView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        // justifyContent: 'center'
     },
     smallView: {
         flex: 1,
     },
     bottomView: {
-        flex: 1
+        flex: 2
     },
     largeView: {
-        flex: 2,
-        justifyContent: 'flex-end'
+        flex: 1,
     },
     cardActual: {
         borderRadius: 10,
@@ -140,12 +181,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: "white",
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         alignItems: 'center',
         textAlign: 'center',
     },
     input: {
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         fontSize: 18,
         color: "white",
         borderBottomWidth: 2,
@@ -164,7 +205,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         color: "white",
     },
     notWorking: {
@@ -173,7 +214,68 @@ const styles = StyleSheet.create({
 
     working: {
         backgroundColor: 'grey'
-    }
+    },
+
+    imageContainer: {
+        flex: 1
+    },
+    infoContainer: {
+        flex: 2,
+    },
+    profileCard: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgb(33, 37, 41)',
+        borderRadius: 10,
+        borderColor: 'purple',
+        borderWidth: 5,
+        marginBottom: 10
+    },
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+        backgroundColor: "purple",
+        borderWidth: 2,
+        borderColor: "purple",
+    },
+    displayName: {
+        fontWeight: "bold",
+        fontSize: 22,
+        color: "white",
+        paddingLeft: 15,
+        marginBottom: 5
+    },
+    username: {
+        fontSize: 18,
+        color: "white",
+        paddingLeft: 15,
+        marginBottom: 5
+    },
+    email: {
+        color: "white",
+        paddingLeft: 15,
+    },
+
+    followerContainer: {
+        flex: 1,
+        flexDirection: "column",
+    },
+
+    allRightContainer: {
+
+        flex:2,
+        flexDirection:"column"
+    },
+
+    topRightContainer: {
+        flex:3,
+        flexDirection:"row",
+    },
+
+    emailContainer: {
+        flex:1
+    },
 })
 
 export default SettingsScreens;

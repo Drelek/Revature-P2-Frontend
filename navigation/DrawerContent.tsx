@@ -23,11 +23,12 @@ import { AppAction } from '../redux/actions';
 export const DrawerContent: React.FC = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
-
     const canvasToggle = useSelector((state: IAppState) => state.canvas);
     const dispatch = useDispatch();
+    
 
     const toggleCanvas = () => {
+        props.navigation.closeDrawer();
         dispatch({
             type: AppAction.TOGGLE_CANVAS,
             payload: {}
@@ -35,6 +36,7 @@ export const DrawerContent: React.FC = (props: any) => {
     }
 
     const signOut = () => {
+        
         dispatch({
             type: AppAction.LOGOUT,
             payload: {}
@@ -81,7 +83,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Home"
-                            onPress={() => { props.navigation.navigate("Home", { screen: "Home" }) }}
+                            onPress={() => { props.navigation.navigate("Root", { screen: "Home" }) }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
@@ -114,7 +116,7 @@ export const DrawerContent: React.FC = (props: any) => {
                                 />
                             )}
                             label="Search"
-                            onPress={() => { props.navigation.navigate('Home', { screen: "Search" }) }}
+                            onPress={() => { props.navigation.navigate("Search") }}
                         />
                     </Drawer.Section>
                     <Drawer.Section title="Preferences">

@@ -7,7 +7,9 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 
+
 const ExpandedPost: React.FC = (props: any) => {
+    
 
     const thisUserName = useSelector((state: IAppState) => state.user?.userName);
     const [refreshing, setRefreshing] = useState(false);
@@ -26,9 +28,7 @@ const ExpandedPost: React.FC = (props: any) => {
     const onKeyboardHide = () => setKeyboardOffset(0);
     const keyboardDidShowListener:any = useRef();
     const keyboardDidHideListener:any = useRef();
-
-    let commentArray: any = [];
-    let tempObject: any = {};
+    
     useEffect(() => {
         keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
         keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);
@@ -140,10 +140,10 @@ const ExpandedPost: React.FC = (props: any) => {
     return (
         <KeyboardAvoidingView style={styles.container}>    
             <View style={styles.commentsContainer}>
-
+                {/* <View style={{flex:1}}>{renderSinglePost()}</View> */}
                 <FlatList
                     data={commentList}
-                    ListHeaderComponent={() => renderSinglePost()}
+                    ListHeaderComponent={renderSinglePost}
                     renderItem={({ item }) => <IndividualComment item={item} deleteComment={ grabCommentsActual } 
                                                         timeStamp={props.route.params.timeStamp}></IndividualComment>}
                     keyExtractor={(item, index) => index.toString()}
@@ -173,6 +173,8 @@ const ExpandedPost: React.FC = (props: any) => {
         </KeyboardAvoidingView>
     )
 }
+
+
 
 const styles = StyleSheet.create({
     container: {

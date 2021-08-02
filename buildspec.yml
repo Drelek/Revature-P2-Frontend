@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing node packages...
+      - npm i
+      - sudo npm i -g expo-cli
+  pre_build:
+    commands:
+      - echo Logging in to expo...
+      - expo login -u drelek -p ExpoPassword123
+  build:
+    commands:
+      - echo Publishing to expo...
+      - expo publish
+  post_build:
+      - echo Starting an expo build...
+      - expo ba --no-wait -t apk

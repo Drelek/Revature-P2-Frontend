@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 1,
+        paddingRight: 10,
     },
 
     nameContainer: {
