@@ -12,6 +12,7 @@ const SearchScreen: React.FC = (props: any) => {
 
     const [search, setSearch] = useState(' ');
     const [results, setResults] = useState([]);
+    const [working, setWorking] = useState(false);
     const windowHeight = useWindowDimensions().height;
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);

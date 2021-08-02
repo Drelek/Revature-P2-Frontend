@@ -1,7 +1,6 @@
 import Enzyme, { mount, render } from 'enzyme'
 import React from 'react';
 import { shallow } from 'enzyme'
-
 import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -27,8 +26,6 @@ import IndividualComment from './screens/IndividualComment';
 import SignUpScreen from './screens/SignUpScreen';
 import Feed from './components/Feed';
 
-
-const mockedDispatch = jest.fn();
 
 // Mocks like this need to be configured at the top level 
 // of the test file, they can't be setup inside your tests.

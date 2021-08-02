@@ -1,3 +1,4 @@
+
 import { IUser } from "../models/User";
 export interface IAppState {
     auth?: any;
@@ -12,3 +13,4 @@ export const initialState: IAppState = {
     canvas: true,
     feed: true
 }
+
