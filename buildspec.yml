@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Installing node packages...
       - npm i
-      - sudo npm i -g expo-cli
+      - npm i -g expo-cli
   pre_build:
     commands:
       - echo Logging in to expo...
