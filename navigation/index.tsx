@@ -45,7 +45,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootDrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home"
+      <Drawer.Screen name="Root"
         component={HomeStackScreen} />
     </Drawer.Navigator>
   );
