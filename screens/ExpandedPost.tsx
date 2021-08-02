@@ -26,9 +26,7 @@ const ExpandedPost: React.FC = (props: any) => {
     const onKeyboardHide = () => setKeyboardOffset(0);
     const keyboardDidShowListener:any = useRef();
     const keyboardDidHideListener:any = useRef();
-
-    let commentArray: any = [];
-    let tempObject: any = {};
+    
     useEffect(() => {
         keyboardDidShowListener.current = Keyboard.addListener('keyboardWillShow', onKeyboardShow);
         keyboardDidHideListener.current = Keyboard.addListener('keyboardWillHide', onKeyboardHide);

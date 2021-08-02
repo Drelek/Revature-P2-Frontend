@@ -27,7 +27,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "userInterfaceStyle": "dark"
+      "userInterfaceStyle": "dark",
+      "package": "com.drelek.BohemianGrove"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const AddComment = (props: any) => {
 
-    const[newComment, setNewComment] = useState(' ');
+    const[newComment, setNewComment] = useState('');
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const [working, setWorking] = useState(false);
@@ -30,7 +30,7 @@ const AddComment = (props: any) => {
             props.submitComm();
         }).then(resp => {
             setWorking(false);
-            setNewComment(' ');
+            setNewComment('');
         })
     }
 
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-end",
         alignItems: "center",
-        // paddingLeft:5,
     
     },
 
