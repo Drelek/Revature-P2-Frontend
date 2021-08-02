@@ -7,7 +7,7 @@ import { Card } from 'react-native-elements'
 import { useSelector } from "react-redux";
 import { IAppState } from "../redux/store";
 
-const Feed: React.FC = (props: any) => {
+const Feed = (props: any) => {
 
     //Grab auth token
     const token = useSelector((state: IAppState) => state.auth.AccessToken);

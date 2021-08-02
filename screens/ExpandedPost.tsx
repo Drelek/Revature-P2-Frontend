@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 
-const ExpandedPost: React.FC = (props: any) => {
+const ExpandedPost = (props: any) => {
 
     const thisUserName = useSelector((state: IAppState) => state.user?.userName);
     const [refreshing, setRefreshing] = useState(false);

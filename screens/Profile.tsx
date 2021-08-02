@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppAction } from '../redux/actions';
 import { IUser } from '../models/User';
 
-const Profile: React.FC = (props: any) => {
+const Profile = (props: any) => {
 
     const user = useSelector((state: IAppState) => state.user);
     const token = useSelector((state: IAppState) => state.auth?.AccessToken);
