@@ -256,6 +256,5 @@ const styles = StyleSheet.create({
     followerContainer: {
         flex: 1,
         flexDirection: "column",
-
     }
 })

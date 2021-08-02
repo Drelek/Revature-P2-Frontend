@@ -1,4 +1,5 @@
 export type RootDrawerParamList = {
+  Root: undefined;
   Home: { userId: string };
   Profile: { userId: string };
   Settings: { userId: string };
