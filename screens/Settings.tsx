@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: "white",
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         alignItems: 'center',
         textAlign: 'center',
     },
     input: {
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         fontSize: 18,
         color: "white",
         borderBottomWidth: 2,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        fontFamily: "BadScript",
+        fontFamily: "Montserrat",
         color: "white",
     },
     notWorking: {
