@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -150,11 +150,32 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,17 +203,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,43 +253,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Card } from 'react-native-elements'
 &nbsp;
 const UserCard = <span class="fstat-no" title="function not covered" >(p</span>rops: any) =&gt; {
 &nbsp;
+    const navigation = <span class="cstat-no" title="statement not covered" >useNavigation()</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-        
+&nbsp;
         &lt;Card containerStyle={styles.userContainer}&gt;
-        &lt;View style={{ flexDirection: "row" }}&gt;
-            &lt;View style={styles.imageContainer}&gt;
-                &lt;Image
-                source={{ uri: `${props.item.profileImg.S}` }}
-                style={styles.image} /&gt;
-            &lt;/View&gt;
-            
-&nbsp;
-            &lt;View style={styles.rightContainer}&gt;
-                &lt;View style={styles.names}&gt;
-                    &lt;Text
-                    style={styles.displayName}
-                    &gt;{props.item.displayName.S}&lt;/Text&gt;
-                    &lt;Text
-                    style={styles.username}
-                    &gt;{"@" + props.item.dataKey.S}&lt;/Text&gt;
+            &lt;View style={{ flexDirection: "row" }}&gt;
+                &lt;View style={styles.imageContainer}&gt;
+                    &lt;Image
+                        source={{ uri: `${props.item.profileImg.S}` }}
+                        style={styles.image} /&gt;
                 &lt;/View&gt;
 &nbsp;
-                &lt;View style={styles.follow}&gt;
-                    &lt;Text
-                    style={styles.username}&gt;
-                    {`Followers: ${props.item.followers.SS.length - 1}`}&lt;/Text&gt;
-                &lt;/View&gt;
-        
-            &lt;/View&gt;
 &nbsp;
-            
-        &lt;/View&gt;
+                &lt;View style={styles.rightContainer}&gt;
+                    &lt;View style={styles.names}&gt;
+                        &lt;TouchableOpacity onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigation.navigate("Profile", { displayName: props.item.displayName.S, userName: props.item.dataKey.S })}</span>&gt;
+                            &lt;Text
+                                style={styles.displayName}
+                            &gt;{props.item.displayName.S}&lt;/Text&gt;
+                        &lt;/TouchableOpacity&gt;
+                        &lt;Text
+                            style={styles.username}
+                        &gt;{"@" + props.item.dataKey.S}&lt;/Text&gt;
+                    &lt;/View&gt;
+&nbsp;
+                    &lt;View style={styles.follow}&gt;
+                        &lt;Text
+                            style={styles.username}&gt;
+                            {`Followers: ${props.item.followers.SS.length - 1}`}&lt;/Text&gt;
+                    &lt;/View&gt;
+&nbsp;
+                &lt;/View&gt;
+&nbsp;
+&nbsp;
+            &lt;/View&gt;
         &lt;/Card&gt;
     )
 &nbsp;
@@ -287,18 +302,18 @@ const UserCard = <span class="fstat-no" title="function not covered" >(p</span>r
 export default UserCard
 &nbsp;
 const styles = StyleSheet.create({
-    imageContainer:{
-        flex:1
+    imageContainer: {
+        flex: 1
     },
     rightContainer: {
-        flex:2
+        flex: 2
     },
-    names:{
-        flex:2
+    names: {
+        flex: 2
     },
 &nbsp;
-    follow:{
-        flex:1
+    follow: {
+        flex: 1
     },
 &nbsp;
     image: {
@@ -325,7 +340,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     userContainer: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         backgroundColor: 'rgb(33, 37, 41)',
         borderRadius: 10,
@@ -343,7 +358,7 @@ const styles = StyleSheet.create({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Aug 01 2021 18:24:07 GMT-0700 (Pacific Daylight Time)
+                at Sun Aug 01 2021 20:06:50 GMT-0700 (Pacific Daylight Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

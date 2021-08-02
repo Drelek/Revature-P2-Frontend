@@ -1,12 +1,12 @@
-import { NavigationContainer} from '@react-navigation/native';
-import { createDrawerNavigator} from '@react-navigation/drawer';
-import { createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { RootStackParamList, RootDrawerParamList } from '../types';
 import MyTheme from '../constants/Colors';
 import SplashScreen from '../screens/SplashScreen';
 import { DrawerContent } from './DrawerContent';
-import {DarkTheme as PaperDarkTheme,Provider as PaperProvider,} from 'react-native-paper';
+import { DarkTheme as PaperDarkTheme, Provider as PaperProvider, } from 'react-native-paper';
 import merge from 'deepmerge';
 import HomeStackScreen from './HomeNav';
 import { enableScreens } from 'react-native-screens';
@@ -19,16 +19,16 @@ enableScreens();
 
 const CombinedDarkTheme = merge(PaperDarkTheme, MyTheme);
 
-const Navigation: React.FC = (props: any) => {
+const Navigation = (props: any) => {
   const user = useSelector((state: IAppState) => state.user);
 
   return (
     <PaperProvider theme={CombinedDarkTheme}>
       <NavigationContainer
-      theme={CombinedDarkTheme}>
-        {user ? 
-        <RootDrawerNavigator/> :
-        <RootStackNavigator />
+        theme={CombinedDarkTheme}>
+        {user ?
+          <RootDrawerNavigator /> :
+          <RootStackNavigator />
         }
       </NavigationContainer>
     </PaperProvider>
@@ -54,11 +54,11 @@ function RootDrawerNavigator() {
 function RootStackNavigator() {
   return (
     <Stack.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Splash"
         component={SplashScreen}
-        />
+      />
     </Stack.Navigator>
   );
 }

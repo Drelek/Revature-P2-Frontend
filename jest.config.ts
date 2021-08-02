@@ -2,7 +2,7 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-
+import { withEnzyme } from 'jest-expo-enzyme'
 const settings = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -13,6 +13,10 @@ const settings = {
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/tmp/jest_rs",
 
+  projects: [
+    withEnzyme(require('jest-expo/android/jest-preset')),
+    // withEnzyme(require('jest-expo/ios/jest-preset'))
+  ],
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
 
