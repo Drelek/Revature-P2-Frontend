@@ -17,7 +17,7 @@ const ExpandedPost: React.FC = (props: any) => {
     const [commentList, setCommentList] = useState([
     // {
     //     displayName:"Jesus",
-    //     displayImg:"",
+    //     displayImg:"",b
     //     timeStamp: "12/1/21 6:30pm",
     //     comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
     // },
