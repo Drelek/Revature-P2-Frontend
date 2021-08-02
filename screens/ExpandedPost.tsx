@@ -14,62 +14,7 @@ const ExpandedPost: React.FC = (props: any) => {
     const thisUserName = useSelector((state: IAppState) => state.user?.userName);
     const [refreshing, setRefreshing] = useState(false);
     const [isLiked, setLikedState] = useState(props.route.params.likes.includes(thisUserName));
-    const [commentList, setCommentList] = useState([
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:"",b
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:'https://pbs.twimg.com/profile_images/1305027806779203584/tAs8GbuL_400x400.jpg',
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment over there"
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:'https://reactnative.dev/img/tiny_logo.png',
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment everywhere"
-    // },
-    // {   
-    //     displayName:"Jesus",
-    //     displayImg:"",
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:"",
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment over there"
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:"",
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment everywhere"
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:"",
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "In this farewell, there's no blood, there's no alibi, 'cause I've drawn regret from the truth of a thousand lies, so let mercy come and wash away!!!!!!!!!!!!! WHAT I'VE DONEEEEEEEEEEEEEE" 
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:"",
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment over there"
-    // },
-    // {
-    //     displayName:"Jesus",
-    //     displayImg:'https://reactnative.dev/img/tiny_logo.png',
-    //     timeStamp: "12/1/21 6:30pm",
-    //     comment: "A comment everywhere"
-    // }
-    ]);
+    const [commentList, setCommentList] = useState([]);
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     
     const [keyboardOffset, setKeyboardOffset] = useState(0);
