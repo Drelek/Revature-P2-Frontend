@@ -11,13 +11,13 @@ import UserCard from '../components/UserCard';
 const SearchScreen: React.FC = (props: any) => {
 
     const [search, setSearch] = useState(' ');
-    const [working, setWorking] = useState(false);
     const [results, setResults] = useState([]);
+    const [working, setWorking] = useState(false);
     const windowHeight = useWindowDimensions().height;
     const token = useSelector((state: IAppState) => state.auth.AccessToken);
     const user = useSelector((store: IAppState) => store.user);
 
-    
+
     async function Search() {
         console.log(search);
         try {
@@ -39,8 +39,8 @@ const SearchScreen: React.FC = (props: any) => {
                 <View style={styles.postContainer}>
                     <View style={styles.inputContainer}>
                         <TextInput
-                        style={styles.inputBox}
-                        onChangeText={setSearch} />
+                            style={styles.inputBox}
+                            onChangeText={setSearch} />
                     </View>
 
                     <View style={styles.buttonContainer}>
@@ -54,7 +54,7 @@ const SearchScreen: React.FC = (props: any) => {
     }
 
     return (
-        <View style={[styles.wholeScreenContainer, {minHeight: Math.round(windowHeight)}]}>
+        <View style={[styles.wholeScreenContainer, { minHeight: Math.round(windowHeight) }]}>
 
             <View style={styles.searchContainer}>
                 {renderSearch()}
@@ -74,17 +74,17 @@ const SearchScreen: React.FC = (props: any) => {
 export default SearchScreen;
 
 const styles = StyleSheet.create({
-    
+
     wholeScreenContainer: {
-        flex:1
+        flex: 1
     },
 
     searchContainer: {
-        flex:1
+        flex: 1
     },
 
     listContainer: {
-        flex:6
+        flex: 6
     },
 
     text: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         textAlignVertical: 'top',
-        paddingVertical:15,
+        paddingVertical: 15,
         paddingHorizontal: 5,
         marginLeft: 10,
     },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         flex: 1.3,
         flexDirection: "row",
         justifyContent: "flex-end",
-        alignContent:"center",
+        alignContent: "center",
     },
 
     inputContainer: {
@@ -151,4 +151,5 @@ const styles = StyleSheet.create({
     }
 
 })
+
 

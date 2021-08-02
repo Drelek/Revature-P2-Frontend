@@ -1,4 +1,4 @@
-import Enzyme from 'enzyme'
+import Enzyme, { mount, render } from 'enzyme'
 import React from 'react';
 import { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -20,13 +20,20 @@ import GlobalEye from './components/globalEye';
 import Logo from './components/logo';
 import { Menu } from 'react-native-paper';
 import MenuIcon from './components/menuIcon';
+import Canvas from './screens/Canvas';
+import SearchScreen from './screens/SearchScreen';
+import IndividualComment from './screens/IndividualComment';
+import SignUpScreen from './screens/SignUpScreen';
+import Feed from './components/Feed';
 
 
-
+// Mocks like this need to be configured at the top level 
+// of the test file, they can't be setup inside your tests.
 
 
 
 const store = createStore(reducers);
+
 Enzyme.configure({ adapter: new Adapter() });
 
 /*
@@ -35,22 +42,37 @@ Enzyme.configure({ adapter: new Adapter() });
 */
 describe('SplashScreen', () => {
     it('renders without crashing', () => {
-        const component = shallow(<SplashScreen />);
+
+        const component = render(<Provider store={store}><SplashScreen /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+
+})
+
+describe('Canvas', () => {
+    it('renders without crashing', () => {
+        const component = shallow(<Provider store={store}><Canvas /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
 
+describe('SearchScrean', () => {
+    it('renders without crashing', () => {
+        const component = render(<Provider store={store}><SearchScreen /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+})
 
 describe('Settings', () => {
     it('renders without crashing', () => {
-        const component = shallow(<Settings />);
+        const component = shallow(<Provider store={store}><Settings /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
 
 describe('Profile', () => {
     it('renders without crashing', () => {
-        const component = shallow(<Profile />);
+        const component = shallow(<Provider store={store}><Profile /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
@@ -80,11 +102,31 @@ describe('Expanded Post', () => {
 
 describe('AddComment', () => {
     it('renders without crashing', () => {
-        const component = shallow(<AddComment />);
+        const component = shallow(<Provider store={store}><AddComment /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
 
+describe('PostCard', () => {
+    it('renders without crashing', () => {
+        const component = shallow(<Provider store={store}><PostCard /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+})
+
+describe('IndividualComment', () => {
+    it('renders without crashing', () => {
+        const component = shallow(<Provider store={store}><IndividualComment /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+})
+
+describe('SignUpScrean', () => {
+    it('renders without crashing', () => {
+        const component = shallow(<Provider store={store}><SignUpScreen /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+})
 /*
 **  Component Render Testing
 **
@@ -105,6 +147,13 @@ describe('FollowIcon comp', () => {
     });
 })
 
+describe('Feed comp', () => {
+    it('renders without crashing', () => {
+        const component = shallow(<Provider store={store}><Feed /></Provider>);
+        expect(component).toMatchSnapshot();
+    });
+})
+
 describe('GlobalEye comp', () => {
     it('renders without crashing', () => {
         const component = shallow(<GlobalEye />);
@@ -118,4 +167,6 @@ describe('Logo comp', () => {
         expect(component).toMatchSnapshot();
     });
 })
+
+
 
