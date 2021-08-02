@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.7% </span>
+                <span class="strong">29.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/23</span>
+                <span class='fraction'>7/24</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.52% </span>
+                <span class="strong">27.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/21</span>
+                <span class='fraction'>6/22</span>
             </div>
         
             
@@ -210,7 +210,8 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,14 +223,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -366,19 +368,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, useWindowDimensions, Keyboard } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from 'react-redux';
 import { IAppState } from '../redux/store';
 import { Card } from 'react-native-elements'
 import UserCard from '../components/UserCard';
 &nbsp;
-const SearchScreen: React.FC = <span class="fstat-no" title="function not covered" >(p</span>rops: any) =&gt; {
+const SearchScreen: React.FC = (props: any) =&gt; {
 &nbsp;
-    const [search, setSearch] = <span class="cstat-no" title="statement not covered" >useState(' ');</span>
-    const [results, setResults] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
-    const [working, setWorking] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-    const token = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: IAppState) =&gt; <span class="cstat-no" title="statement not covered" >state.auth.AccessToken)</span>;</span>
+    const [search, setSearch] = useState(' ');
+    const [results, setResults] = useState([]);
+    const windowHeight = useWindowDimensions().height;
+    const token = useSelector((state: IAppState) =&gt; state.auth.AccessToken);
     const user = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tore: IAppState) =&gt; <span class="cstat-no" title="statement not covered" >store.user)</span>;</span>
 &nbsp;
 &nbsp;
@@ -390,6 +392,7 @@ const SearchScreen: React.FC = <span class="fstat-no" title="function not covere
 <span class="cstat-no" title="statement not covered" >            console.log(res.data);</span>
 <span class="cstat-no" title="statement not covered" >            setResults(res.data[0]);</span>
 <span class="cstat-no" title="statement not covered" >            setWorking(false);</span>
+<span class="cstat-no" title="statement not covered" >            Keyboard.dismiss();</span>
         }
         catch (err) {
 <span class="cstat-no" title="statement not covered" >            console.log(err.response)</span>
@@ -417,7 +420,7 @@ const SearchScreen: React.FC = <span class="fstat-no" title="function not covere
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-        &lt;View style={styles.wholeScreenContainer}&gt;
+        &lt;View style={[styles.wholeScreenContainer, { minHeight: Math.round(windowHeight) }]}&gt;
 &nbsp;
             &lt;View style={styles.searchContainer}&gt;
                 {renderSearch()}
@@ -461,7 +464,8 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: 'purple',
         borderRadius: 30,
-        paddingBottom: 5
+        paddingBottom: 5,
+        justifyContent: 'center'
     },
 &nbsp;
     postContainer: {
@@ -478,7 +482,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 5,
         marginLeft: 10,
-&nbsp;
     },
 &nbsp;
     buttonContainer: {
@@ -523,7 +526,7 @@ const styles = StyleSheet.create({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jul 31 2021 22:51:48 GMT-0700 (Pacific Daylight Time)
+                at Sun Aug 01 2021 18:23:22 GMT-0700 (Pacific Daylight Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

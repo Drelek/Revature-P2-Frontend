@@ -1,6 +1,7 @@
-import Enzyme from 'enzyme'
+import Enzyme, { mount, render } from 'enzyme'
 import React from 'react';
 import { shallow } from 'enzyme'
+
 import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -27,12 +28,15 @@ import SignUpScreen from './screens/SignUpScreen';
 import Feed from './components/Feed';
 
 
+const mockedDispatch = jest.fn();
 
-
+// Mocks like this need to be configured at the top level 
+// of the test file, they can't be setup inside your tests.
 
 
 
 const store = createStore(reducers);
+
 Enzyme.configure({ adapter: new Adapter() });
 
 /*
@@ -41,9 +45,11 @@ Enzyme.configure({ adapter: new Adapter() });
 */
 describe('SplashScreen', () => {
     it('renders without crashing', () => {
-        const component = shallow(<Provider store={store}><SplashScreen /></Provider>);
+
+        const component = render(<Provider store={store}><SplashScreen /></Provider>);
         expect(component).toMatchSnapshot();
     });
+
 })
 
 describe('Canvas', () => {
@@ -55,7 +61,7 @@ describe('Canvas', () => {
 
 describe('SearchScrean', () => {
     it('renders without crashing', () => {
-        const component = shallow(<Provider store={store}><SearchScreen /></Provider>);
+        const component = render(<Provider store={store}><SearchScreen /></Provider>);
         expect(component).toMatchSnapshot();
     });
 })
