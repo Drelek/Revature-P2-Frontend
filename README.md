@@ -7,8 +7,8 @@ Bohemian Grove is the message board for those in the know! It is a message board
 This is the mobile version of our application that works on both Android and iOS.
 
 ## Technologies 
-  * Frontend: React Native, Redux, Hooks, Expo, React Navigation
-  * Backend: NodeJs, Express, DynamoDB, AWS SAM, Docker Container
+  * Frontend: React Native, Redux, Hooks, Expo, React Navigation, TypeScript
+  * Serverless Backend: NodeJs, AWS DynamoDB, AWS SAM, AWS Cognito, Docker Container, TypeScript
   * Styling: React Native Paper, Google Fonts, Canvas, Material Icons, React Navigation
   * Testing: Jest
 
@@ -28,16 +28,16 @@ This is the mobile version of our application that works on both Android and iOS
 
   We allow users to create, delete, and update their accounts and their post accordingly. Users are able to follow specific users on the application and only see   posts of users they have followed. Users can also like and reply to any post.
 
-  ##UI Features
+  ## UI Features
 
   We used a few libraries like React Native Paper and Material Icon to further improve user experience as well as keeping the theme of our application intact. We   customized components, and used industry standard implementations to give our users a sleek modern experience.  We even have a toggle which will help our users   save on battery life when using our application for prolonged time! 
   
-  ##Navigation 
+  ## Navigation 
   
-  We used React Navigation to allow users to seamlessly navigated through our application with the use of our DrawerSlide
+  We used React Navigation to allow users to seamlessly navigate through our application with the use of our DrawerSlide.
 
   ##Challenges
-  We faced many challenges throughout the project. One such one was using AWS DynamoDB's Document Client V3 with React Native as we needed the use of Sets but     this was not something supported by V3. We solved this issue by using the V2 client. We also faced keyboard popup issues as the Android and iOS keyboard popups   are very different in nature. KeyboardAvoidView was not the solution as we sought for the textinputs to lay ontop of the keyboard popup. We solved it by using   keyboard events to create an offset for the textinputs to get our desired outcomes.
+  We faced many challenges throughout the project. One such one was using AWS DynamoDB's Document Client V3 with React Native as we needed the use of Sets but     this was not something supported by the Document Client. We solved this issue by switching to the standard client. We also faced keyboard popup issues as the Android and iOS keyboard popups   are very different in nature. KeyboardAvoidView was not the solution as we sought for the textinputs to lay ontop of the keyboard popup. We solved it by using   keyboard events to create an offset for the textinputs to get our desired outcomes.
 
  ## Future Goals!
 
