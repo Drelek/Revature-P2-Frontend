@@ -1,4 +1,4 @@
-#  Bohemian Grove 2.0
+#  Bohemian Grove 2.0 Serverless
 
    [View Our Backend Repository](https://github.com/RevatureRobert/Project1-BohemianGrove-Backend)
 
