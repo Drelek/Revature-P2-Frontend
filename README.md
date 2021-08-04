@@ -8,7 +8,7 @@ This is the mobile version of our application that works on both Android and iOS
 
 ## Technologies 
   * Frontend: React Native, Redux, Hooks, Expo, React Navigation, TypeScript
-  * Serverless Backend: NodeJs, AWS DynamoDB, AWS SAM, AWS Cognito, Docker Container, TypeScript
+  * Serverless Backend: NodeJs, AWS Lambda, AWS DynamoDB, AWS SAM, AWS Cognito, Docker Container, TypeScript
   * Styling: React Native Paper, Google Fonts, Canvas, Material Icons, React Navigation
   * Testing: Jest
 
