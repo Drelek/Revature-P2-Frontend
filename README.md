@@ -36,8 +36,9 @@ This is the mobile version of our application that works on both Android and iOS
   
   We used React Navigation to allow users to seamlessly navigate through our application with the use of our DrawerSlide.
 
-  ##Challenges
-  We faced many challenges throughout the project. One such one was using AWS DynamoDB's Document Client V3 with React Native as we needed the use of Sets but     this was not something supported by the Document Client. We solved this issue by switching to the standard client. We also faced keyboard popup issues as the Android and iOS keyboard popups   are very different in nature. KeyboardAvoidView was not the solution as we sought for the textinputs to lay ontop of the keyboard popup. We solved it by using   keyboard events to create an offset for the textinputs to get our desired outcomes.
+  
+## Challenges
+  We faced many challenges throughout the project. One such one was using AWS DynamoDB's Document Client V3 with React Native as we needed the use of Sets but     this was not something supported by the Document Client. We solved this issue by switching to the standard client. We also faced keyboard popup issues as the     Android and iOS keyboard popups   are very different in nature. KeyboardAvoidView was not the solution as we sought for the textinputs to lay ontop of the       keyboard popup. We solved it by using   keyboard events to create an offset for the textinputs to get our desired outcomes.
 
  ## Future Goals!
 
