@@ -124,7 +124,6 @@ const SignUpScreen = (props: any) => {
         placeholder="Email"
         placeholderTextColor="white"
         onChangeText={(text) => {
-          validateEmail(text)
           setEmail(text)
         }}
         keyboardType="ascii-capable"
