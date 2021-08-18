@@ -1,6 +1,9 @@
 #  Bohemian Grove 2.0 Serverless
 
    [View Our Backend Repository](https://github.com/RevatureRobert/Team1-Project2-BE)
+   
+   [Click Here to Download the APK of our app!](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40drelek/project2-fe-27f7f26f36394f38959a89fdc80cfa10-signed.apk)
+   
 
 ## About
 Bohemian Grove is the message board for those in the know! It is a message board to share any conspiracy theories while your identity is safely secured.
