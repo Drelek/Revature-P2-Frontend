@@ -1,6 +1,6 @@
 #  Bohemian Grove 2.0 Serverless
 
-   [View Our Backend Repository](https://github.com/RevatureRobert/Team1-Project2-BE)
+   [View Our Backend Repository](https://github.com/Drelek/Revature-P2-Backend)
    
    [Click Here to Download the APK of our app!](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40drelek/project2-fe-27f7f26f36394f38959a89fdc80cfa10-signed.apk)
    
